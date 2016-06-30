@@ -3,3 +3,5 @@ target
 !.settings/.jsdtscope
 .project
 .classpath
+wflybr_bot.iml
+.idea
