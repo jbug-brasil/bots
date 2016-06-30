@@ -8,7 +8,7 @@ import br.com.jbugbrasil.emojis.Emoji;
 public class BotConfig {
 
     //REMOVE THE TOKEN BEFORE COMMIT
-    public static final String WFLYBR_TOKEN = "230934125:AAF83ba5EychdWRrUXuD4CRsVMr8Qa3LvlM";
+    public static final String WFLYBR_TOKEN = "<token>";
     public static final String WFLYBR_USER = "wflybr_bot";
 
     //Default Messages
