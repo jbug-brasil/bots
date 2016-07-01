@@ -1,16 +1,14 @@
 package br.com.jbugbrasil.bot;
 
-import br.com.jbugbrasil.Commands;
-import br.com.jbugbrasil.commands.help.GetBooksCommand;
+import br.com.jbugbrasil.commands.Commands;
+import br.com.jbugbrasil.commands.getbooks.GetBooksCommand;
 import br.com.jbugbrasil.commands.help.HelpCommand;
 import br.com.jbugbrasil.conf.BotConfig;
-import br.com.jbugbrasil.emojis.Emoji;
 import org.telegram.telegrambots.TelegramApiException;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingCommandBot;
-import org.telegram.telegrambots.bots.commands.CommandRegistry;
 import org.telegram.telegrambots.logging.BotLogger;
 
 /**
@@ -104,16 +102,5 @@ public class WFlyBRBot extends TelegramLongPollingCommandBot {
     public String getBotToken() {
         return BotConfig.WFLYBR_TOKEN;
     }
-
-
-    private int processKarma (String username) throws InterruptedException {
-
-
-
-        return 0;
-    }
-
-
-
 
 }

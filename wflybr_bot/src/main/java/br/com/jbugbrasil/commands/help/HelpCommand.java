@@ -1,6 +1,6 @@
 package br.com.jbugbrasil.commands.help;
 
-import br.com.jbugbrasil.Commands;
+import br.com.jbugbrasil.commands.Commands;
 import org.telegram.telegrambots.TelegramApiException;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Chat;
