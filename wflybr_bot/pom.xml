@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <groupId>br.com.jbugbrasil</groupId>
     <artifactId>wflybr.bot</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -16,19 +16,11 @@
         <httpcompontents.version>4.5.2</httpcompontents.version>
         <jackson.version>2.7.5</jackson.version>
         <json.version>20160212</json.version>
+        <version.wildfly.swarm>1.0.0.Final</version.wildfly.swarm>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-            <!--j2ee spec -->
-            <dependency>
-                <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-javaee-7.0</artifactId>
-                <version>${jboss.javaee7.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
             <!-- apache httpClient deps -->
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
@@ -41,12 +33,6 @@
                 <version>${httpcompontents.version}</version>
             </dependency>
 
-            <!-- You have to download it from https://github.com/rubenlagus/TelegramBots/releases/tag/v2.3.3.4 and install manually in your local repo -->
-            <dependency>
-                <groupId>org.telegram.telegrambots</groupId>
-                <artifactId>telegram.api</artifactId>
-                <version>2.3.3.4</version>
-            </dependency>
 
             <!-- jackson fasterxml -->
             <dependency>
@@ -62,30 +48,25 @@
                 <version>${json.version}</version>
             </dependency>
 
+            <!-- WildFly Swarm -->
+            <dependency>
+                <groupId>org.wildfly.swarm</groupId>
+                <artifactId>bom</artifactId>
+                <version>${version.wildfly.swarm}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
 
     <dependencies>
-
-        <!-- EJB -->
-        <dependency>
-            <groupId>org.jboss.spec.javax.ejb</groupId>
-            <artifactId>jboss-ejb-api_3.2_spec</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- CDI -->
-        <dependency>
-            <groupId>javax.enterprise</groupId>
-            <artifactId>cdi-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
         <!-- You have to download it from https://github.com/rubenlagus/TelegramBots/releases/tag/v2.3.3.4 and install manually in your local repo -->
         <dependency>
-            <groupId>org.telegram.telegrambots</groupId>
-            <artifactId>telegram.api</artifactId>
+            <groupId>org.telegram</groupId>
+            <artifactId>telegrambots</artifactId>
+            <version>2.3.3.4</version>
         </dependency>
 
         <!-- apache httpClient deps -->
@@ -111,6 +92,12 @@
             <artifactId>json</artifactId>
         </dependency>
 
+        <!-- WildFly Swarm -->
+        <dependency>
+            <groupId>org.wildfly.swarm</groupId>
+            <artifactId>undertow</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -127,6 +114,22 @@
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.wildfly.swarm</groupId>
+                <artifactId>wildfly-swarm-plugin</artifactId>
+                <version>${version.wildfly.swarm}</version>
+                <configuration>
+                    <mainClass>br.com.jbugbrasil.Main</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
