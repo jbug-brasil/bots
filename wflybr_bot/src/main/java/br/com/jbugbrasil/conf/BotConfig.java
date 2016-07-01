@@ -14,7 +14,6 @@ public class BotConfig {
     //Default Messages
     public static final String WELCOME_MESSAGE = " Olá %s, seja bem vindo ao grupo WildFly BR. Aqui você poderá discutir sobre" +
             " os projetos opensource da família JBoss. Para utulizar o bot, começe digitando /help. " + Emoji.SMILING_FACE_WITH_OPEN_MOUTH;
-    public static final String GOODBYE_MESSAGE = "Tínhamos um traidor entre nos, %s nos deixou. " + Emoji.ANGRY_FACE;
-
+    public static final String GOODBYE_MESSAGE = "Tínhamos um traidor entre nós, %s nos deixou. " + Emoji.ANGRY_FACE;
 
 }
