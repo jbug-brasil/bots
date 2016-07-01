@@ -21,6 +21,16 @@
 
     <dependencyManagement>
         <dependencies>
+
+            <!--j2ee spec -->
+            <dependency>
+                <groupId>org.jboss.spec</groupId>
+                <artifactId>jboss-javaee-7.0</artifactId>
+                <version>${jboss.javaee7.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
             <!-- apache httpClient deps -->
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
@@ -66,6 +76,13 @@
             <groupId>org.telegram</groupId>
             <artifactId>telegrambots</artifactId>
             <version>2.3.3.4</version>
+        </dependency>
+
+        <!-- CDI -->
+        <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <!-- apache httpClient deps -->
