@@ -28,7 +28,6 @@ public class PingProcessor implements MessageProcessor {
     @Override
     public SendMessage reply(SendMessage message) {
 
-
         return null;
     }
 
@@ -37,4 +36,3 @@ public class PingProcessor implements MessageProcessor {
         return false;
     }
 }
-
