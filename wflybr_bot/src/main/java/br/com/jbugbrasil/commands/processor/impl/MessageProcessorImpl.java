@@ -18,17 +18,7 @@ public class MessageProcessorImpl implements MessageProcessor {
 
         SendMessage echoMessage = new SendMessage();
 
-        //Welcome dude
-        if (update.getMessage().getNewChatMember() != null) {
-            echoMessage.setChatId(update.getMessage().getChatId().toString());
-            echoMessage.setText(String.format(BotConfig.WELCOME_MESSAGE, update.getMessage().getNewChatMember().getFirstName()));
-        }
-
-        //Oh boy, someone left us
-        if (update.getMessage().getLeftChatMember() != null) {
-            echoMessage.setChatId(update.getMessage().getChatId().toString());
-            echoMessage.setText(String.format(BotConfig.GOODBYE_MESSAGE, update.getMessage().getLeftChatMember().getFirstName()));
-        }
+        echoMessage = userEnterOrLeftGroup(update);
 
         if (update.getMessage().getText() != null) {
             //Yeyyy karma fest
@@ -48,8 +38,23 @@ public class MessageProcessorImpl implements MessageProcessor {
             echoMessage = ping.process(update);
         }
 
-        return reply(echoMessage);
+        return echoMessage;
 
+    }
+
+    private SendMessage userEnterOrLeftGroup (Update update) {
+        SendMessage echoMessage = new SendMessage();
+        //Welcome dude
+        if (update.getMessage().getNewChatMember() != null) {
+            echoMessage.setChatId(update.getMessage().getChatId().toString());
+            echoMessage.setText(String.format(BotConfig.WELCOME_MESSAGE, update.getMessage().getNewChatMember().getFirstName()));
+
+        } else //Oh boy, someone left us
+            if (update.getMessage().getLeftChatMember() != null) {
+                echoMessage.setChatId(update.getMessage().getChatId().toString());
+                echoMessage.setText(String.format(BotConfig.GOODBYE_MESSAGE, update.getMessage().getLeftChatMember().getFirstName()));
+            }
+        return echoMessage;
     }
 
     @Override
