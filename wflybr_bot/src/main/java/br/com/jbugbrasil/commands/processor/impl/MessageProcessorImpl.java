@@ -1,6 +1,7 @@
 package br.com.jbugbrasil.commands.processor.impl;
 
 import br.com.jbugbrasil.commands.Commands;
+import br.com.jbugbrasil.commands.processor.KarmaProcessor;
 import br.com.jbugbrasil.commands.processor.MessageProcessor;
 import br.com.jbugbrasil.commands.processor.PingProcessor;
 import br.com.jbugbrasil.conf.BotConfig;
@@ -22,15 +23,9 @@ public class MessageProcessorImpl implements MessageProcessor {
 
         if (update.getMessage().getText() != null) {
             //Yeyyy karma fest
-            if (update.getMessage().getText().contains("++")) {
-                echoMessage.setChatId(update.getMessage().getChatId().toString());
-                echoMessage.setText(String.format("%s tem %d pontos de karma",
-                        update.getMessage().getText().substring(0, update.getMessage().getText().length() - 2), 1));
-            } else if (update.getMessage().getText().contains("--")) {
-                echoMessage.setChatId(update.getMessage().getChatId().toString());
-                echoMessage.setText(String.format("%s tem %d pontos de karma",
-                        update.getMessage().getText().substring(0, update.getMessage().getText().length() - 2), 1));
-            }
+            KarmaProcessor karma = new KarmaProcessor();
+            echoMessage = karma.process(update);
+
         }
 
         if (update.getMessage().getText() != null && update.getMessage().getText().toLowerCase().startsWith(Commands.PING)) {

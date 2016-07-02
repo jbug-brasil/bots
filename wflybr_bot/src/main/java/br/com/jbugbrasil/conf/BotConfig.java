@@ -7,13 +7,13 @@ import br.com.jbugbrasil.emojis.Emoji;
  */
 public class BotConfig {
 
-    //REMOVE THE TOKEN BEFORE COMMIT
-    public static final String WFLYBR_TOKEN = "";
+    public static final String WFLYBR_TOKEN = System.getProperty("br.com.jbugbrasil.telegram.token");
     public static final String WFLYBR_USER = "wflybr_bot";
 
     //Default Messages
     public static final String WELCOME_MESSAGE = " Olá %s, seja bem vindo ao grupo WildFly BR. Aqui você poderá discutir sobre" +
             " os projetos opensource da família JBoss. Para utilizar o bot, começe digitando /help. " + Emoji.SMILING_FACE_WITH_OPEN_MOUTH;
     public static final String GOODBYE_MESSAGE = "Tínhamos um traidor entre nós, %s nos deixou. " + Emoji.ANGRY_FACE;
+    public static final String KARMA_MESSAGE = "%s tem %d pontos de karma\n";
 
 }
