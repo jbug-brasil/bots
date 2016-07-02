@@ -1,7 +1,10 @@
 package br.com.jbugbrasil;
 
 import br.com.jbugbrasil.bot.WFlyBRBot;
+import br.com.jbugbrasil.cache.CacheProviderImpl;
 import br.com.jbugbrasil.conf.BotConfig;
+import org.infinispan.Cache;
+import org.infinispan.manager.DefaultCacheManager;
 import org.telegram.telegrambots.TelegramApiException;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.wildfly.swarm.container.Container;
@@ -17,13 +20,14 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
+        //Default cache manager, start it in the startup
+        CacheProviderImpl cache = CacheProviderImpl.getInstance();
+
         TelegramBotsApi bots = new TelegramBotsApi();
 
-//        System.out.println(System.getProperty("br.com.jbugbrasil.telegram.token"));
-//
-//        if (BotConfig.WFLYBR_TOKEN == null) {
-//            throw new IllegalArgumentException("Token não encontrado, utilize -Dbr.com.jbugbrasil.telegram.token=<token>");
-//        }
+        if (System.getProperty("br.com.jbugbrasil.telegram.token").length() != 45) {
+            throw new IllegalArgumentException("Token não encontrado ou inválido, utilize -Dbr.com.jbugbrasil.telegram.token=<token>");
+        }
 
         try {
             bots.registerBot(new WFlyBRBot());
@@ -31,6 +35,5 @@ public class Main {
         } catch (TelegramApiException e) {
             log.severe("Falha ao registrar o Bot: " + e.getCause());
         }
-
     }
 }
