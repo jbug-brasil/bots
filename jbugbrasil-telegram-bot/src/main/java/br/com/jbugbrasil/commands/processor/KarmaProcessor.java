@@ -27,7 +27,6 @@ public class KarmaProcessor implements MessageProcessor {
 
     private final DatabaseProvider db = new DatabaseProviderImpl();
     private final CacheProviderImpl cache = CacheProviderImpl.getInstance();
-    private final Cache <Object, Integer> c = cache.getCache();
 
 
     @Override
@@ -49,7 +48,7 @@ public class KarmaProcessor implements MessageProcessor {
                     // Process the karma message
                     processKarma(operator, username);
                     // Add the updated karma in the response message
-                    message.append(String.format(BotConfig.KARMA_MESSAGE, username, c.get(username)));
+                    message.append(String.format(BotConfig.KARMA_MESSAGE, username, cache.getCache().get(username)));
                 }
             }
             echoMessage.setText(String.valueOf(message));
@@ -61,23 +60,21 @@ public class KarmaProcessor implements MessageProcessor {
 
     private void processKarma (String operator, String username) {
 
-        cache.getCache().addListener(new KarmaEventListener());
         int atual = getKarma(username);
 
         if (atual == 0) {
             log.info(username + "não está no cache, colocando");
-            c.put(username, atual);
+            cache.getCache().put(username, atual);
         } else {
-            c.put(username, atual);
+            cache.getCache().put(username, atual);
         }
 
         switch (operator) {
             case "++":
-                c.replace(username, increase(atual));
+                cache.getCache().replace(username, increase(atual));
                 break;
             case "--":
-
-                c.replace(username, decrease(atual));
+                cache.getCache().replace(username, decrease(atual));
                 break;
             default:
                 //do nothing
@@ -90,7 +87,7 @@ public class KarmaProcessor implements MessageProcessor {
         int karma = 0;
         try {
             Statement stmt = db.getConnection().createStatement();
-            ResultSet select = stmt.executeQuery("SELECT * FROM KARMA where username='" + username + "'");
+            ResultSet select = stmt.executeQuery("SELECT points FROM KARMA where username='" + username + "'");
 
             while(select.next()) {
                 karma = select.getInt("points");

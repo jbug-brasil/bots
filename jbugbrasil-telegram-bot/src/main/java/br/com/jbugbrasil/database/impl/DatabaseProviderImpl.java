@@ -65,7 +65,7 @@ public class DatabaseProviderImpl implements DatabaseProvider {
             ResultSet table = md.getTables(null, null, "KARMA", null);
 
             if (table.next()) {
-                log.info("Tabela KARMA já existe, ignorando a criação");
+                // do nothing
             } else {
                 Statement stmt = getConnection().createStatement();
                 stmt.executeUpdate( "CREATE TABLE KARMA ( username varchar(50), points int )" );
