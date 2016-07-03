@@ -13,7 +13,6 @@ import org.telegram.telegrambots.logging.BotLogger;
 /**
  * @author <a href="mailto:spoltin@hrstatus.com.br">Filippe Spolti</a>
  */
-
 public class HelpCommand extends BotCommand {
 
     private static final String LOGTAG = "HELPCOMMAND";
