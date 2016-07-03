@@ -8,7 +8,7 @@ import br.com.jbugbrasil.emojis.Emoji;
 public class BotConfig {
 
     public static final String WFLYBR_TOKEN = System.getProperty("br.com.jbugbrasil.telegram.token");
-    public static final String WFLYBR_USER = "wflybr_bot";
+    public static final String WFLYBR_USER = "jbugbrasil_bot";
 
     //Default Messages
     public static final String WELCOME_MESSAGE = " Olá %s, seja bem vindo ao grupo WildFly BR. Aqui você poderá discutir sobre" +
