@@ -4,7 +4,7 @@ import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Update;
 
 /**
- * Created by fspolti on 7/1/16.
+ * @author <a href="mailto:spoltin@hrstatus.com.br">Filippe Spolti</a>
  */
 public interface MessageProcessor {
 

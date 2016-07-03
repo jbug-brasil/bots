@@ -5,9 +5,9 @@ import org.infinispan.manager.DefaultCacheManager;
 import org.infinispan.manager.EmbeddedCacheManager;
 
 /**
- * Created by fspolti on 7/2/16.
+ * @author <a href="mailto:spoltin@hrstatus.com.br">Filippe Spolti</a>
  */
-public class CacheProviderImpl implements CacheProvider {
+public class CacheProviderImpl {
 
     private static CacheProviderImpl uniqueInstance;
     private EmbeddedCacheManager manager = new DefaultCacheManager();
@@ -21,7 +21,6 @@ public class CacheProviderImpl implements CacheProvider {
         return uniqueInstance;
     }
 
-    @Override
     public Cache getCache() {
         return cache;
     }

@@ -2,14 +2,12 @@ package br.com.jbugbrasil;
 
 import br.com.jbugbrasil.bot.WFlyBRBot;
 import br.com.jbugbrasil.cache.CacheProviderImpl;
-import br.com.jbugbrasil.conf.BotConfig;
-import org.infinispan.Cache;
-import org.infinispan.manager.DefaultCacheManager;
 import org.telegram.telegrambots.TelegramApiException;
 import org.telegram.telegrambots.TelegramBotsApi;
-import org.wildfly.swarm.container.Container;
 
 import java.util.logging.Logger;
+
+import static br.com.jbugbrasil.database.StartH2.startDatabase;
 
 /**
  * @author Ingo
@@ -20,8 +18,8 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        //Default cache manager, start it in the startup
-        CacheProviderImpl cache = CacheProviderImpl.getInstance();
+        //Start Database
+        startDatabase();
 
         TelegramBotsApi bots = new TelegramBotsApi();
 
