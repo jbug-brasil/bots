@@ -9,17 +9,19 @@ import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Update;
 
 /**
- * Created by fspolti on 7/1/16.
+ * @author <a href="mailto:spoltin@hrstatus.com.br">Filippe Spolti</a>
  */
 public class MessageProcessorImpl implements MessageProcessor {
-
 
     @Override
     public SendMessage process(Update update) {
 
         SendMessage echoMessage = new SendMessage();
 
+        // is a new user? Or maybe someone left the group?
         echoMessage = userEnterOrLeftGroup(update);
+        //////////////////////////////////////////////////
+
 
         if (update.getMessage().getText() != null) {
             //Yeyyy karma fest

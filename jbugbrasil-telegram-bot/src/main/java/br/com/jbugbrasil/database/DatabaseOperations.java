@@ -6,11 +6,13 @@ import java.sql.Statement;
 /**
  * @author <a href="mailto:spoltin@hrstatus.com.br">Filippe Spolti</a>
  */
-public interface DatabaseProvider {
+public interface DatabaseOperations {
 
     Connection getConnection ();
 
     void closeConnection ();
 
-    void createTable ();
+    void createTableKarma ();
+
+    int getKarmaPoints(String username);
 }

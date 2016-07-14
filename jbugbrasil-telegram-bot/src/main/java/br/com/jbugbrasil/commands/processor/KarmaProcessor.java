@@ -1,17 +1,13 @@
 package br.com.jbugbrasil.commands.processor;
 
-import br.com.jbugbrasil.cache.listeners.KarmaEventListener;
 import br.com.jbugbrasil.cache.CacheProviderImpl;
 import br.com.jbugbrasil.conf.BotConfig;
-import br.com.jbugbrasil.database.DatabaseProvider;
+import br.com.jbugbrasil.database.DatabaseOperations;
 import br.com.jbugbrasil.database.impl.DatabaseProviderImpl;
-import org.infinispan.Cache;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Update;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
@@ -23,9 +19,9 @@ public class KarmaProcessor implements MessageProcessor {
     private final Logger log = Logger.getLogger(KarmaProcessor.class.getName());
 
     private final Pattern FULL_MSG_PATTERN = Pattern.compile("(\\w*)(\\+\\+|\\-\\-)(\\s|$)");
-    private final Pattern KARMA_PATTERN = Pattern.compile("(^\\S*)(\\+\\+|\\-\\-)($)");
+    private final Pattern KARMA_PATTERN = Pattern.compile("(^\\S+)(\\+\\+|\\-\\-)($)");
 
-    private final DatabaseProvider db = new DatabaseProviderImpl();
+    private final DatabaseOperations db = new DatabaseProviderImpl();
     private final CacheProviderImpl cache = CacheProviderImpl.getInstance();
 
 
@@ -37,18 +33,17 @@ public class KarmaProcessor implements MessageProcessor {
 
         if (canProcess(update.getMessage().getText())) {
             echoMessage.setChatId(update.getMessage().getChatId().toString());
-            String []str = update.getMessage().getText().split(" ");
+            String[] str = update.getMessage().getText().split(" ");
+
             for (int i = 0; i < str.length; i++) {
 
-                if (KARMA_PATTERN.matcher(str[i]).find()){
+                if (KARMA_PATTERN.matcher(str[i]).find()) {
                     // Get the karma operator
-                    String operator = str[i].substring(str[i].length()-2);
+                    String operator = str[i].substring(str[i].length() - 2);
                     // Get the username to increase/decrease karma points
-                    String username = str[i].substring(0, str[i].length()-2);
+                    String username = str[i].substring(0, str[i].length() - 2).toLowerCase();
                     // Process the karma message
-                    processKarma(operator, username);
-                    // Add the updated karma in the response message
-                    message.append(String.format(BotConfig.KARMA_MESSAGE, username, cache.getCache().get(username)));
+                    message.append(processKarma(operator, username, update.getMessage().getFrom().getFirstName()));
                 }
             }
             echoMessage.setText(String.valueOf(message));
@@ -58,12 +53,16 @@ public class KarmaProcessor implements MessageProcessor {
     }
 
 
-    private void processKarma (String operator, String username) {
+    private String processKarma(String operator, String username, String from) {
 
-        int atual = getKarma(username);
+        //freaking the karma out? stop here.
+        if (cache.getCache().containsKey(from + ":" + username)) {
+            return String.format(BotConfig.KARMA_NOT_ALLOWED_MESSAGE, username);
+        }
 
+        int atual = db.getKarmaPoints(username);
         if (atual == 0) {
-            log.info(username + "não está no cache, colocando");
+            log.info(username + " ainda não possui pontos de karma, criando entrada no cache.");
             cache.getCache().put(username, atual);
         } else {
             cache.getCache().put(username, atual);
@@ -72,39 +71,25 @@ public class KarmaProcessor implements MessageProcessor {
         switch (operator) {
             case "++":
                 cache.getCache().replace(username, increase(atual));
+                cache.getCache().put(from + ":" + username, 0, 30, TimeUnit.SECONDS);
                 break;
             case "--":
                 cache.getCache().replace(username, decrease(atual));
+                cache.getCache().put(from + ":" + username, 0, 30, TimeUnit.SECONDS);
                 break;
             default:
                 //do nothing
                 break;
         }
+
+        return String.format(BotConfig.KARMA_MESSAGE, username, cache.getCache().get(username));
     }
 
-    private int getKarma (String username) {
-
-        int karma = 0;
-        try {
-            Statement stmt = db.getConnection().createStatement();
-            ResultSet select = stmt.executeQuery("SELECT points FROM KARMA where username='" + username + "'");
-
-            while(select.next()) {
-                karma = select.getInt("points");
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return karma;
-    }
-
-    private int increase (int atual){
+    private int increase(int atual) {
         return ++atual;
     }
 
-    private int decrease (int atual){
+    private int decrease(int atual) {
         return --atual;
     }
 

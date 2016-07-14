@@ -1,6 +1,7 @@
 package br.com.jbugbrasil.bot;
 
 import br.com.jbugbrasil.commands.getbooks.GetBooksCommand;
+import br.com.jbugbrasil.commands.getkarma.GetKarma;
 import br.com.jbugbrasil.commands.help.HelpCommand;
 import br.com.jbugbrasil.commands.processor.impl.MessageProcessorImpl;
 import br.com.jbugbrasil.conf.BotConfig;
@@ -21,6 +22,7 @@ public class WFlyBRBot extends TelegramLongPollingCommandBot {
 
     HelpCommand helpCommand = new HelpCommand(this);
     GetBooksCommand getbooks = new GetBooksCommand(this);
+    GetKarma getkarma = new GetKarma(this);
 
     MessageProcessorImpl p = new MessageProcessorImpl();
 
@@ -32,18 +34,21 @@ public class WFlyBRBot extends TelegramLongPollingCommandBot {
         // register the commands here
         register(helpCommand);
         register(getbooks);
+        register(getkarma);
 
-        registerDefaultAction((absSender, message) -> {
-            SendMessage commandUnknownMessage = new SendMessage();
-            commandUnknownMessage.setChatId(message.getChatId().toString());
-            commandUnknownMessage.setText("O comando '" + message.getText() + "' não é válido, veja a lista de comandos abaixo:");
-            try {
-                absSender.sendMessage(commandUnknownMessage);
-            } catch (TelegramApiException e) {
-                log.severe("Ocorreu algum erro ao tentar enviar a mensagem: " + e.getCause());
-            }
-            helpCommand.execute(absSender, message.getFrom(), message.getChat(), new String[]{});
-        });
+        // This is not necessary at this moment, we can add other bots that have other commands, lets remove this to
+        // avoid spam.
+//        registerDefaultAction((absSender, message) -> {
+//            SendMessage commandUnknownMessage = new SendMessage();
+//            commandUnknownMessage.setChatId(message.getChatId().toString());
+//            commandUnknownMessage.setText("O comando '" + message.getText() + "' não é válido, veja a lista de comandos abaixo:");
+//            try {
+//                absSender.sendMessage(commandUnknownMessage);
+//            } catch (TelegramApiException e) {
+//                log.severe("Ocorreu algum erro ao tentar enviar a mensagem: " + e.getCause());
+//            }
+//            helpCommand.execute(absSender, message.getFrom(), message.getChat(), new String[]{});
+//        });
     }
 
     @Override

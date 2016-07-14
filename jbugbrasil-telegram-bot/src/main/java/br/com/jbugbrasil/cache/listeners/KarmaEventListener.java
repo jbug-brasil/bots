@@ -1,6 +1,6 @@
 package br.com.jbugbrasil.cache.listeners;
 
-import br.com.jbugbrasil.database.DatabaseProvider;
+import br.com.jbugbrasil.database.DatabaseOperations;
 import br.com.jbugbrasil.database.impl.DatabaseProviderImpl;
 import org.infinispan.notifications.Listener;
 import org.infinispan.notifications.cachelistener.annotation.CacheEntryCreated;
@@ -22,18 +22,26 @@ import java.util.logging.Logger;
 public class KarmaEventListener {
 
     private final Logger log = Logger.getLogger(KarmaEventListener.class.getName());
-    private DatabaseProvider db = new DatabaseProviderImpl();
+    private DatabaseOperations db = new DatabaseProviderImpl();
 
     @CacheEntryCreated
     public void entryCreated(CacheEntryCreatedEvent event) {
         if (event.getValue() != null) {
-            updateKarma(event.getKey().toString(), Integer.parseInt(event.getValue().toString()));
+            try {
+                updateKarma(event.getKey().toString(), Integer.parseInt(event.getValue().toString()));
+            } catch (NumberFormatException e) {
+                //do nothing in this case
+            }
         }
     }
 
     @CacheEntryModified
     public void entryModified(CacheEntryModifiedEvent event) {
-        updateKarma(event.getKey().toString(), Integer.parseInt(event.getValue().toString()));
+        try {
+            updateKarma(event.getKey().toString(), Integer.parseInt(event.getValue().toString()));
+        } catch (NumberFormatException e) {
+            //do nothing in this case
+        }
     }
 
     @CacheEntryRemoved
@@ -43,7 +51,7 @@ public class KarmaEventListener {
 
     private void updateKarma(String username, int points) {
         //Create needed tables if it does not exist
-        db.createTable();
+        db.createTableKarma();
 
         try {
 
