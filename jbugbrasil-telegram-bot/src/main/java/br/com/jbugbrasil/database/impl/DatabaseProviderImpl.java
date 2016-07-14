@@ -1,7 +1,6 @@
 package br.com.jbugbrasil.database.impl;
 
-import br.com.jbugbrasil.database.DatabaseProvider;
-import org.h2.tools.Server;
+import br.com.jbugbrasil.database.DatabaseOperations;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -14,7 +13,7 @@ import java.util.logging.Logger;
 /**
  * @author <a href="mailto:spoltin@hrstatus.com.br">Filippe Spolti</a>
  */
-public class DatabaseProviderImpl implements DatabaseProvider {
+public class DatabaseProviderImpl implements DatabaseOperations {
 
     private final Logger log = Logger.getLogger(DatabaseProviderImpl.class.getName());
 
@@ -25,7 +24,8 @@ public class DatabaseProviderImpl implements DatabaseProvider {
 
     private Connection connection;
 
-    public DatabaseProviderImpl() {}
+    public DatabaseProviderImpl() {
+    }
 
     @Override
     public Connection getConnection() {
@@ -57,7 +57,7 @@ public class DatabaseProviderImpl implements DatabaseProvider {
     }
 
     @Override
-    public void createTable () {
+    public void createTableKarma() {
 
         try {
 
@@ -68,12 +68,32 @@ public class DatabaseProviderImpl implements DatabaseProvider {
                 // do nothing
             } else {
                 Statement stmt = getConnection().createStatement();
-                stmt.executeUpdate( "CREATE TABLE KARMA ( username varchar(50), points int )" );
+                stmt.executeUpdate("CREATE TABLE KARMA ( username varchar(50), points int )");
                 stmt.close();
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public int getKarmaPoints(String username) {
+
+        int karma = 0;
+        try {
+            Statement stmt = getConnection().createStatement();
+            ResultSet select = stmt.executeQuery("SELECT points FROM KARMA where username='" + username + "'");
+
+            while (select.next()) {
+                karma = select.getInt("points");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return karma;
+
     }
 }
