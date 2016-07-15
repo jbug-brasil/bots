@@ -170,6 +170,7 @@
                     <mainClass>br.com.jbugbrasil.Main</mainClass>
                     <jvmArguments>
                         <jvmArgument>-Dbr.com.jbugbrasil.telegram.token=${br.com.jbugbrasil.telegram.token}</jvmArgument>
+                        <jvmArgument>-Dfile.encoding=UTF-8</jvmArgument>
                     </jvmArguments>
                 </configuration>
                 <executions>
