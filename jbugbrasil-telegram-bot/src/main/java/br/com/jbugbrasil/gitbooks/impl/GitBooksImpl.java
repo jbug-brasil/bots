@@ -1,6 +1,7 @@
 package br.com.jbugbrasil.gitbooks.impl;
 
 import br.com.jbugbrasil.gitbooks.GitBooks;
+import org.apache.http.Consts;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.cookie.ClientCookie;
@@ -15,6 +16,7 @@ import org.apache.http.impl.client.LaxRedirectStrategy;
 import org.apache.http.impl.cookie.BasicExpiresHandler;
 import org.apache.http.impl.cookie.BrowserCompatSpec;
 import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.CoreProtocolPNames;
 import org.apache.http.util.TextUtils;
 
 import java.io.BufferedReader;
@@ -39,7 +41,7 @@ public class GitBooksImpl implements GitBooks {
     public String getBooks() {
         HttpGet request = new HttpGet(GIT_BOOKS_URL);
         StringBuffer responseBuffer = new StringBuffer();
-
+        request.setHeader(CoreProtocolPNames.HTTP_CONTENT_CHARSET, String.valueOf(Consts.UTF_8));
         try {
             HttpResponse response = client().execute(request);
             BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
