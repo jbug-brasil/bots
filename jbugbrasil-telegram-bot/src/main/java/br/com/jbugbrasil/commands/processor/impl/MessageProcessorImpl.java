@@ -44,7 +44,7 @@ public class MessageProcessorImpl implements MessageProcessor {
         //Welcome dude
         if (update.getMessage().getNewChatMember() != null) {
             echoMessage.setChatId(update.getMessage().getChatId().toString());
-            echoMessage.setText(String.format(BotConfig.WELCOME_MESSAGE, update.getMessage().getNewChatMember().getFirstName()));
+            echoMessage.setText(String.format(BotConfig.WELCOME_MESSAGE, update.getMessage().getNewChatMember().getFirstName(), "JBug Brasil"));
 
         } else //Oh boy, someone left us
             if (update.getMessage().getLeftChatMember() != null) {
