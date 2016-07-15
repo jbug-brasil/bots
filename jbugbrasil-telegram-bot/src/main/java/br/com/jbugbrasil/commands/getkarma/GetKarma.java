@@ -47,6 +47,7 @@ public class GetKarma extends BotCommand implements MessageProcessor {
             response.append(String.format(BotConfig.GET_KARMA_RESPONSE, strings[0].trim(), db.getKarmaPoints(strings[0])));
             responseMessage.setText(response.toString());
 
+
         } catch (ArrayIndexOutOfBoundsException e) {
             response.append("Username é obrigatório.");
             responseMessage.setText(response.toString());

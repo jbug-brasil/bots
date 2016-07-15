@@ -20,6 +20,7 @@
         <version.surefire.plugin>2.19.1</version.surefire.plugin>
         <infinispan.version>8.2.2.Final</infinispan.version>
         <h2.version>1.4.192</h2.version>
+        <httpclient.version>4.5.2</httpclient.version>
     </properties>
 
     <dependencyManagement>
@@ -83,6 +84,12 @@
                 <version>${h2.version}</version>
             </dependency>
 
+            <!-- Http Client -->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient.version}</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>
@@ -143,6 +150,11 @@
             <artifactId>h2</artifactId>
         </dependency>
 
+        <!-- Http Client -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+        </dependency>
 
     </dependencies>
 
@@ -165,7 +177,8 @@
                 <configuration>
                     <mainClass>br.com.jbugbrasil.Main</mainClass>
                     <jvmArguments>
-                        <jvmArgument>-Dbr.com.jbugbrasil.telegram.token=${br.com.jbugbrasil.telegram.token}</jvmArgument>
+                        <jvmArgument>-Dbr.com.jbugbrasil.telegram.token=${br.com.jbugbrasil.telegram.token}
+                        </jvmArgument>
                     </jvmArguments>
                 </configuration>
                 <executions>
