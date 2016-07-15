@@ -1,7 +1,6 @@
 package br.com.jbugbrasil;
 
-import br.com.jbugbrasil.bot.WFlyBRBot;
-import br.com.jbugbrasil.cache.CacheProviderImpl;
+import br.com.jbugbrasil.bot.JBugBrasilBot;
 import org.telegram.telegrambots.TelegramApiException;
 import org.telegram.telegrambots.TelegramBotsApi;
 
@@ -28,7 +27,7 @@ public class Main {
         }
 
         try {
-            bots.registerBot(new WFlyBRBot());
+            bots.registerBot(new JBugBrasilBot());
             log.info("jbugbrasil_bot iniciado com sucesso.");
         } catch (TelegramApiException e) {
             log.severe("Falha ao registrar o Bot: " + e.getCause());
