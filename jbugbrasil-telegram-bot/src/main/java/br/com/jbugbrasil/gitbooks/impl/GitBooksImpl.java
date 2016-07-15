@@ -44,6 +44,8 @@ public class GitBooksImpl implements GitBooks {
         request.setHeader(CoreProtocolPNames.HTTP_CONTENT_CHARSET, String.valueOf(Consts.UTF_8));
         try {
             HttpResponse response = client().execute(request);
+
+
             BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 
             String inputLine;

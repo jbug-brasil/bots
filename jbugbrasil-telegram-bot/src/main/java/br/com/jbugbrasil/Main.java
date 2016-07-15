@@ -29,7 +29,7 @@ public class Main {
 
         try {
             bots.registerBot(new WFlyBRBot());
-            log.info("wflybr_bot iniciado com sucesso.");
+            log.info("jbugbrasil_bot iniciado com sucesso.");
         } catch (TelegramApiException e) {
             log.severe("Falha ao registrar o Bot: " + e.getCause());
         }
