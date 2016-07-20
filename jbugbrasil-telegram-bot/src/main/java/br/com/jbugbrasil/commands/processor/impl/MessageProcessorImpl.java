@@ -27,7 +27,6 @@ public class MessageProcessorImpl implements MessageProcessor {
             //Yeyyy karma fest
             KarmaProcessor karma = new KarmaProcessor();
             echoMessage = karma.process(update);
-
         }
 
         if (update.getMessage().getText() != null && update.getMessage().getText().toLowerCase().startsWith(Commands.PING)) {
