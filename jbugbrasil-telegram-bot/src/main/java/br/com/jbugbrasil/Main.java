@@ -1,6 +1,9 @@
 package br.com.jbugbrasil;
 
 import br.com.jbugbrasil.bot.JBugBrasilBot;
+import br.com.jbugbrasil.database.DatabaseOperations;
+import br.com.jbugbrasil.database.impl.DatabaseProviderImpl;
+import br.com.jbugbrasil.utils.Utils;
 import org.telegram.telegrambots.TelegramApiException;
 import org.telegram.telegrambots.TelegramBotsApi;
 

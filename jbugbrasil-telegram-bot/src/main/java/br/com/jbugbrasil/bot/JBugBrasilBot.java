@@ -1,10 +1,13 @@
 package br.com.jbugbrasil.bot;
 
+import br.com.jbugbrasil.commands.faq.FaqCommand;
 import br.com.jbugbrasil.commands.getbooks.GetBooksCommand;
 import br.com.jbugbrasil.commands.getkarma.GetKarma;
 import br.com.jbugbrasil.commands.help.HelpCommand;
 import br.com.jbugbrasil.commands.processor.impl.MessageProcessorImpl;
+import br.com.jbugbrasil.commands.uptime.UptimeCommand;
 import br.com.jbugbrasil.conf.BotConfig;
+
 import org.telegram.telegrambots.TelegramApiException;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingCommandBot;
@@ -18,12 +21,19 @@ import java.util.logging.Logger;
  */
 public class JBugBrasilBot extends TelegramLongPollingCommandBot {
 
-    private final CommandRegistry commandRegistry = new CommandRegistry();
-    HelpCommand helpCommand = new HelpCommand(this);
-    GetBooksCommand getbooks = new GetBooksCommand(this);
-    GetKarma getkarma = new GetKarma(this);
-    MessageProcessorImpl p = new MessageProcessorImpl();
     private Logger log = Logger.getLogger(JBugBrasilBot.class.getName());
+
+    private final CommandRegistry commandRegistry = new CommandRegistry();
+
+    //Commands
+    private final HelpCommand helpCommand = new HelpCommand(this);
+    private final GetBooksCommand getbooks = new GetBooksCommand(this);
+    private final GetKarma getkarma = new GetKarma(this);
+    private final UptimeCommand uptime = new UptimeCommand(this);
+    private final FaqCommand faq = new FaqCommand(this);
+
+    //Message Processor
+    MessageProcessorImpl p = new MessageProcessorImpl();
 
     /**
      * Constructor.
@@ -34,6 +44,8 @@ public class JBugBrasilBot extends TelegramLongPollingCommandBot {
         register(helpCommand);
         register(getbooks);
         register(getkarma);
+        register(uptime);
+        register(faq);
 
         // :-(
         registerDefaultAction((absSender, message) -> {
@@ -55,9 +67,16 @@ public class JBugBrasilBot extends TelegramLongPollingCommandBot {
                             getkarma.execute(absSender, message.getFrom(), message.getChat(), param);
                         } catch (ArrayIndexOutOfBoundsException e) {
                             //do nothing
-                            log.info("aconteceu algo errado auheuaehauhe ");
                             e.printStackTrace();
                         }
+                        break;
+
+                    case "uptime":
+                        uptime.execute(absSender, message.getFrom(), message.getChat(), new String[]{});
+                        break;
+
+                    case "faq":
+                        faq.execute(absSender, message.getFrom(), message.getChat(), new String[]{});
                         break;
 
                     default:

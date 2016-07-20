@@ -60,7 +60,6 @@ public class DatabaseProviderImpl implements DatabaseOperations {
     public void createTableKarma() {
 
         try {
-
             DatabaseMetaData md = getConnection().getMetaData();
             ResultSet table = md.getTables(null, null, "KARMA", null);
 

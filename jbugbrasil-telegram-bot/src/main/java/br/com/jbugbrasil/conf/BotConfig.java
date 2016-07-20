@@ -8,7 +8,10 @@ import br.com.jbugbrasil.emojis.Emoji;
 public class BotConfig {
 
     public static final String JBUG_BRASIL_BOT_TOKEN = System.getProperty("br.com.jbugbrasil.telegram.token");
-    public static final String JBUG_BRASIL_BOT_USER = "jbugbrasil_bot";
+    //public static final String JBUG_BRASIL_BOT_USER = "jbugbrasil_bot";
+
+    // REMOVE THIS BEFORE COMMIT
+    public static final String JBUG_BRASIL_BOT_USER = "UuuuuCarnica_bot";
 
     //Default Messages
     public static final String WELCOME_MESSAGE = " Olá %s, seja bem vindo ao grupo %s. Aqui você poderá discutir sobre" +

@@ -14,5 +14,6 @@ public interface DatabaseOperations {
 
     void createTableKarma ();
 
-    int getKarmaPoints(String username);
+    int getKarmaPoints (String username);
+
 }

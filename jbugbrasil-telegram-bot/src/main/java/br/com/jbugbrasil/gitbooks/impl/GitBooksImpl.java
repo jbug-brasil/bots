@@ -59,7 +59,6 @@ public class GitBooksImpl implements GitBooks {
         return null;
     }
 
-
     /*
     * Returns the CloseableHttpClient
     */
