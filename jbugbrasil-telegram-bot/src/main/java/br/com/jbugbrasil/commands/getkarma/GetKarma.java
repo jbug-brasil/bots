@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 /**
  * @author <a href="mailto:spoltin@hrstatus.com.br">Filippe Spolti</a>
  */
-public class GetKarma extends BotCommand implements MessageProcessor {
+public class GetKarma extends BotCommand implements Commands {
 
     private final Logger log = Logger.getLogger(GetKarma.class.getName());
 
@@ -60,18 +60,4 @@ public class GetKarma extends BotCommand implements MessageProcessor {
         }
     }
 
-    @Override
-    public SendMessage process(Update update) {
-        return null;
-    }
-
-    @Override
-    public SendMessage reply(SendMessage message) {
-        return null;
-    }
-
-    @Override
-    public boolean canProcess(String messageContent) {
-        return false ? messageContent.isEmpty() : true;
-    }
 }

@@ -22,7 +22,6 @@ import java.util.logging.Logger;
 public class JBugBrasilBot extends TelegramLongPollingCommandBot {
 
     private Logger log = Logger.getLogger(JBugBrasilBot.class.getName());
-
     private final CommandRegistry commandRegistry = new CommandRegistry();
 
     //Commands
@@ -62,11 +61,9 @@ public class JBugBrasilBot extends TelegramLongPollingCommandBot {
 
                     case "getkarma":
                         try {
-
                             param[0] = message.getText().substring(message.getText().indexOf("@" + BotConfig.JBUG_BRASIL_BOT_USER) + BotConfig.JBUG_BRASIL_BOT_USER.length() + 1, message.getText().length()).trim();
                             getkarma.execute(absSender, message.getFrom(), message.getChat(), param);
                         } catch (ArrayIndexOutOfBoundsException e) {
-                            //do nothing
                             e.printStackTrace();
                         }
                         break;
@@ -91,7 +88,6 @@ public class JBugBrasilBot extends TelegramLongPollingCommandBot {
     public void processNonCommandUpdate(Update update) {
 
         log.info(String.valueOf(update));
-
         // process the message and send a response, if is there anything.
         try {
             sendMessage(p.process(update));

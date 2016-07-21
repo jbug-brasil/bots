@@ -6,12 +6,16 @@ import br.com.jbugbrasil.commands.processor.MessageProcessor;
 import br.com.jbugbrasil.commands.processor.PingProcessor;
 import br.com.jbugbrasil.conf.BotConfig;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
+import org.telegram.telegrambots.api.objects.Chat;
 import org.telegram.telegrambots.api.objects.Update;
 
 /**
  * @author <a href="mailto:spoltin@hrstatus.com.br">Filippe Spolti</a>
  */
 public class MessageProcessorImpl implements MessageProcessor {
+
+    private MessageProcessor ping = new PingProcessor();
+    private MessageProcessor karma = new KarmaProcessor();
 
     @Override
     public SendMessage process(Update update) {
@@ -22,15 +26,12 @@ public class MessageProcessorImpl implements MessageProcessor {
         echoMessage = userEnterOrLeftGroup(update);
         //////////////////////////////////////////////////
 
-
         if (update.getMessage().getText() != null) {
             //Yeyyy karma fest
-            KarmaProcessor karma = new KarmaProcessor();
             echoMessage = karma.process(update);
         }
 
         if (update.getMessage().getText() != null && update.getMessage().getText().toLowerCase().startsWith(Commands.PING)) {
-            PingProcessor ping = new PingProcessor();
             echoMessage = ping.process(update);
         }
 
@@ -51,11 +52,6 @@ public class MessageProcessorImpl implements MessageProcessor {
                 echoMessage.setText(String.format(BotConfig.GOODBYE_MESSAGE, update.getMessage().getLeftChatMember().getFirstName()));
             }
         return echoMessage;
-    }
-
-    @Override
-    public SendMessage reply(SendMessage message) {
-        return message;
     }
 
     @Override

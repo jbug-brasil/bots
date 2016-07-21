@@ -5,6 +5,7 @@ import br.com.jbugbrasil.conf.BotConfig;
 import br.com.jbugbrasil.database.DatabaseOperations;
 import br.com.jbugbrasil.database.impl.DatabaseProviderImpl;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
+import org.telegram.telegrambots.api.objects.Chat;
 import org.telegram.telegrambots.api.objects.Update;
 
 import java.util.concurrent.TimeUnit;
@@ -52,7 +53,6 @@ public class KarmaProcessor implements MessageProcessor {
         return echoMessage;
     }
 
-
     private String processKarma(String operator, String username, String from) {
 
         //freaking the karma out? stop here.
@@ -91,11 +91,6 @@ public class KarmaProcessor implements MessageProcessor {
 
     private int decrease(int atual) {
         return --atual;
-    }
-
-    @Override
-    public SendMessage reply(SendMessage message) {
-        return null;
     }
 
     @Override
