@@ -18,11 +18,7 @@ import java.util.logging.Logger;
 /**
  * @author <a href="mailto:spoltin@hrstatus.com.br">Filippe Spolti</a>
  */
-public class UptimeCommand extends BotCommand{
-
-    private final Logger log = Logger.getLogger(UptimeCommand.class.getName());
-
-    private DatabaseOperations db = new DatabaseProviderImpl();
+public class UptimeCommand extends BotCommand implements Commands {
 
     private final ICommandRegistry commandRegistry;
 
@@ -36,7 +32,7 @@ public class UptimeCommand extends BotCommand{
 
         StringBuilder response = new StringBuilder("*Uptime:* ");
         try {
-            response.append("`" +Utils.upTime() + "` minuto(s).");
+            response.append("`" + Utils.upTime() + "`.");
 
             SendMessage helpMessage = new SendMessage();
             helpMessage.setChatId(chat.getId().toString());
@@ -48,6 +44,5 @@ public class UptimeCommand extends BotCommand{
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
-
     }
 }

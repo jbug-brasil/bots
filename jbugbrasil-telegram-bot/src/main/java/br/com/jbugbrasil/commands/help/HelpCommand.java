@@ -10,12 +10,14 @@ import org.telegram.telegrambots.bots.commands.BotCommand;
 import org.telegram.telegrambots.bots.commands.ICommandRegistry;
 import org.telegram.telegrambots.logging.BotLogger;
 
+import java.util.logging.Logger;
+
 /**
  * @author <a href="mailto:spoltin@hrstatus.com.br">Filippe Spolti</a>
  */
-public class HelpCommand extends BotCommand {
+public class HelpCommand extends BotCommand implements Commands {
 
-    private static final String LOGTAG = "HELPCOMMAND";
+    private Logger log = Logger.getLogger(HelpCommand.class.getName());
     private final ICommandRegistry commandRegistry;
 
     public HelpCommand(ICommandRegistry commandRegistry) {
@@ -41,8 +43,7 @@ public class HelpCommand extends BotCommand {
         try {
             absSender.sendMessage(helpMessage);
         } catch (TelegramApiException e) {
-            BotLogger.error(LOGTAG, e);
+            e.printStackTrace();
         }
     }
-
 }

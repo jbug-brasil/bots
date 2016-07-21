@@ -10,14 +10,13 @@ import org.telegram.telegrambots.api.objects.User;
 import org.telegram.telegrambots.bots.AbsSender;
 import org.telegram.telegrambots.bots.commands.BotCommand;
 import org.telegram.telegrambots.bots.commands.ICommandRegistry;
-import org.telegram.telegrambots.logging.BotLogger;
 
 import java.util.logging.Logger;
 
 /**
  * @author <a href="mailto:spoltin@hrstatus.com.br">Filippe Spolti</a>
  */
-public class GetBooksCommand extends BotCommand {
+public class GetBooksCommand extends BotCommand implements Commands {
 
     private final Logger log = Logger.getLogger(GetBooksCommand.class.getName());
 
