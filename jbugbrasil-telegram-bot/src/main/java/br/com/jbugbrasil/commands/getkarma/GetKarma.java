@@ -5,6 +5,7 @@ import br.com.jbugbrasil.commands.processor.MessageProcessor;
 import br.com.jbugbrasil.conf.BotConfig;
 import br.com.jbugbrasil.database.DatabaseOperations;
 import br.com.jbugbrasil.database.impl.DatabaseProviderImpl;
+import br.com.jbugbrasil.utils.message.impl.MessageSender;
 import org.telegram.telegrambots.TelegramApiException;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Chat;
@@ -53,11 +54,8 @@ public class GetKarma extends BotCommand implements Commands {
             responseMessage.setText(response.toString());
         }
 
-        try {
-            absSender.sendMessage(responseMessage);
-        } catch (TelegramApiException e) {
-            log.severe("Ocorreu um erro ao processar o comando /getkarma: " + e.getCause());
-        }
+        MessageSender msg = new MessageSender(responseMessage);
+        msg.send();
     }
 
 }

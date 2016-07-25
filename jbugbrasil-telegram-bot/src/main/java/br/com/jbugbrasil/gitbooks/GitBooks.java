@@ -7,7 +7,7 @@ public interface GitBooks {
 
     String getBooks();
 
-    boolean verifyNewBook();
+    int verifyNewBook();
 
     String verifyUpdates();
 }

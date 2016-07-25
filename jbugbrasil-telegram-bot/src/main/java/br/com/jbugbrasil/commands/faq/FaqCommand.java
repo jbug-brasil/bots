@@ -2,6 +2,7 @@ package br.com.jbugbrasil.commands.faq;
 
 import br.com.jbugbrasil.commands.Commands;
 import br.com.jbugbrasil.commands.processor.MessageProcessor;
+import br.com.jbugbrasil.utils.message.impl.MessageSender;
 import org.telegram.telegrambots.TelegramApiException;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Chat;
@@ -32,15 +33,12 @@ public class FaqCommand extends BotCommand implements Commands, MessageProcessor
 
         StringBuilder response = new StringBuilder("<b>Lista dos Projetos</b>: ");
         response.append("Em desenvolvimento");
-        SendMessage helpMessage = new SendMessage();
-        helpMessage.setChatId(chat.getId().toString());
-        helpMessage.enableHtml(true);
-        helpMessage.setText(response.toString());
-        try {
-            absSender.sendMessage(helpMessage);
-        } catch (TelegramApiException e) {
-            log.severe(e.getMessage());
-        }
+        SendMessage faqMessage = new SendMessage();
+        faqMessage.setChatId(chat.getId().toString());
+        faqMessage.enableHtml(true);
+        faqMessage.setText(response.toString());
+        MessageSender msg = new MessageSender(faqMessage);
+        msg.send();
     }
 
     @Override

@@ -19,21 +19,16 @@ import java.util.logging.Logger;
  */
 public class GitBooksImpl implements GitBooks {
 
+    private static BasicCookieStore cookieStore = new BasicCookieStore();
     private final Logger log = Logger.getLogger(GitBooksImpl.class.getName());
-
     private final String USER_AGENT = "Mozilla/5.0";
     private final String GIT_BOOKS_URL = "https://www.gitbook.com/@jboss-books";
 
-    private static BasicCookieStore cookieStore = new BasicCookieStore();
-
     @Override
     public String getBooks() {
-        HttpGet request = new HttpGet(GIT_BOOKS_URL);
         StringBuffer responseBuffer = new StringBuffer();
-        request.setHeader(CoreProtocolPNames.HTTP_CONTENT_CHARSET, String.valueOf(Consts.UTF_8));
-
         try {
-            HttpResponse response = client().execute(request);
+            HttpResponse response = request();
             BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
             String inputLine;
             while ((inputLine = reader.readLine()) != null) {
@@ -50,8 +45,22 @@ public class GitBooksImpl implements GitBooks {
     }
 
     @Override
-    public boolean verifyNewBook() {
-        return false;
+    public int verifyNewBook() {
+        //padrão esperado <a href="/@jboss-books"><i class="octicon octicon-book"></i> 1 Books</a>
+        StringBuffer responseBuffer = new StringBuffer();
+        try {
+            HttpResponse response = request();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+            String inputLine;
+            while ((inputLine = reader.readLine()) != null) {
+                if (inputLine.contains("<a href=\"/@jboss-books\">")) {
+                    responseBuffer.append(inputLine.substring(inputLine.indexOf("</i>") + 4, inputLine.indexOf("Books")).trim());
+                }
+            }
+        } catch (IOException ioe) {
+            log.severe(ioe.getMessage());
+        }
+        return Integer.parseInt(responseBuffer.toString());
     }
 
     @Override
@@ -60,15 +69,22 @@ public class GitBooksImpl implements GitBooks {
     }
 
     /*
+    * Perform a request againts jboss-books main page
+    */
+    private HttpResponse request() throws IOException {
+        HttpGet request = new HttpGet(GIT_BOOKS_URL);
+        request.setHeader(CoreProtocolPNames.HTTP_CONTENT_CHARSET, String.valueOf(Consts.UTF_8));
+        return client().execute(request);
+    }
+
+    /*
     * Returns the CloseableHttpClient
     */
     private CloseableHttpClient client() {
-
         return HttpClients.custom()
                 .setDefaultCookieStore(cookieStore)
                 .setUserAgent(USER_AGENT)
                 .build();
-
     }
 
 }

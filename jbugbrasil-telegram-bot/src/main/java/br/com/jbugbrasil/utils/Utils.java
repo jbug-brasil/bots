@@ -3,33 +3,23 @@ package br.com.jbugbrasil.utils;
 import java.lang.management.ManagementFactory;
 import java.text.ParseException;
 import java.time.Duration;
-import java.time.temporal.TemporalUnit;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author <a href="mailto:spoltin@hrstatus.com.br">Filippe Spolti</a>
  */
 public class Utils {
 
-
     /*
-        * Returns the uptime in minutes.
-        */
-    public static Duration upTime() throws ParseException {
-        //return TimeUnit.MINUTES.convert(ManagementFactory.getRuntimeMXBean().getUptime(), TimeUnit.MILLISECONDS);
-        return Duration.ofMillis(ManagementFactory.getRuntimeMXBean().getUptime());
+    * Returns the uptime in the following pattern: 0 Hora(s), 1 minuto(s) e 1 segundo(s).
+    * Suggested by Ingo
+    */
+    public static String upTime() throws ParseException {
+        Duration duration = Duration.ofMillis(ManagementFactory.getRuntimeMXBean().getUptime());
+        long hours = duration.toHours();
+        long minutes = duration.minusHours(hours).toMinutes();
+        long seconds = duration.minusHours(hours).minusMinutes(minutes).getSeconds();
+        String result = hours + " Hora(s), " + minutes + " Minuto(s) e " + seconds + " Segundo(s)";
+        return result;
     }
 
-    public static void main (String args[]) {
-
-        Duration duration = Duration.ofMillis(942342344);
-        System.out.println(duration);
-//
-        System.out.println(duration.toHours());
-        System.out.println(duration.toDays());
-
-        Duration newduration = Duration.parse("P2DT3H4M");
-        System.out.println(newduration);
-
-    }
 }
