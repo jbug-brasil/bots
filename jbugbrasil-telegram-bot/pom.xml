@@ -20,6 +20,7 @@
         <version.surefire.plugin>2.19.1</version.surefire.plugin>
         <infinispan.version>8.2.2.Final</infinispan.version>
         <h2.version>1.4.192</h2.version>
+        <quartz.scheduler.version>2.2.1</quartz.scheduler.version>
     </properties>
 
     <dependencyManagement>
@@ -83,6 +84,18 @@
                 <version>${h2.version}</version>
             </dependency>
 
+            <!-- Quartz -->
+            <dependency>
+                <groupId>org.quartz-scheduler</groupId>
+                <artifactId>quartz</artifactId>
+                <version>${quartz.scheduler.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.quartz-scheduler</groupId>
+                <artifactId>quartz-jobs</artifactId>
+                <version>${quartz.scheduler.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -142,10 +155,14 @@
             <artifactId>h2</artifactId>
         </dependency>
 
-        <!-- Http Client -->
+        <!-- Quartz -->
         <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz-jobs</artifactId>
         </dependency>
 
     </dependencies>

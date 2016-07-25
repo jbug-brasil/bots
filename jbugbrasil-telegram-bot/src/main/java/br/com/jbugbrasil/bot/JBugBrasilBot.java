@@ -46,7 +46,7 @@ public class JBugBrasilBot extends TelegramLongPollingCommandBot {
         register(uptime);
         register(faq);
 
-        // :-(
+        // :-(  do this to be able to answer commands like /command@botName
         registerDefaultAction((absSender, message) -> {
             String[] param = new String[1];
             if (message.getText().contains("@" + BotConfig.JBUG_BRASIL_BOT_USER)) {

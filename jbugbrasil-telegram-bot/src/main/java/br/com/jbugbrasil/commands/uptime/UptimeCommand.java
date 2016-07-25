@@ -1,10 +1,8 @@
 package br.com.jbugbrasil.commands.uptime;
 
 import br.com.jbugbrasil.commands.Commands;
-import br.com.jbugbrasil.database.DatabaseOperations;
-import br.com.jbugbrasil.database.impl.DatabaseProviderImpl;
 import br.com.jbugbrasil.utils.Utils;
-import org.telegram.telegrambots.TelegramApiException;
+import br.com.jbugbrasil.utils.message.impl.MessageSender;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Chat;
 import org.telegram.telegrambots.api.objects.User;
@@ -13,7 +11,6 @@ import org.telegram.telegrambots.bots.commands.BotCommand;
 import org.telegram.telegrambots.bots.commands.ICommandRegistry;
 
 import java.text.ParseException;
-import java.util.logging.Logger;
 
 /**
  * @author <a href="mailto:spoltin@hrstatus.com.br">Filippe Spolti</a>
@@ -31,17 +28,16 @@ public class UptimeCommand extends BotCommand implements Commands {
     public void execute(AbsSender absSender, User user, Chat chat, String[] strings) {
 
         StringBuilder response = new StringBuilder("*Uptime:* ");
+
         try {
             response.append("`" + Utils.upTime() + "`.");
-
-            SendMessage helpMessage = new SendMessage();
-            helpMessage.setChatId(chat.getId().toString());
-            helpMessage.enableMarkdown(true);
-            helpMessage.setText(response.toString());
-            absSender.sendMessage(helpMessage);
+            SendMessage uptimeMessage = new SendMessage();
+            uptimeMessage.setChatId(chat.getId().toString());
+            uptimeMessage.enableMarkdown(true);
+            uptimeMessage.setText(response.toString());
+            MessageSender msg = new MessageSender(uptimeMessage);
+            msg.send();
         } catch (ParseException e) {
-            e.printStackTrace();
-        } catch (TelegramApiException e) {
             e.printStackTrace();
         }
     }

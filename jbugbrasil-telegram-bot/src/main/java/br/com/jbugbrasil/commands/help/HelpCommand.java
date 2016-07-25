@@ -1,6 +1,7 @@
 package br.com.jbugbrasil.commands.help;
 
 import br.com.jbugbrasil.commands.Commands;
+import br.com.jbugbrasil.utils.message.impl.MessageSender;
 import org.telegram.telegrambots.TelegramApiException;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Chat;
@@ -28,8 +29,8 @@ public class HelpCommand extends BotCommand implements Commands {
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] strings) {
 
-        StringBuilder response = new StringBuilder("<b>Help</b>\n");
-        response.append("Comandos válidos para este Bot:\n\n");
+        StringBuilder response = new StringBuilder("<b>Help</b> ");
+        response.append("Comandos válidos:\n");
 
         for (BotCommand botCommand : commandRegistry.getRegisteredCommands()) {
             response.append(botCommand.toString()).append("\n");
@@ -38,12 +39,10 @@ public class HelpCommand extends BotCommand implements Commands {
         SendMessage helpMessage = new SendMessage();
         helpMessage.setChatId(chat.getId().toString());
         helpMessage.enableHtml(true);
+        helpMessage.disableWebPagePreview();
         helpMessage.setText(response.toString());
 
-        try {
-            absSender.sendMessage(helpMessage);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
+        MessageSender msg = new MessageSender(helpMessage);
+        msg.send();
     }
 }
