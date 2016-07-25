@@ -8,9 +8,9 @@ import br.com.jbugbrasil.emojis.Emoji;
 public interface BotConfig {
 
     String JBUG_BRASIL_BOT_TOKEN = System.getProperty("br.com.jbugbrasil.telegram.token");
-    //String JBUG_BRASIL_BOT_USER = "jbugbrasil_bot";
+    String JBUG_BRASIL_BOT_USER = "jbugbrasil_bot";
     String DEFAULT_CHAT_ID = "-136511623"; //jbugbrasilbot chat Id: -136511623
-
+    
     //Default Messages
     String WELCOME_MESSAGE = " Olá %s, seja bem vindo ao grupo %s. Aqui você poderá discutir sobre" +
             " os projetos opensource da família JBoss. Para utilizar o bot, começe digitando /help. " + Emoji.SMILING_FACE_WITH_OPEN_MOUTH;
