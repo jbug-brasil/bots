@@ -8,7 +8,7 @@ import br.com.jbugbrasil.emojis.Emoji;
 public interface BotConfig {
 
     String JBUG_BRASIL_BOT_TOKEN = System.getProperty("br.com.jbugbrasil.telegram.token");
-//    String JBUG_BRASIL_BOT_USER = "jbugbrasil_bot";
+    String JBUG_BRASIL_BOT_USER = "jbugbrasil_bot";
     String DEFAULT_CHAT_ID = "-136511623"; //jbugbrasil_bot chat Id: -136511623
 
     //Default Messages
