@@ -73,7 +73,6 @@ public class GitBooksImpl implements GitBooks {
     */
     private HttpResponse request() throws IOException {
         HttpGet request = new HttpGet(BotConfig.GIT_BOOKS_URL);
-        request.setHeader(CoreProtocolPNames.HTTP_CONTENT_CHARSET, String.valueOf(Consts.UTF_8));
         return client().execute(request);
     }
 
