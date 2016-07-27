@@ -9,9 +9,7 @@ public interface BotConfig {
 
     String JBUG_BRASIL_BOT_TOKEN = System.getProperty("br.com.jbugbrasil.telegram.token");
 //    String JBUG_BRASIL_BOT_USER = "jbugbrasil_bot";
-    String DEFAULT_CHAT_ID = "-143169202"; //jbugbrasil_bot chat Id: -136511623
-    // REMOVE THIS BEFORE COMMIT
-    String JBUG_BRASIL_BOT_USER = "UuuuuCarnica_bot";
+    String DEFAULT_CHAT_ID = "-136511623"; //jbugbrasil_bot chat Id: -136511623
 
     //Default Messages
     String WELCOME_MESSAGE = " Olá %s, seja bem vindo(a) ao grupo %s. Aqui você poderá discutir sobre" +
