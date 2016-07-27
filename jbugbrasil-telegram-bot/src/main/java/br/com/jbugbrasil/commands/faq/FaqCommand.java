@@ -1,9 +1,13 @@
 package br.com.jbugbrasil.commands.faq;
 
+import br.com.jbugbrasil.cache.CacheProviderImpl;
 import br.com.jbugbrasil.commands.Commands;
 import br.com.jbugbrasil.commands.processor.MessageProcessor;
+import br.com.jbugbrasil.emojis.Emoji;
 import br.com.jbugbrasil.utils.message.impl.MessageSender;
-import org.telegram.telegrambots.TelegramApiException;
+import org.infinispan.query.Search;
+import org.infinispan.query.dsl.Query;
+import org.infinispan.query.dsl.QueryFactory;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Chat;
 import org.telegram.telegrambots.api.objects.Update;
@@ -12,6 +16,7 @@ import org.telegram.telegrambots.bots.AbsSender;
 import org.telegram.telegrambots.bots.commands.BotCommand;
 import org.telegram.telegrambots.bots.commands.ICommandRegistry;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -19,26 +24,71 @@ import java.util.logging.Logger;
  */
 public class FaqCommand extends BotCommand implements Commands, MessageProcessor {
 
+    private static final CacheProviderImpl cache = CacheProviderImpl.getInstance();
     private final Logger log = Logger.getLogger(FaqCommand.class.getName());
-
     private final ICommandRegistry commandRegistry;
 
     public FaqCommand(ICommandRegistry commandRegistry) {
-        super(Commands.FAQ, "Lista todos os projetos JBoss.");
+        super(Commands.FAQ, "Pesquisa informações sobre os projetos cadastrados no bot. Ex: /faq hibernate");
         this.commandRegistry = commandRegistry;
     }
 
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] strings) {
 
-        StringBuilder response = new StringBuilder("<b>Lista dos Projetos</b>: ");
-        response.append("Em desenvolvimento");
         SendMessage faqMessage = new SendMessage();
         faqMessage.setChatId(chat.getId().toString());
-        faqMessage.enableHtml(true);
-        faqMessage.setText(response.toString());
+        faqMessage.enableMarkdown(true);
+        faqMessage.setText(query(parseParameters(strings)));
         MessageSender msg = new MessageSender(faqMessage);
         msg.send();
+    }
+
+    /*
+    * Perform a very embracing query in the cache
+    * @param String key
+    * @returns a list containing the result
+    */
+    private String query(String key) {
+
+        StringBuilder stbuilder = new StringBuilder();
+
+        // get the query factory for the cache
+        QueryFactory<?> qf = Search.getQueryFactory(cache.getCache());
+
+        // Build the query
+        Query q = qf.from(Project.class).having("id").like("%" + key + "%").toBuilder().build();
+        // Perform the query
+        List<Project> result = q.list();
+
+        if (q.getResultSize() == 0){
+            return "Ooops, não encontrei nenhum projeto com o home " + key + ". " + Emoji.DISAPPOINTED_FACE;
+        }
+
+        for (Project project : result) {
+            stbuilder.append(project.toString());
+            stbuilder.append(" - ");
+            stbuilder.append(project.getDescription() + "\n");
+        }
+
+        return stbuilder.toString();
+    }
+
+    /*
+    * Parse the parameters received into a single one String
+    * @param String[] parameters
+    * @returns the formatted string
+    */
+    private String parseParameters(String... parameters) {
+        String result = "";
+        for (int i = 0; i < parameters.length; i++) {
+            if (parameters.length >  i + 1) {
+                result += parameters[i] + " ";
+            } else {
+                result += parameters[i];
+            }
+        }
+        return result;
     }
 
     @Override

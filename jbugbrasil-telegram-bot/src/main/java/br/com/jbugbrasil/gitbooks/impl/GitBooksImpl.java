@@ -1,8 +1,11 @@
 package br.com.jbugbrasil.gitbooks.impl;
 
+import br.com.jbugbrasil.conf.BotConfig;
 import br.com.jbugbrasil.gitbooks.GitBooks;
 import org.apache.http.Consts;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.config.CookieSpecs;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -19,10 +22,7 @@ import java.util.logging.Logger;
  */
 public class GitBooksImpl implements GitBooks {
 
-    private static BasicCookieStore cookieStore = new BasicCookieStore();
     private final Logger log = Logger.getLogger(GitBooksImpl.class.getName());
-    private final String USER_AGENT = "Mozilla/5.0";
-    private final String GIT_BOOKS_URL = "https://www.gitbook.com/@jboss-books";
 
     @Override
     public String getBooks() {
@@ -72,7 +72,7 @@ public class GitBooksImpl implements GitBooks {
     * Perform a request againts jboss-books main page
     */
     private HttpResponse request() throws IOException {
-        HttpGet request = new HttpGet(GIT_BOOKS_URL);
+        HttpGet request = new HttpGet(BotConfig.GIT_BOOKS_URL);
         request.setHeader(CoreProtocolPNames.HTTP_CONTENT_CHARSET, String.valueOf(Consts.UTF_8));
         return client().execute(request);
     }
@@ -81,10 +81,9 @@ public class GitBooksImpl implements GitBooks {
     * Returns the CloseableHttpClient
     */
     private CloseableHttpClient client() {
-        return HttpClients.custom()
-                .setDefaultCookieStore(cookieStore)
-                .setUserAgent(USER_AGENT)
+        RequestConfig config = RequestConfig.custom()
+                .setCookieSpec(CookieSpecs.IGNORE_COOKIES)
                 .build();
+        return HttpClients.custom().setDefaultRequestConfig(config).build();
     }
-
 }
