@@ -95,4 +95,64 @@ public class DatabaseProviderImpl implements DatabaseOperations {
         return karma;
 
     }
+
+    @Override
+    public void createTableAmountOfBooks() {
+        try {
+            DatabaseMetaData md = getConnection().getMetaData();
+            ResultSet table = md.getTables(null, null, "AMOUNTOFBOOKS", null);
+
+            if (table.next()) {
+                // do nothing
+            } else {
+                Statement stmt = getConnection().createStatement();
+                stmt.executeUpdate("CREATE TABLE AMOUNTOFBOOKS ( amount int )");
+                stmt.close();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public void setAmountOfBooks(int amount) {
+        createTableAmountOfBooks();
+
+        try {
+
+            Statement stmt = getConnection().createStatement();
+
+            //update or create the karma reference in the database
+            ResultSet select = stmt.executeQuery("SELECT amount FROM AMOUNTOFBOOKS");
+            if (select.next()) {
+                stmt.executeUpdate("UPDATE AMOUNTOFBOOKS SET amount=" + amount);
+            } else {
+                stmt.executeUpdate("INSERT INTO AMOUNTOFBOOKS ( amount ) VALUES ( " + amount + ")");
+            }
+
+            stmt.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public int getAmoutOfBooks() {
+        int amount = 0;
+        try {
+            Statement stmt = getConnection().createStatement();
+            ResultSet select = stmt.executeQuery("SELECT amount FROM AMOUNTOFBOOKS");
+
+            while (select.next()) {
+                amount = select.getInt("amount");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return amount;
+    }
 }

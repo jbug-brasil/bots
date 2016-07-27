@@ -87,7 +87,7 @@ public class JBugBrasilBot extends TelegramLongPollingCommandBot {
     @Override
     public void processNonCommandUpdate(Update update) {
 
-        log.info(String.valueOf(update));
+        log.fine(String.valueOf(update));
         // process the message and send a response, if is there anything.
         try {
             sendMessage(p.process(update));

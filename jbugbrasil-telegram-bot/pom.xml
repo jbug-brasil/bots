@@ -18,7 +18,7 @@
         <json.version>20160212</json.version>
         <version.wildfly.swarm>1.0.0.Final</version.wildfly.swarm>
         <version.surefire.plugin>2.19.1</version.surefire.plugin>
-        <infinispan.version>8.2.2.Final</infinispan.version>
+        <infinispan.version>8.2.3.Final</infinispan.version>
         <h2.version>1.4.192</h2.version>
         <quartz.scheduler.version>2.2.1</quartz.scheduler.version>
     </properties>
@@ -76,6 +76,12 @@
                 <artifactId>infinispan-embedded</artifactId>
                 <version>${infinispan.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.infinispan</groupId>
+                <artifactId>infinispan-query</artifactId>
+                <version>${infinispan.version}</version>
+            </dependency>
+
 
             <!-- H2 -->
             <dependency>
@@ -148,6 +154,10 @@
             <groupId>org.infinispan</groupId>
             <artifactId>infinispan-embedded</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-query</artifactId>
+        </dependency>
 
         <!-- H2 -->
         <dependency>
@@ -163,6 +173,13 @@
         <dependency>
             <groupId>org.quartz-scheduler</groupId>
             <artifactId>quartz-jobs</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.2</version>
+            <scope>runtime</scope>
         </dependency>
 
     </dependencies>
@@ -187,6 +204,8 @@
                     <mainClass>br.com.jbugbrasil.Main</mainClass>
                     <jvmArguments>
                         <jvmArgument>-Dbr.com.jbugbrasil.telegram.token=${br.com.jbugbrasil.telegram.token}</jvmArgument>
+                        <jvmArgument>-Djava.util.logging.config.class=br.com.jbugbrasil.utils.LogClass</jvmArgument>
+                        <jvmArgument>-Dorg.apache.logging.log4j.simplelog.StatusLogger.level=OFF</jvmArgument>
                         <jvmArgument>-Dfile.encoding=UTF-8</jvmArgument>
                     </jvmArguments>
                 </configuration>
@@ -204,5 +223,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
