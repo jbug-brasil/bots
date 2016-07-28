@@ -48,7 +48,7 @@ public class Main {
         scheduler.start();
         gitBooksCachePopulator.schedule();
         verifyNewBook.schedule();
-        log.info("Schedulers iniciado com sucesso.");
+        log.info("Schedulers iniciados com sucesso.");
         //////////////////////////////////
 
         //start the bot itself
