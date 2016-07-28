@@ -5,9 +5,18 @@ package br.com.jbugbrasil.gitbooks;
  */
 public interface GitBooks {
 
+    /*
+    * Get all books available in the gitbooks page
+    */
     String getBooks();
 
+    /*
+    * Verifies if a new book were added on gitbooks
+    */
     int verifyNewBook();
 
+    /*
+    * To be implemented
+    */
     String verifyUpdates();
 }

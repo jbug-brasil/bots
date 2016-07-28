@@ -17,12 +17,11 @@ import java.util.logging.Logger;
  */
 public class GitBooksCachePopulator implements Job {
 
-    private Logger log = Logger.getLogger(GitBooksCachePopulator.class.getName());
-
     private final GitBooks gitbooks = new GitBooksImpl();
-    private DatabaseOperations db = new DatabaseProviderImpl();
     private final CacheProviderImpl cache = CacheProviderImpl.getInstance();
     private final SendMessage echoMessage = new SendMessage();
+    private Logger log = Logger.getLogger(GitBooksCachePopulator.class.getName());
+    private DatabaseOperations db = new DatabaseProviderImpl();
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
@@ -50,5 +49,4 @@ public class GitBooksCachePopulator implements Job {
             }
         }
     }
-
 }

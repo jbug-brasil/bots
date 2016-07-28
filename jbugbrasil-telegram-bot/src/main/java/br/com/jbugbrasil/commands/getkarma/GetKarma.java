@@ -1,15 +1,12 @@
 package br.com.jbugbrasil.commands.getkarma;
 
 import br.com.jbugbrasil.commands.Commands;
-import br.com.jbugbrasil.commands.processor.MessageProcessor;
 import br.com.jbugbrasil.conf.BotConfig;
 import br.com.jbugbrasil.database.DatabaseOperations;
 import br.com.jbugbrasil.database.impl.DatabaseProviderImpl;
 import br.com.jbugbrasil.utils.message.impl.MessageSender;
-import org.telegram.telegrambots.TelegramApiException;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Chat;
-import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.api.objects.User;
 import org.telegram.telegrambots.bots.AbsSender;
 import org.telegram.telegrambots.bots.commands.BotCommand;
@@ -35,11 +32,11 @@ public class GetKarma extends BotCommand implements Commands {
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] strings) {
 
-        StringBuilder response = new StringBuilder("<b>Pesquisar Karma</b>\n ");
+        StringBuilder response = new StringBuilder("*Pesquisar Karma*\n ");
         SendMessage responseMessage = new SendMessage();
 
         responseMessage.setChatId(chat.getId().toString());
-        responseMessage.enableHtml(true);
+        responseMessage.enableMarkdown(true);
 
         try {
             log.info("Pesquisando o karma do usuário " + strings[0]);

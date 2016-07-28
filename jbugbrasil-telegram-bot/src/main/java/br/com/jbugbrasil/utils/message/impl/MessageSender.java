@@ -10,11 +10,11 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 /**
  * @author <a href="mailto:spoltin@hrstatus.com.br">Filippe Spolti</a>
  */
-public class MessageSender extends TelegramLongPollingBot implements Message{
+public class MessageSender extends TelegramLongPollingBot implements Message {
 
     private SendMessage message;
 
-    public MessageSender (SendMessage message) {
+    public MessageSender(SendMessage message) {
         this.message = message;
     }
 

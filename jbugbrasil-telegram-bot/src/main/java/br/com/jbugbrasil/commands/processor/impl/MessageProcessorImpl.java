@@ -6,7 +6,6 @@ import br.com.jbugbrasil.commands.processor.MessageProcessor;
 import br.com.jbugbrasil.commands.processor.PingProcessor;
 import br.com.jbugbrasil.conf.BotConfig;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
-import org.telegram.telegrambots.api.objects.Chat;
 import org.telegram.telegrambots.api.objects.Update;
 
 /**
@@ -24,7 +23,6 @@ public class MessageProcessorImpl implements MessageProcessor {
 
         // is a new user? Or maybe someone left the group?
         echoMessage = userEnterOrLeftGroup(update);
-        //////////////////////////////////////////////////
 
         if (update.getMessage().getText() != null) {
             //Yeyyy karma fest
@@ -39,7 +37,7 @@ public class MessageProcessorImpl implements MessageProcessor {
 
     }
 
-    private SendMessage userEnterOrLeftGroup (Update update) {
+    private SendMessage userEnterOrLeftGroup(Update update) {
         SendMessage echoMessage = new SendMessage();
         //Welcome dude
         if (update.getMessage().getNewChatMember() != null) {

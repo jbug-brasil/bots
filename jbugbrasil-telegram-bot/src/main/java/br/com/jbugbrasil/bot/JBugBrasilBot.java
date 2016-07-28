@@ -7,7 +7,6 @@ import br.com.jbugbrasil.commands.help.HelpCommand;
 import br.com.jbugbrasil.commands.processor.impl.MessageProcessorImpl;
 import br.com.jbugbrasil.commands.uptime.UptimeCommand;
 import br.com.jbugbrasil.conf.BotConfig;
-
 import org.telegram.telegrambots.TelegramApiException;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingCommandBot;
@@ -21,18 +20,16 @@ import java.util.logging.Logger;
  */
 public class JBugBrasilBot extends TelegramLongPollingCommandBot {
 
-    private Logger log = Logger.getLogger(JBugBrasilBot.class.getName());
     private final CommandRegistry commandRegistry = new CommandRegistry();
-
     //Commands
     private final HelpCommand helpCommand = new HelpCommand(this);
     private final GetBooksCommand getbooks = new GetBooksCommand(this);
     private final GetKarma getkarma = new GetKarma(this);
     private final UptimeCommand uptime = new UptimeCommand(this);
     private final FaqCommand faq = new FaqCommand(this);
-
     //Message Processor
     MessageProcessorImpl p = new MessageProcessorImpl();
+    private Logger log = Logger.getLogger(JBugBrasilBot.class.getName());
 
     /**
      * Constructor.
@@ -88,7 +85,7 @@ public class JBugBrasilBot extends TelegramLongPollingCommandBot {
     public void processNonCommandUpdate(Update update) {
 
         log.fine(String.valueOf(update));
-        // process the message and send a response, if is there anything.
+        // process the message and send a response, if anything is there.
         try {
             sendMessage(p.process(update));
         } catch (TelegramApiException e) {

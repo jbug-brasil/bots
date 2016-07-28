@@ -23,7 +23,7 @@ public class DefaultTimer implements Timer {
     private String triggerGroup;
     private int interval;
 
-    public DefaultTimer (Scheduler scheduler, Class jobClazz, String jobName, String jobGroup, String triggerName, String triggerGroup, int interval) {
+    public DefaultTimer(Scheduler scheduler, Class jobClazz, String jobName, String jobGroup, String triggerName, String triggerGroup, int interval) {
         this.scheduler = scheduler;
         this.jobClazz = jobClazz;
         this.jobName = jobName;

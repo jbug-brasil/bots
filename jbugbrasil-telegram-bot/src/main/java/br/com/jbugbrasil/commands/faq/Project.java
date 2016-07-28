@@ -12,24 +12,26 @@ import org.hibernate.search.annotations.Store;
 @Indexed
 public class Project {
 
-    public Project (){}
+    @JsonProperty("id")
+    @Field(store = Store.YES, analyze = Analyze.NO)
+    public String id;
+    @JsonProperty("link")
+    @Field(store = Store.YES, analyze = Analyze.NO)
+    public String link;
+    @JsonProperty("description")
+    @Field(store = Store.YES, analyze = Analyze.NO)
+    public String description;
 
+    public Project() {
+    }
+
+    /*
+    * Returns the project name with the project's link in the markdown pattern
+    */
     @Override
     public String toString() {
         return "[" + getId() + "](" + getLink() + ")";
     }
-
-    @JsonProperty("id")
-    @Field(store = Store.YES, analyze = Analyze.NO)
-    public String id;
-
-    @JsonProperty("link")
-    @Field(store = Store.YES, analyze = Analyze.NO)
-    public String link;
-
-    @JsonProperty("description")
-    @Field(store = Store.YES, analyze = Analyze.NO)
-    public String description;
 
     public String getId() {
         return id;

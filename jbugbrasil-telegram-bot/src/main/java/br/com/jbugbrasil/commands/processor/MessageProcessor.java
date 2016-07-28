@@ -1,7 +1,6 @@
 package br.com.jbugbrasil.commands.processor;
 
 import org.telegram.telegrambots.api.methods.send.SendMessage;
-import org.telegram.telegrambots.api.objects.Chat;
 import org.telegram.telegrambots.api.objects.Update;
 
 /**
@@ -9,7 +8,7 @@ import org.telegram.telegrambots.api.objects.Update;
  */
 public interface MessageProcessor {
 
-    SendMessage process (Update update);
+    SendMessage process(Update update);
 
-    boolean canProcess (String messageContent);
+    boolean canProcess(String messageContent);
 }

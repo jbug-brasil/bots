@@ -5,7 +5,6 @@ import br.com.jbugbrasil.conf.BotConfig;
 import br.com.jbugbrasil.database.DatabaseOperations;
 import br.com.jbugbrasil.database.impl.DatabaseProviderImpl;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
-import org.telegram.telegrambots.api.objects.Chat;
 import org.telegram.telegrambots.api.objects.Update;
 
 import java.util.concurrent.TimeUnit;
