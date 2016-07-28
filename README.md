@@ -1,3 +1,3 @@
 # bots
 
-Para maiores informações sobre cada bot acesse o READNE.md file do bot desejado.
+Para maiores informações sobre cada bot acesse o README.md file do bot desejado.
