@@ -3,7 +3,7 @@ package br.com.jbugbrasil.commands.faq;
 import br.com.jbugbrasil.cache.CacheProviderImpl;
 import br.com.jbugbrasil.commands.Commands;
 import br.com.jbugbrasil.commands.processor.MessageProcessor;
-import br.com.jbugbrasil.emojis.Emoji;
+import br.com.jbugbrasil.conf.BotConfig;
 import br.com.jbugbrasil.utils.message.impl.MessageSender;
 import org.infinispan.query.Search;
 import org.infinispan.query.dsl.Query;
@@ -17,7 +17,6 @@ import org.telegram.telegrambots.bots.commands.BotCommand;
 import org.telegram.telegrambots.bots.commands.ICommandRegistry;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * @author <a href="mailto:spoltin@hrstatus.com.br">Filippe Spolti</a>
@@ -25,7 +24,6 @@ import java.util.logging.Logger;
 public class FaqCommand extends BotCommand implements Commands, MessageProcessor {
 
     private static final CacheProviderImpl cache = CacheProviderImpl.getInstance();
-    private final Logger log = Logger.getLogger(FaqCommand.class.getName());
     private final ICommandRegistry commandRegistry;
 
     public FaqCommand(ICommandRegistry commandRegistry) {
@@ -61,8 +59,8 @@ public class FaqCommand extends BotCommand implements Commands, MessageProcessor
         // Perform the query
         List<Project> result = q.list();
 
-        if (q.getResultSize() == 0){
-            return "Ooops, não encontrei nenhum projeto com o home " + key + ". " + Emoji.DISAPPOINTED_FACE;
+        if (q.getResultSize() == 0) {
+            return String.format(BotConfig.PROJECT_NOT_FOUND_MESSAGE, key);
         }
 
         for (Project project : result) {
@@ -82,7 +80,7 @@ public class FaqCommand extends BotCommand implements Commands, MessageProcessor
     private String parseParameters(String... parameters) {
         String result = "";
         for (int i = 0; i < parameters.length; i++) {
-            if (parameters.length >  i + 1) {
+            if (parameters.length > i + 1) {
                 result += parameters[i] + " ";
             } else {
                 result += parameters[i];

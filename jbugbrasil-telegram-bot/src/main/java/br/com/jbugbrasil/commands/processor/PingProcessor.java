@@ -2,7 +2,6 @@ package br.com.jbugbrasil.commands.processor;
 
 import br.com.jbugbrasil.commands.Commands;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
-import org.telegram.telegrambots.api.objects.Chat;
 import org.telegram.telegrambots.api.objects.Update;
 
 /**

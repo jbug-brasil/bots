@@ -5,6 +5,9 @@ package br.com.jbugbrasil.utils.message;
  */
 public interface Message {
 
+    /*
+    * Send an message to the pre configured group chat on telegram
+    */
     void send();
 
 }

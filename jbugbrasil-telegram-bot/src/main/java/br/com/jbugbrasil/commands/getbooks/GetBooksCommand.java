@@ -12,8 +12,6 @@ import org.telegram.telegrambots.bots.AbsSender;
 import org.telegram.telegrambots.bots.commands.BotCommand;
 import org.telegram.telegrambots.bots.commands.ICommandRegistry;
 
-import java.util.logging.Logger;
-
 /**
  * @author <a href="mailto:spoltin@hrstatus.com.br">Filippe Spolti</a>
  */

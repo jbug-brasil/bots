@@ -7,18 +7,42 @@ import java.sql.Connection;
  */
 public interface DatabaseOperations {
 
-    Connection getConnection ();
+    /*
+    * Returns the database connection
+    */
+    Connection getConnection();
 
-    void closeConnection ();
+    /*
+    * Close the connection
+    */
+    void closeConnection();
 
-    void createTableKarma ();
+    /*
+    * Create the KARMA table if it does not exist
+    */
+    void createTableKarma();
 
-    int getKarmaPoints (String username);
+    /*
+    * Query the karma points of the given username
+    * @param String username
+    */
+    int getKarmaPoints(String username);
 
-    void createTableAmountOfBooks ();
+    /*
+    * Create the AMOUNTOFBOOKS table if it does not exist
+    */
+    void createTableAmountOfBooks();
 
-    void setAmountOfBooks (int amount);
+    /*
+    * Update the amount of the books value
+    * @param int amount
+    */
+    void setAmountOfBooks(int amount);
 
-    int getAmoutOfBooks ();
+    /*
+    * Query the amount of books
+    * @returns an integer
+    */
+    int getAmoutOfBooks();
 
 }

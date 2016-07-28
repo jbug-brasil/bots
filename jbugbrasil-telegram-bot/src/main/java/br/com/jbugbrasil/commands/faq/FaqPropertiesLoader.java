@@ -40,7 +40,8 @@ public class FaqPropertiesLoader {
     public static void load() throws IOException {
 
         ObjectMapper mapper = new ObjectMapper();
-        List<Project> myObjects = mapper.readValue(input, new TypeReference<List<Project>>() {});
+        List<Project> myObjects = mapper.readValue(input, new TypeReference<List<Project>>() {
+        });
 
         //Put everything in the cache
         for (Project project : myObjects) {

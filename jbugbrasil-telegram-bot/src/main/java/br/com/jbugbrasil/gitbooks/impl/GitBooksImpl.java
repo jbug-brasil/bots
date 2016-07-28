@@ -2,15 +2,12 @@ package br.com.jbugbrasil.gitbooks.impl;
 
 import br.com.jbugbrasil.conf.BotConfig;
 import br.com.jbugbrasil.gitbooks.GitBooks;
-import org.apache.http.Consts;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.params.CoreProtocolPNames;
 
 import java.io.BufferedReader;
 import java.io.IOException;
