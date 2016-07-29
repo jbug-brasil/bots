@@ -1,0 +1,8 @@
+target
+.settings/*
+!.settings/.jsdtscope
+.project
+.classpath
+wflybr_bot.iml
+.idea
+*.iml
