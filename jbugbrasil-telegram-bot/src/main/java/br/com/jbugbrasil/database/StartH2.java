@@ -17,7 +17,7 @@ public class StartH2 {
     public static void startDatabase() {
         try {
             server = Server.createPgServer().start();
-            log.info("Banco de dados iniciado com sucesso;");
+            log.info("Banco de dados iniciado com sucesso.");
         } catch (SQLException e) {
             e.printStackTrace();
         }

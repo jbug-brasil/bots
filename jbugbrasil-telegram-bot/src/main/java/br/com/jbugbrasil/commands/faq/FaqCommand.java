@@ -86,7 +86,7 @@ public class FaqCommand extends BotCommand implements Commands, MessageProcessor
                 result += parameters[i];
             }
         }
-        return result;
+        return result.toLowerCase();
     }
 
     @Override

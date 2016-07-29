@@ -7,7 +7,7 @@ O jbug-brasil-bot é o bot utilizado no canal do telegram **JBug Brasil**, para 
 ### Funções do Bot:
     - karma - Karma operations username++|--
     - ping - o bot irá responder pong ao usuário que requisitou
-    - /getbooks - irá listar todos os livros disponíveis (aqui)[https://www.gitbook.com/@jboss-books]
+    - /getbooks - irá listar todos os livros disponíveis [aqui](https://www.gitbook.com/@jboss-books)
     - /getkarma - Pesquisa os pontos de karma do username desejado, exemplo: /getkarma spolti
     - /help - Menu de ajuda.
     - /faq - Pesquisa algum projeto previamente cadastrado através do arquivo faq-properties.json
@@ -20,13 +20,13 @@ No momento o bot é inciado utilizando o plugin **maven-wildfly-swarm** com o se
 ```sh
 mvn clean wildfly-swarm:run -Dbr.com.jbugbrasil.telegram.token=<TOKEN>
 
-Obs: O token é de uso privado de cada bot, caso deseje utilizar este bot é necessário que registre o mesmo utilizando a BotFather (Bot para registro de bots :D do próprio Telegram) e atualize os seguintes parâmetros no arquivo BotConfig.java:
+Obs: O token é de uso privado de cada bot, caso deseje utilizar este bot é necessário que registre o mesmo utilizando o BotFather (Bot para registro de bots :D do próprio Telegram) e atualize os seguintes parâmetros no arquivo BotConfig.java:
 
     - JBUG_BRASIL_BOT_USER
     - DEFAULT_CHAT_ID (este pode ser obtido através dos logs (level FINE)
 
 ```
-Se ocorrer tudo bem na inicialização do bot a seguintes mensagens irão ser exibidas:
+Se ocorrer tudo bem na inicialização do bot a seguintes mensagens serão exibidas:
 
 ```sh
 2016-07-28 00:40:55.223 INFO    (br.com.jbugbrasil.commands.faq.FaqPropertiesLoader <clinit>) Tentando ler o arquivo /META-INF/faq-properties.json 
@@ -49,11 +49,11 @@ Se ocorrer tudo bem na inicialização do bot a seguintes mensagens irão ser ex
 [main] INFO org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.2.1
 [main] INFO org.quartz.core.QuartzScheduler - Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started.
 2016-07-28 00:40:57.385 INFO    (br.com.jbugbrasil.Main main) Schedulers iniciados com sucesso. 
-2016-07-28 00:40:58.997 INFO    (br.com.jbugbrasil.Main main) UuuuuCarnica_bot iniciado com sucesso. 
+2016-07-28 00:40:58.997 INFO    (br.com.jbugbrasil.Main main) jbugbrasil_bot iniciado com sucesso. 
 ```
 
 ### Bugs?
 Será um prazer receber correções e sugestões para melhoria do bot.
 
 
-OBS: Este bot foi feito exclusivamente para o grupo do telegram **JBug Brasil**, portanto muitas de suas funcionalidades são voltadas somente para ele.
+OBS: Este bot foi feito exclusivamente para o grupo do telegram **JBug Brasil**, portanto muitas de suas funcionalidades são voltadas somente para ele, Mas nada impede que você adicione funcionalidades. :)
