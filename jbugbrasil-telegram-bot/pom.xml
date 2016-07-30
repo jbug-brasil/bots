@@ -204,6 +204,8 @@
                     <mainClass>br.com.jbugbrasil.Main</mainClass>
                     <jvmArguments>
                         <jvmArgument>-Dbr.com.jbugbrasil.telegram.token=${br.com.jbugbrasil.telegram.token}</jvmArgument>
+                        <jvmArgument>-Dbr.com.jbugbrasil.telegram.userId=${br.com.jbugbrasil.telegram.userId}</jvmArgument>
+                        <jvmArgument>-Dbr.com.jbugbrasil.telegram.chatId=${br.com.jbugbrasil.telegram.chatId}</jvmArgument>
                         <jvmArgument>-Djava.util.logging.config.class=br.com.jbugbrasil.utils.LogClassLoader</jvmArgument>
                         <jvmArgument>-Dorg.apache.logging.log4j.simplelog.StatusLogger.level=OFF</jvmArgument>
                         <jvmArgument>-Dfile.encoding=UTF-8</jvmArgument>

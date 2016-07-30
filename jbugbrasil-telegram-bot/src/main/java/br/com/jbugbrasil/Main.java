@@ -25,10 +25,16 @@ public class Main {
     private static final TelegramBotsApi bot = new TelegramBotsApi();
 
     public static void main(String[] args) throws Exception {
-        // token not found, stop here.
-        if (System.getProperty("br.com.jbugbrasil.telegram.token").length() != 45) {
-            throw new IllegalArgumentException("Token não encontrado ou inválido, utilize" +
-                " -Dbr.com.jbugbrasil.telegram.token=<token>");
+        // required parameters not found?, stop here.
+        if (System.getProperty("br.com.jbugbrasil.telegram.token").length() != 45 || !System.getProperty("br.com.jbugbrasil.telegram.userId").endsWith("_bot") ||
+                !System.getProperty("br.com.jbugbrasil.telegram.chatId").startsWith("-")){
+            System.out.println(System.getProperty("br.com.jbugbrasil.telegram.token"));
+            System.out.println(System.getProperty("br.com.jbugbrasil.telegram.userId"));
+            System.out.println(System.getProperty("br.com.jbugbrasil.telegram.chatId"));
+            throw new IllegalArgumentException("Oops, algum parâmetro obrigatório para a inicialização não encontrado, utilize:\n" +
+                " -Dbr.com.jbugbrasil.telegram.token=<token>\n" +
+                " -Dbr.com.jbugbrasil.telegram.userId=<userId>\n" +
+                " -Dbr.com.jbugbrasil.telegram.chatId=<chatId>");
         }
 
         Scheduler scheduler = new StdSchedulerFactory().getScheduler();
