@@ -8,10 +8,8 @@ import br.com.jbugbrasil.emojis.Emoji;
 public interface BotConfig {
 
     String JBUG_BRASIL_BOT_TOKEN = System.getProperty("br.com.jbugbrasil.telegram.token");
-    //    String JBUG_BRASIL_BOT_USER = "jbugbrasil_bot";
-    String DEFAULT_CHAT_ID = "-143169202"; //jbugbrasil_bot chat Id: -136511623
-    // REMOVE THIS BEFORE COMMIT
-    String JBUG_BRASIL_BOT_USER = "UuuuuCarnica_bot";
+    String JBUG_BRASIL_BOT_USER = System.getProperty("br.com.jbugbrasil.telegram.userId");
+    String DEFAULT_CHAT_ID = System.getProperty("br.com.jbugbrasil.telegram.chatId");
 
     //Default Messages
     String WELCOME_MESSAGE = " Olá %s, seja bem vindo(a) ao grupo %s. Aqui você poderá discutir sobre" +
@@ -25,7 +23,7 @@ public interface BotConfig {
     String GIT_BOOKS_URL = "https://www.gitbook.com/@jboss-books";
 
     //Faq cofiguration
-    String PROJECT_NOT_FOUND_MESSAGE = "Ooops, não encontrei nenhum projeto com o home %s. " + Emoji.DISAPPOINTED_FACE;
+    String PROJECT_NOT_FOUND_MESSAGE = "Ooops, não encontrei nenhum projeto com o nome %s. " + Emoji.DISAPPOINTED_FACE;
 
     //Timers interval configuration (in seconds)
     int GIT_BOOKS_CACHE_POPULATOR_INTERVAL = 3600; // 1 hour
