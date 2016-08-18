@@ -51,6 +51,7 @@ public class KarmaProcessor implements MessageProcessor {
             echoMessage.setText(String.valueOf(message));
 
         }
+        echoMessage.enableMarkdown(true);
         return echoMessage;
     }
 
