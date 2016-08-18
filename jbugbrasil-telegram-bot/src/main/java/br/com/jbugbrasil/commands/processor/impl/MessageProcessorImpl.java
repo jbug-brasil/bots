@@ -18,23 +18,24 @@ public class MessageProcessorImpl implements MessageProcessor {
 
     @Override
     public SendMessage process(Update update) {
-
         SendMessage echoMessage = new SendMessage();
 
-        // is a new user? Or maybe someone left the group?
-        echoMessage = userEnterOrLeftGroup(update);
+        if (update.getEditedMessage() == null) {
 
-        if (update.getMessage().getText() != null) {
-            //Yeyyy karma fest
-            echoMessage = karma.process(update);
+            // is a new user? Or maybe someone left the group?
+            echoMessage = userEnterOrLeftGroup(update);
+
+            if (update.getMessage().getText() != null) {
+                //Yeyyy karma fest
+                echoMessage = karma.process(update);
+            }
+
+            if (update.getMessage().getText() != null && update.getMessage().getText().toLowerCase().startsWith(Commands.PING)) {
+                echoMessage = ping.process(update);
+            }
+            return echoMessage;
         }
-
-        if (update.getMessage().getText() != null && update.getMessage().getText().toLowerCase().startsWith(Commands.PING)) {
-            echoMessage = ping.process(update);
-        }
-
         return echoMessage;
-
     }
 
     private SendMessage userEnterOrLeftGroup(Update update) {
