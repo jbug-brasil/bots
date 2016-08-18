@@ -4,6 +4,7 @@ import br.com.jbugbrasil.cache.CacheProviderImpl;
 import br.com.jbugbrasil.conf.BotConfig;
 import br.com.jbugbrasil.database.DatabaseOperations;
 import br.com.jbugbrasil.database.impl.DatabaseProviderImpl;
+import br.com.jbugbrasil.emojis.Emoji;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Update;
 
@@ -41,9 +42,10 @@ public class KarmaProcessor implements MessageProcessor {
                     // Get the karma operator
                     String operator = str[i].substring(str[i].length() - 2);
                     // Get the username to increase/decrease karma points
-                    String username = str[i].substring(0, str[i].length() - 2).toLowerCase();
+                    String target = str[i].substring(0, str[i].length() - 2).toLowerCase();
                     // Process the karma message
-                    message.append(processKarma(operator, username, update.getMessage().getFrom().getFirstName()));
+                    String username = update.getMessage().getFrom().getUserName() != null ? update.getMessage().getFrom().getUserName() : update.getMessage().getFrom().getFirstName().toLowerCase();
+                    message.append(processKarma(operator, target, username));
                 }
             }
             echoMessage.setText(String.valueOf(message));
@@ -52,36 +54,40 @@ public class KarmaProcessor implements MessageProcessor {
         return echoMessage;
     }
 
-    private String processKarma(String operator, String username, String from) {
-
-        //freaking the karma out? stop here.
-        if (cache.getCache().containsKey(from + ":" + username)) {
-            return String.format(BotConfig.KARMA_NOT_ALLOWED_MESSAGE, username);
+    private String processKarma(String operator, String target, String from) {
+        log.fine("username [" + target + "] ---- from[" + from + "]");
+        if (from.equals(target)) {
+            return "Ooops, querendo alterar seu próprio karma? " + Emoji.DIZZY_FACE;
         }
 
-        int atual = db.getKarmaPoints(username);
+        //freaking the karma out? stop here.
+        if (cache.getCache().containsKey(from + ":" + target)) {
+            return String.format(BotConfig.KARMA_NOT_ALLOWED_MESSAGE, target);
+        }
+
+        int atual = db.getKarmaPoints(target);
         if (atual == 0) {
-            log.info(username + " ainda não possui pontos de karma, criando entrada no cache.");
-            cache.getCache().put(username, atual);
+            log.info(target + " ainda não possui pontos de karma, criando entrada no cache.");
+            cache.getCache().put(target, atual);
         } else {
-            cache.getCache().put(username, atual);
+            cache.getCache().put(target, atual);
         }
 
         switch (operator) {
             case "++":
-                cache.getCache().replace(username, increase(atual));
-                cache.getCache().put(from + ":" + username, 0, 30, TimeUnit.SECONDS);
+                cache.getCache().replace(target, increase(atual));
+                cache.getCache().put(from + ":" + target, 0, 30, TimeUnit.SECONDS);
                 break;
             case "--":
-                cache.getCache().replace(username, decrease(atual));
-                cache.getCache().put(from + ":" + username, 0, 30, TimeUnit.SECONDS);
+                cache.getCache().replace(target, decrease(atual));
+                cache.getCache().put(from + ":" + target, 0, 30, TimeUnit.SECONDS);
                 break;
             default:
                 //do nothing
                 break;
         }
 
-        return String.format(BotConfig.KARMA_MESSAGE, username, cache.getCache().get(username));
+        return String.format(BotConfig.KARMA_MESSAGE, target, cache.getCache().get(target));
     }
 
     private int increase(int atual) {

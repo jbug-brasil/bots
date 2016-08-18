@@ -28,9 +28,7 @@ public class Main {
         // required parameters not found?, stop here.
         if (System.getProperty("br.com.jbugbrasil.telegram.token").length() != 45 || !System.getProperty("br.com.jbugbrasil.telegram.userId").endsWith("_bot") ||
                 !System.getProperty("br.com.jbugbrasil.telegram.chatId").startsWith("-")){
-            System.out.println(System.getProperty("br.com.jbugbrasil.telegram.token"));
-            System.out.println(System.getProperty("br.com.jbugbrasil.telegram.userId"));
-            System.out.println(System.getProperty("br.com.jbugbrasil.telegram.chatId"));
+
             throw new IllegalArgumentException("Oops, algum parâmetro obrigatório para a inicialização não encontrado, utilize:\n" +
                 " -Dbr.com.jbugbrasil.telegram.token=<token>\n" +
                 " -Dbr.com.jbugbrasil.telegram.userId=<userId>\n" +
@@ -47,7 +45,6 @@ public class Main {
 
         log.info("Schedulers iniciados com sucesso.");
         scheduler.start();
-        //////////////////////////////////
 
         //start the bot itself
         try {
