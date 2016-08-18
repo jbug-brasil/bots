@@ -15,9 +15,9 @@ public interface BotConfig {
     String WELCOME_MESSAGE = " Olá %s, seja bem vindo(a) ao grupo %s. Aqui você poderá discutir sobre" +
             " os projetos opensource da família JBoss e também outros projetos open source. Para conhecer o bot, /help. " + Emoji.SMILING_FACE_WITH_OPEN_MOUTH;
     String GOODBYE_MESSAGE = "Tínhamos um traidor entre nós, %s nos deixou. " + Emoji.ANGRY_FACE;
-    String KARMA_MESSAGE = "%s tem %d pontos de karma\n";
+    String KARMA_MESSAGE = "*%s* tem `%d` pontos de karma\n";
     String KARMA_NOT_ALLOWED_MESSAGE = " Ooooops, seja paciente, você já alterou o karma do username %s, aguarde 30 segundos. " + Emoji.CONFOUNDED_FACE;
-    String GET_KARMA_RESPONSE = "%s possui %s ponto(s) de karma " + Emoji.THUMBS_UP_SIGN;
+    String GET_KARMA_RESPONSE = "*%s* possui `%s` ponto(s) de karma " + Emoji.THUMBS_UP_SIGN;
 
     //GitBooks configuration
     String GIT_BOOKS_URL = "https://www.gitbook.com/@jboss-books";
