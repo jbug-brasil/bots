@@ -38,16 +38,20 @@ public class MessageProcessorImpl implements MessageProcessor {
     }
 
     private SendMessage userEnterOrLeftGroup(Update update) {
+
         SendMessage echoMessage = new SendMessage();
         //Welcome dude
-        if (update.getMessage().getNewChatMember() != null) {
-            echoMessage.setChatId(update.getMessage().getChatId().toString());
-            echoMessage.setText(String.format(BotConfig.WELCOME_MESSAGE, update.getMessage().getNewChatMember().getFirstName(), "JBug Brasil"));
-
-        } else //Oh boy, someone left us
-            if (update.getMessage().getLeftChatMember() != null) {
+        if (null != update.getMessage().getNewChatMember()) {
+            if  (!update.getMessage().getNewChatMember().getUserName().equals(BotConfig.JBUG_BRASIL_BOT_USER)) {
                 echoMessage.setChatId(update.getMessage().getChatId().toString());
-                echoMessage.setText(String.format(BotConfig.GOODBYE_MESSAGE, update.getMessage().getLeftChatMember().getFirstName()));
+                echoMessage.setText(String.format(BotConfig.WELCOME_MESSAGE, update.getMessage().getNewChatMember().getFirstName(), "JBug Brasil"));
+            }
+        } else //Oh boy, someone left us
+            if (null != update.getMessage().getLeftChatMember()) {
+                if  (!update.getMessage().getLeftChatMember().getUserName().equals(BotConfig.JBUG_BRASIL_BOT_USER)) {
+                    echoMessage.setChatId(update.getMessage().getChatId().toString());
+                    echoMessage.setText(String.format(BotConfig.GOODBYE_MESSAGE, update.getMessage().getLeftChatMember().getFirstName()));
+                }
             }
         return echoMessage;
     }
