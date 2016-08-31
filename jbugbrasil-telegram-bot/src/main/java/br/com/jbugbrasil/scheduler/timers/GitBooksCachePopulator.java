@@ -25,10 +25,8 @@ public class GitBooksCachePopulator implements Job {
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-
         //get the amount of books, update the cache and the database
         putAmountOfBooks("amount", gitbooks.verifyNewBook());
-
     }
 
     /*

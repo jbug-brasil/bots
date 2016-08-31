@@ -1,6 +1,6 @@
 package br.com.jbugbrasil.scheduler;
 
-import br.com.jbugbrasil.BotException;
+import br.com.jbugbrasil.exceptions.BotException;
 import br.com.jbugbrasil.Component;
 import br.com.jbugbrasil.conf.BotConfig;
 import br.com.jbugbrasil.scheduler.impl.DefaultTimer;
@@ -33,5 +33,4 @@ public class GitBooksSchedulerComponent implements Component {
       throw new BotException(e.getMessage(), e);
     }
   }
-
 }
