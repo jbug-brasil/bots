@@ -105,7 +105,7 @@
     "description": "JBoss CapeDwarf is an implementation of the Google App Engine API, which allows applications to be deployed on JBoss Application Servers without modification."
   },
   {
-    "id": "richraces",
+    "id": "richfaces",
     "link": "https://jboss.org/richfaces/docs",
     "description": "An advanced UI component framework for easily integrating Ajax capabilities into business applications using JSF."
   },

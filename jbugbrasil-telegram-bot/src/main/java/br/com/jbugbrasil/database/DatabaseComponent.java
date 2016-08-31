@@ -1,6 +1,6 @@
 package br.com.jbugbrasil.database;
 
-import br.com.jbugbrasil.BotException;
+import br.com.jbugbrasil.exceptions.BotException;
 import br.com.jbugbrasil.Component;
 import org.h2.tools.Server;
 
@@ -16,5 +16,4 @@ public class DatabaseComponent implements Component {
       throw new BotException(e.getMessage(), e);
     }
   }
-
 }

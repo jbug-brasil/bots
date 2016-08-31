@@ -22,7 +22,6 @@ public class VerifyNewBooks implements Job {
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-
         if (gitbooks.verifyNewBook() > db.getAmoutOfBooks()) {
             echoMessage.setChatId(BotConfig.DEFAULT_CHAT_ID);
             echoMessage.enableMarkdown(true);
