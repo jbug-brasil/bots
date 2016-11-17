@@ -25,7 +25,12 @@
     "description": "A business logic integration platform which provides a unified and integrated platform for rules, workflow and event processing"
   },
   {
-    "id": "wildflyswarn",
+    "id": "wildflyswarm",
+    "link": "http://wildfly-swarm.io/",
+    "description": "Swarm offers an innovative approach to packaging and running JavaEE applications by packaging them with just enough of the server runtime to java -jar your application. However, it's all much, much cooler than that"
+  },
+  {
+    "id": "wildfly-swarm",
     "link": "http://wildfly-swarm.io/",
     "description": "Swarm offers an innovative approach to packaging and running JavaEE applications by packaging them with just enough of the server runtime to java -jar your application. However, it's all much, much cooler than that"
   },
