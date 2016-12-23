@@ -213,10 +213,14 @@
                 <configuration>
                     <mainClass>br.com.jbugbrasil.Main</mainClass>
                     <jvmArguments>
-                        <jvmArgument>-Dbr.com.jbugbrasil.telegram.token=${br.com.jbugbrasil.telegram.token}</jvmArgument>
-                        <jvmArgument>-Dbr.com.jbugbrasil.telegram.userId=${br.com.jbugbrasil.telegram.userId}</jvmArgument>
-                        <jvmArgument>-Dbr.com.jbugbrasil.telegram.chatId=${br.com.jbugbrasil.telegram.chatId}</jvmArgument>
-                        <jvmArgument>-Dbr.com.jbugbrasil.gitbooks.token=${br.com.jbugbrasil.gitbooks.token}</jvmArgument>
+                        <jvmArgument>-Dbr.com.jbugbrasil.telegram.token=${br.com.jbugbrasil.telegram.token}
+                        </jvmArgument>
+                        <jvmArgument>-Dbr.com.jbugbrasil.telegram.userId=${br.com.jbugbrasil.telegram.userId}
+                        </jvmArgument>
+                        <jvmArgument>-Dbr.com.jbugbrasil.telegram.chatId=${br.com.jbugbrasil.telegram.chatId}
+                        </jvmArgument>
+                        <jvmArgument>-Dbr.com.jbugbrasil.gitbooks.token=${br.com.jbugbrasil.gitbooks.token}
+                        </jvmArgument>
                         <jvmArgument>-Dfile.encoding=UTF-8</jvmArgument>
                     </jvmArguments>
                 </configuration>

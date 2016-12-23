@@ -1,6 +1,7 @@
 package br.com.jbugbrasil.cache;
 
 import br.com.jbugbrasil.cache.listeners.KarmaEventListener;
+import br.com.jbugbrasil.commands.faq.Project;
 import org.infinispan.Cache;
 import org.infinispan.configuration.cache.ConfigurationBuilder;
 import org.infinispan.configuration.cache.Index;
@@ -14,13 +15,18 @@ public class CacheProviderImpl {
 
     private static CacheProviderImpl uniqueInstance;
     //Allow indexing and queries
-    private EmbeddedCacheManager manager = new DefaultCacheManager(new ConfigurationBuilder().indexing().index(Index.ALL)
+    private EmbeddedCacheManager manager = new DefaultCacheManager(new ConfigurationBuilder()
+            .indexing()
+                .autoConfig(true)
+                .addIndexedEntity(Project.class)
+                .index(Index.ALL)
             .addProperty("default.directory_provider", "ram")
-            .addProperty("lucene_version", "LUCENE_CURRENT").build());
+            .build());
     private Cache<Object, Integer> cache;
 
     public CacheProviderImpl() {
     }
+
 
     public static synchronized CacheProviderImpl getInstance() {
         if (uniqueInstance == null)
