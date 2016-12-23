@@ -34,7 +34,9 @@ public class GetBooksCommand extends BotCommand implements Commands {
         StringBuilder response = new StringBuilder();
         try {
             List<Books> books = gitbooks.getBooks();
-            books.stream().forEach(b -> response.append("`" + b.getTitle() + "` - [ler](" + b.getUrls().getRead() + ")/[Download](" + b.getUrls().getDownload().getPdf() + ")\n" ));
+            books.stream()
+                    .filter(book -> book.isPublic())
+                    .forEach(b -> response.append("`" + b.getTitle() + "` - [ler](" + b.getUrls().getRead() + ")/[Download](" + b.getUrls().getDownload().getPdf() + ")\n" ));
             getBooksCommandResponse.setChatId(chat.getId().toString());
             getBooksCommandResponse.enableMarkdown(true);
             getBooksCommandResponse.setText(response.toString());
