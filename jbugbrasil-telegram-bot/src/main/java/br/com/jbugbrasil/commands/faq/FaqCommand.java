@@ -5,9 +5,6 @@ import br.com.jbugbrasil.commands.Commands;
 import br.com.jbugbrasil.commands.processor.MessageProcessor;
 import br.com.jbugbrasil.conf.BotConfig;
 import br.com.jbugbrasil.utils.message.impl.MessageSender;
-import org.infinispan.query.Search;
-import org.infinispan.query.dsl.Query;
-import org.infinispan.query.dsl.QueryFactory;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Chat;
 import org.telegram.telegrambots.api.objects.Update;
@@ -17,11 +14,15 @@ import org.telegram.telegrambots.bots.commands.BotCommand;
 import org.telegram.telegrambots.bots.commands.ICommandRegistry;
 
 import java.util.List;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /**
  * @author <a href="mailto:spoltin@hrstatus.com.br">Filippe Spolti</a>
  */
 public class FaqCommand extends BotCommand implements Commands, MessageProcessor {
+
+    private static final Logger log = Logger.getLogger(FaqPropertiesLoader.class.getName());
 
     private static final CacheProviderImpl cache = CacheProviderImpl.getInstance();
     private final ICommandRegistry commandRegistry;
@@ -51,24 +52,21 @@ public class FaqCommand extends BotCommand implements Commands, MessageProcessor
 
         StringBuilder stbuilder = new StringBuilder();
 
-        // get the query factory for the cache
-        QueryFactory qf = Search.getQueryFactory(cache.getCache());
+        // get all Project type itens from cache
+        List<Project> cacheEntries = (List<Project>) cache.getCache().values().stream()
+                .filter(item -> item instanceof Project)
+                .collect(Collectors.toList());
 
-        // Build the query
-        Query q = qf.from(Project.class).having("id").like("%" + key + "%").toBuilder().build();
-        // Perform the query
-        List<Project> result = q.list();
-
-        if (q.getResultSize() == 0) {
-            return String.format(BotConfig.PROJECT_NOT_FOUND_MESSAGE, key);
-        }
-
-        for (Project project : result) {
+        // Filter all elements that matches the given key and append it to the response
+        for (Project project : cacheEntries.stream().filter(item -> item.getId().contains(key)).collect(Collectors.toList())) {
             stbuilder.append(project.toString());
             stbuilder.append(" - ");
             stbuilder.append(project.getDescription() + "\n");
         }
 
+        if (stbuilder.length() <= 0) {
+            stbuilder.append(String.format(BotConfig.PROJECT_NOT_FOUND_MESSAGE, key));
+        }
         return stbuilder.toString();
     }
 

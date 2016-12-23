@@ -1,13 +1,10 @@
 package br.com.jbugbrasil.commands.faq;
 
 import br.com.jbugbrasil.Component;
-import br.com.jbugbrasil.Main;
 import br.com.jbugbrasil.cache.CacheProviderImpl;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.InputStream;
-import java.net.URI;
 import java.net.URL;
 import java.util.List;
 import java.util.logging.Logger;
@@ -23,7 +20,6 @@ public class FaqPropertiesLoader implements Component {
     private static final String FAQ_PROPERTIES = "https://raw.githubusercontent.com/jbug-brasil/bots/master/jbugbrasil-telegram-bot/src/main/resources/META-INF/faq-properties.json";
 
     private CacheProviderImpl cache = CacheProviderImpl.getInstance();
-    private InputStream input = null;
 
     //Read the projects from json file then send it to the cache.
     @Override
@@ -40,6 +36,7 @@ public class FaqPropertiesLoader implements Component {
             for (Project project : myObjects) {
                 cache.getCache().put(project.getId(), project);
             }
+
             log.info("Cache populado com sucesso.");
             myObjects.clear();
         } catch (Exception e) {
