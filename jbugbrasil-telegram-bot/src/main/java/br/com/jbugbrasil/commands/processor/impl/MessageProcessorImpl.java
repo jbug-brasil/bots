@@ -30,7 +30,7 @@ public class MessageProcessorImpl implements MessageProcessor {
                 echoMessage = karma.process(update);
             }
 
-            if (update.getMessage().getText() != null && update.getMessage().getText().toLowerCase().startsWith(Commands.PING)) {
+            if (update.getMessage().getText() != null && update.getMessage().getText().toLowerCase().equals(Commands.PING)) {
                 echoMessage = ping.process(update);
             }
             return echoMessage;
