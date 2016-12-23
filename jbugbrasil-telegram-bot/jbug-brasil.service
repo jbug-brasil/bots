@@ -5,12 +5,14 @@ After=network.target
 [Service]
 User=spolti
 Restart=always
-Type=forking
+Type=simple
 TimeoutStartSec=120
 PIDFile=/opt/bot/jbug-brasil.pid
 EnvironmentFile=-/opt/bot/jbug-brasil.conf
 WorkingDirectory=/opt/bot
-ExecStart=java -jar -Dbr.com.jbugbrasil.telegram.token=${BOT_TOKEN} -Dbr.com.jbugbrasil.telegram.userId=${BOT_USER_ID} -Dbr.com.jbugbrasil.telegram.chatId=${BOT_CHAT_ID} -Dbr.com.jbugbrasil.gitbooks.token=${GITBOOKS_TOKEN} telegram.bot-2.0.Final-swarm.jar
+ExecStart=/opt/bot/jbug-brasil.sh start
+ExecStop=/opt/bot/jbug-brasil.sh stop
+ExecReload=/opt/bot/jbug-brasil.sh restart
 
 [Install]
 WantedBy=multi-user.target
