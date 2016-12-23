@@ -1,6 +1,6 @@
 # JBug Brasil Telegram bot
 
-O jbug-brasil-bot é o bot utilizado no canal do telegram **JBug Brasil**, para entrar no grupo utilize este link: https://telegram.me/joinchat/ANoKTQgjAIfdwk2mNCirew
+O jbug-brasil-bot é o bot utilizado no canal do telegram **JBug Brasil**, para entrar no grupo utilize este link: http://telegram.me/jbug_brasil
 
 ##### Para conbtribuir realize fork do projeto e envie suas alterações. :)
 
@@ -18,12 +18,14 @@ O jbug-brasil-bot é o bot utilizado no canal do telegram **JBug Brasil**, para 
 No momento o bot é inciado utilizando o plugin **maven-wildfly-swarm** com o seguinte comando:
 
 ```sh
-mvn clean wildfly-swarm:run -Dbr.com.jbugbrasil.telegram.token=<TOKEN>
+mvn clean wildfly-swarm:run -Dbr.com.jbugbrasil.telegram.token=<TOKEN> -Dbr.com.jbugbrasil.telegram.userId=<JBUG_BRASIL_BOT_USER> -Dbr.com.jbugbrasil.telegram.chatId=<DEFAULT_CHAT_ID> -Dbr.com.jbugbrasil.gitbooks.token=<GIT_BOOKS_TOKEN>
 
 Obs: O token é de uso privado de cada bot, caso deseje utilizar este bot é necessário que registre o mesmo utilizando o BotFather (Bot para registro de bots :D do próprio Telegram) e atualize os seguintes parâmetros no arquivo BotConfig.java:
 
     - JBUG_BRASIL_BOT_USER
     - DEFAULT_CHAT_ID (este pode ser obtido através dos logs (level FINE)
+    - TOKEN: bot token, obtido através do BotFather to telegram na administração dos seus bots.
+    - GIT_BOOKS_TOKEN: Necessário para utilizar a API REST do Gitbooks.
 
 ```
 Se ocorrer tudo bem na inicialização do bot a seguintes mensagens serão exibidas:
