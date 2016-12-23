@@ -6,8 +6,9 @@ import br.com.jbugbrasil.cache.CacheProviderImpl;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URL;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -18,7 +19,8 @@ public class FaqPropertiesLoader implements Component {
 
     private static final Logger log = Logger.getLogger(FaqPropertiesLoader.class.getName());
 
-    private static final String FILE_LOCATION = "/META-INF/faq-properties.json";
+    private static final String FILE_NAME = "faq-properties.json";
+    private static final String FAQ_PROPERTIES = "https://raw.githubusercontent.com/jbug-brasil/bots/master/jbugbrasil-telegram-bot/src/main/resources/META-INF/faq-properties.json";
 
     private CacheProviderImpl cache = CacheProviderImpl.getInstance();
     private InputStream input = null;
@@ -27,11 +29,11 @@ public class FaqPropertiesLoader implements Component {
     @Override
     public void initialize() {
         try {
-            log.info("Tentando ler o arquivo " + FILE_LOCATION);
-            input = Main.class.getClass().getResourceAsStream(FILE_LOCATION);
+            log.info("Tentando ler o arquivo " + FILE_NAME + " do github");
+            URL jsonUrl = new URL(FAQ_PROPERTIES);
 
             ObjectMapper mapper = new ObjectMapper();
-            List<Project> myObjects = mapper.readValue(input, new TypeReference<List<Project>>() {
+            List<Project> myObjects = mapper.readValue(jsonUrl, new TypeReference<List<Project>>() {
             });
 
             //Put everything in the cache
