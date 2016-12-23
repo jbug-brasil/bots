@@ -21,6 +21,7 @@
         <infinispan.version>8.2.3.Final</infinispan.version>
         <h2.version>1.4.192</h2.version>
         <quartz.scheduler.version>2.2.1</quartz.scheduler.version>
+        <version.maven.jar.plugin>3.0.2</version.maven.jar.plugin>
     </properties>
 
     <dependencyManagement>
@@ -213,13 +214,9 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <id>package</id>
-                    </execution>
-                    <execution>
-                        <id>start</id>
-                    </execution>
-                    <execution>
-                        <id>stop</id>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
