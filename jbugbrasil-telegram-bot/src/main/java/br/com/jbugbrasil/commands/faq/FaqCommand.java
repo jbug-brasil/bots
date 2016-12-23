@@ -52,7 +52,7 @@ public class FaqCommand extends BotCommand implements Commands, MessageProcessor
         StringBuilder stbuilder = new StringBuilder();
 
         // get the query factory for the cache
-        QueryFactory<?> qf = Search.getQueryFactory(cache.getCache());
+        QueryFactory qf = Search.getQueryFactory(cache.getCache());
 
         // Build the query
         Query q = qf.from(Project.class).having("id").like("%" + key + "%").toBuilder().build();

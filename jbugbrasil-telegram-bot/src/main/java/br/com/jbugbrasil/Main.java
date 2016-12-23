@@ -27,6 +27,7 @@ public class Main {
     private static final TelegramBotsApi bot = new TelegramBotsApi();
 
     public static void main(String[] args) throws Exception {
+
         // required parameters not found?, stop here.
         if (System.getProperty("br.com.jbugbrasil.telegram.token").length() != 45 || !System.getProperty("br.com.jbugbrasil.telegram.userId").endsWith("_bot") ||
                 !System.getProperty("br.com.jbugbrasil.telegram.chatId").startsWith("-") || System.getProperty("br.com.jbugbrasil.gitbooks.token").length() != 64) {
