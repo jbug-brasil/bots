@@ -21,12 +21,12 @@
 case $1 in
 "start")
   echo "Starting jbug-brasil bot."
-  $JAVA_HOME/bin/java -jar -Dbr.com.jbugbrasil.telegram.token=${BOT_TOKEN} -Dbr.com.jbugbrasil.telegram.userId=${BOT_USER_ID} -Dbr.com.jbugbrasil.telegram.chatId=${BOT_CHAT_ID} -Dbr.com.jbugbrasil.gitbooks.token=${GITBOOKS_TOKEN} telegram.bot-2.0.Final-swarm.jar &
+  $JAVA_HOME/bin/java -jar -Dbr.com.jbugbrasil.telegram.token=${BOT_TOKEN} -Dbr.com.jbugbrasil.telegram.userId=${BOT_USER_ID} -Dbr.com.jbugbrasil.telegram.chatId=${BOT_CHAT_ID} -Dbr.com.jbugbrasil.gitbooks.token=${GITBOOKS_TOKEN} telegram.bot-3.0.Final-swarm.jar &
   echo $! > /opt/bot/jbug-brasil.pid
   ;;
 "restart")
   echo "Restarting jbug-brasil bot."
-  $JAVA_HOME/bin/java -jar -Dbr.com.jbugbrasil.telegram.token=${BOT_TOKEN} -Dbr.com.jbugbrasil.telegram.userId=${BOT_USER_ID} -Dbr.com.jbugbrasil.telegram.chatId=${BOT_CHAT_ID} -Dbr.com.jbugbrasil.gitbooks.token=${GITBOOKS_TOKEN} telegram.bot-2.0.Final-swarm.jar &
+  $JAVA_HOME/bin/java -jar -Dbr.com.jbugbrasil.telegram.token=${BOT_TOKEN} -Dbr.com.jbugbrasil.telegram.userId=${BOT_USER_ID} -Dbr.com.jbugbrasil.telegram.chatId=${BOT_CHAT_ID} -Dbr.com.jbugbrasil.gitbooks.token=${GITBOOKS_TOKEN} telegram.bot-3.0.Final-swarm.jar &
   echo $1 >  /opt/bot/jbug-brasil.pid
   ;;
 "stop")
