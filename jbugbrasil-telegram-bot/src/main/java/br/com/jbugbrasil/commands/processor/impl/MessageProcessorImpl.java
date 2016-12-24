@@ -43,13 +43,13 @@ public class MessageProcessorImpl implements MessageProcessor {
         SendMessage echoMessage = new SendMessage();
         //Welcome dude
         if (null != update.getMessage().getNewChatMember()) {
-            if  (!update.getMessage().getNewChatMember().getUserName().equals(BotConfig.JBUG_BRASIL_BOT_USER)) {
+            if  (!update.getMessage().getNewChatMember().getFirstName().equals(BotConfig.JBUG_BRASIL_BOT_USER)) {
                 echoMessage.setChatId(update.getMessage().getChatId().toString());
                 echoMessage.setText(String.format(BotConfig.WELCOME_MESSAGE, update.getMessage().getNewChatMember().getFirstName(), "JBug Brasil"));
             }
         } else //Oh boy, someone left us
             if (null != update.getMessage().getLeftChatMember()) {
-                if  (!update.getMessage().getLeftChatMember().getUserName().equals(BotConfig.JBUG_BRASIL_BOT_USER)) {
+                if  (!update.getMessage().getLeftChatMember().getFirstName().equals(BotConfig.JBUG_BRASIL_BOT_USER)) {
                     echoMessage.setChatId(update.getMessage().getChatId().toString());
                     echoMessage.setText(String.format(BotConfig.GOODBYE_MESSAGE, update.getMessage().getLeftChatMember().getFirstName()));
                 }
