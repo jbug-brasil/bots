@@ -7,10 +7,14 @@ import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 
+import java.util.logging.Logger;
+
 /**
  * @author <a href="mailto:spoltin@hrstatus.com.br">Filippe Spolti</a>
  */
 public class MessageSender extends TelegramLongPollingBot implements Message {
+
+    private final Logger log = Logger.getLogger(MessageSender.class.getName());
 
     private SendMessage message;
 
@@ -27,7 +31,7 @@ public class MessageSender extends TelegramLongPollingBot implements Message {
         try {
             sendMessage(message);
         } catch (TelegramApiException e) {
-            e.printStackTrace();
+            log.severe("Falha ao enviar mensagem: " + e.getCause());
         }
     }
 

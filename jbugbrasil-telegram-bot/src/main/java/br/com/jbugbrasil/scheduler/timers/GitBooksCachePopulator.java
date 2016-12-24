@@ -19,7 +19,6 @@ public class GitBooksCachePopulator implements Job {
 
     private final GitBooks gitbooks = new GitBooksImpl();
     private final CacheProviderImpl cache = CacheProviderImpl.getInstance();
-    private final SendMessage echoMessage = new SendMessage();
     private Logger log = Logger.getLogger(GitBooksCachePopulator.class.getName());
     private DatabaseOperations db = new DatabaseProviderImpl();
 
