@@ -51,11 +51,6 @@ public class GitBooksImpl implements GitBooks, Component {
         return jsonResponse.getTotal();
     }
 
-    @Override
-    public String verifyUpdates() {
-        return null;
-    }
-
     /*
     * Perform a request againts jboss-books main rest api and put the JSONObject in the cache
     */

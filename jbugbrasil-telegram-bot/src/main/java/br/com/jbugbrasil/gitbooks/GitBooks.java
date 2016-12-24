@@ -21,11 +21,6 @@ public interface GitBooks {
     int verifyNewBook();
 
     /*
-    * To be implemented
-    */
-    String verifyUpdates();
-
-    /*
     * Perform a request againts jboss-books main rest api and put the JSON in the cache
     */
     void initialize() throws IOException;

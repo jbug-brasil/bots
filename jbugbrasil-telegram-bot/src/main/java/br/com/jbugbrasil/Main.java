@@ -41,10 +41,11 @@ public class Main {
 
         Scheduler scheduler = new StdSchedulerFactory().getScheduler();
         List<Component> components = new ArrayList<>();
-        components.add(new DatabaseComponent());
+
         components.add(new FaqPropertiesLoader());
         components.add(new GitBooksImpl());
         components.add(new GitBooksSchedulerComponent(scheduler));
+        components.add(new DatabaseComponent());
 
         components.forEach(Component::initialize);
 

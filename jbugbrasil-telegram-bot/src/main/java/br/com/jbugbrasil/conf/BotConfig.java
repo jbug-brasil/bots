@@ -30,5 +30,6 @@ public interface BotConfig {
     //Timers interval configuration (in seconds)
     int GIT_BOOKS_CACHE_POPULATOR_INTERVAL = 3600; // 1 hour
     int GIT_BOOKS_VERIFY_NEW_BOOK_INTERVAL = 3600; // 1 hour
+    int GIT_BOOKS_VERIFY_BOOK_UPDATE_INTERVAL = 1800; // 1/2 hour
 
 }
