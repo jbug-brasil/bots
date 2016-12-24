@@ -5,7 +5,6 @@ import br.com.jbugbrasil.cache.CacheProviderImpl;
 import br.com.jbugbrasil.conf.BotConfig;
 import br.com.jbugbrasil.gitbooks.GitBooks;
 import br.com.jbugbrasil.gitbooks.pojo.Books;
-import br.com.jbugbrasil.gitbooks.pojo.Counts;
 import br.com.jbugbrasil.gitbooks.pojo.JSONResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpEntity;
@@ -20,14 +19,9 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 /**
  * @author <a href="mailto:spoltin@hrstatus.com.br">Filippe Spolti</a>
