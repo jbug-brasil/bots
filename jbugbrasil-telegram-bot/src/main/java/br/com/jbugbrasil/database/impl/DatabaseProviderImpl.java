@@ -115,6 +115,25 @@ public class DatabaseProviderImpl implements DatabaseOperations {
         }
     }
 
+    @Override
+    public void createTableBookUpdate() {
+        try {
+            DatabaseMetaData md = getConnection().getMetaData();
+            ResultSet table = md.getTables(null, null, "BOOKUPDATES", null);
+
+            if (table.next()) {
+                // do nothing
+            } else {
+                Statement stmt = getConnection().createStatement();
+                stmt.executeUpdate("CREATE TABLE BOOKUPDATES ( bookName varchar(50), updates int )");
+                stmt.close();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Override
     public void setAmountOfBooks(int amount) {
@@ -140,6 +159,28 @@ public class DatabaseProviderImpl implements DatabaseOperations {
     }
 
     @Override
+    public void setBookUpdate(String bookName, int updates) {
+        createTableBookUpdate();
+
+        try {
+
+            Statement stmt = getConnection().createStatement();
+
+            //update or create the karma reference in the database
+            ResultSet select = stmt.executeQuery("SELECT bookName FROM BOOKUPDATES where bookName='" + bookName + "'");
+            if (select.next()) {
+                stmt.executeUpdate("UPDATE BOOKUPDATES SET updates=" + updates + " where bookName='" + bookName + "'");
+            } else {
+                stmt.executeUpdate("INSERT INTO BOOKUPDATES ( bookName, updates ) VALUES ('" + bookName + "'," + updates + ")");
+            }
+            stmt.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public int getAmoutOfBooks() {
         int amount = 0;
         try {
@@ -154,5 +195,22 @@ public class DatabaseProviderImpl implements DatabaseOperations {
             e.printStackTrace();
         }
         return amount;
+    }
+
+    @Override
+    public int getBookUpdates(String bookName) {
+        int updates = 0;
+        try {
+            Statement stmt = getConnection().createStatement();
+            ResultSet select = stmt.executeQuery("SELECT updates FROM BOOKUPDATES where bookName='" + bookName + "'");
+
+            while (select.next()) {
+                updates = select.getInt("updates");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return updates;
     }
 }

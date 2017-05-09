@@ -6,3 +6,4 @@ target
 wflybr_bot.iml
 .idea
 *.iml
+*.log

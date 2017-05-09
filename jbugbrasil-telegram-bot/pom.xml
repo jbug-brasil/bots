@@ -6,7 +6,7 @@
     <packaging>jar</packaging>
     <groupId>br.com.jbugbrasil</groupId>
     <artifactId>telegram.bot</artifactId>
-    <version>2.0.SNAPSHOT</version>
+    <version>3.1.SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -16,11 +16,13 @@
         <httpcompontents.version>4.5.2</httpcompontents.version>
         <jackson.version>2.7.5</jackson.version>
         <json.version>20160212</json.version>
-        <version.wildfly.swarm>1.0.0.Final</version.wildfly.swarm>
+        <version.wildfly.swarm>2016.12.1</version.wildfly.swarm>
         <version.surefire.plugin>2.19.1</version.surefire.plugin>
-        <infinispan.version>8.2.3.Final</infinispan.version>
+        <infinispan.version>9.0.0.Beta1</infinispan.version>
         <h2.version>1.4.192</h2.version>
         <quartz.scheduler.version>2.2.1</quartz.scheduler.version>
+        <version.maven.jar.plugin>3.0.2</version.maven.jar.plugin>
+        <version.org.apache.logging.log4j>2.7</version.org.apache.logging.log4j>
     </properties>
 
     <dependencyManagement>
@@ -82,7 +84,6 @@
                 <version>${infinispan.version}</version>
             </dependency>
 
-
             <!-- H2 -->
             <dependency>
                 <groupId>com.h2database</groupId>
@@ -100,6 +101,12 @@
                 <groupId>org.quartz-scheduler</groupId>
                 <artifactId>quartz-jobs</artifactId>
                 <version>${quartz.scheduler.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-1.2-api</artifactId>
+                <version>${version.org.apache.logging.log4j}</version>
             </dependency>
 
         </dependencies>
@@ -148,6 +155,10 @@
             <groupId>org.wildfly.swarm</groupId>
             <artifactId>undertow</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.wildfly.swarm</groupId>
+            <artifactId>logging</artifactId>
+        </dependency>
 
         <!-- infinispam -->
         <dependency>
@@ -176,10 +187,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.7.2</version>
-            <scope>runtime</scope>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-1.2-api</artifactId>
+            <version>2.7</version>
         </dependency>
 
     </dependencies>
@@ -203,21 +213,22 @@
                 <configuration>
                     <mainClass>br.com.jbugbrasil.Main</mainClass>
                     <jvmArguments>
-                        <jvmArgument>-Dbr.com.jbugbrasil.telegram.token=${br.com.jbugbrasil.telegram.token}</jvmArgument>
-                        <jvmArgument>-Djava.util.logging.config.class=br.com.jbugbrasil.utils.LogClassLoader</jvmArgument>
-                        <jvmArgument>-Dorg.apache.logging.log4j.simplelog.StatusLogger.level=OFF</jvmArgument>
+                        <jvmArgument>-Dbr.com.jbugbrasil.telegram.token=${br.com.jbugbrasil.telegram.token}
+                        </jvmArgument>
+                        <jvmArgument>-Dbr.com.jbugbrasil.telegram.userId=${br.com.jbugbrasil.telegram.userId}
+                        </jvmArgument>
+                        <jvmArgument>-Dbr.com.jbugbrasil.telegram.chatId=${br.com.jbugbrasil.telegram.chatId}
+                        </jvmArgument>
+                        <jvmArgument>-Dbr.com.jbugbrasil.gitbooks.token=${br.com.jbugbrasil.gitbooks.token}
+                        </jvmArgument>
                         <jvmArgument>-Dfile.encoding=UTF-8</jvmArgument>
                     </jvmArguments>
                 </configuration>
                 <executions>
                     <execution>
-                        <id>package</id>
-                    </execution>
-                    <execution>
-                        <id>start</id>
-                    </execution>
-                    <execution>
-                        <id>stop</id>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>

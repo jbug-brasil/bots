@@ -6,8 +6,8 @@ package br.com.jbugbrasil.commands;
 public interface Commands {
 
     String HELP = "help";
-    String GET_BOOKS = "getbooks";
-    String GET_KARMA = "getkarma";
+    String GET_BOOKS = "books";
+    String GET_KARMA = "karma";
     String UPTIME = "uptime";
     String FAQ = "faq";
 

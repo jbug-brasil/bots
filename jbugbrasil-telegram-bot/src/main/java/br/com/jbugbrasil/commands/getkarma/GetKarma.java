@@ -25,7 +25,7 @@ public class GetKarma extends BotCommand implements Commands {
     private final DatabaseOperations db = new DatabaseProviderImpl();
 
     public GetKarma(ICommandRegistry commandRegistry) {
-        super(Commands.GET_KARMA, "Pesquisa o karma do usuário desejado, Ex: /getkarma spolti");
+        super(Commands.GET_KARMA, "Pesquisa o karma do usuário desejado, Ex: /karma spolti");
         this.commandRegistry = commandRegistry;
     }
 

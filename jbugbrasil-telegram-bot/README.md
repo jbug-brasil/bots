@@ -1,13 +1,13 @@
 # JBug Brasil Telegram bot
 
-O jbug-brasil-bot é o bot utilizado no canal do telegram **JBug Brasil**, para entrar no grupo utilize este link: https://telegram.me/joinchat/ANoKTQgjAIfdwk2mNCirew
+O jbug-brasil-bot é o bot utilizado no canal do telegram **JBug Brasil**, para entrar no grupo utilize este link: http://telegram.me/jbug_brasil
 
 ##### Para conbtribuir realize fork do projeto e envie suas alterações. :)
 
 ### Funções do Bot:
     - karma - Karma operations username++|--
     - ping - o bot irá responder pong ao usuário que requisitou
-    - /getbooks - irá listar todos os livros disponíveis (aqui)[https://www.gitbook.com/@jboss-books]
+    - /getbooks - irá listar todos os livros disponíveis [aqui](https://www.gitbook.com/@jboss-books)
     - /getkarma - Pesquisa os pontos de karma do username desejado, exemplo: /getkarma spolti
     - /help - Menu de ajuda.
     - /faq - Pesquisa algum projeto previamente cadastrado através do arquivo faq-properties.json
@@ -15,18 +15,20 @@ O jbug-brasil-bot é o bot utilizado no canal do telegram **JBug Brasil**, para 
     
 ### Iniciando o Bot
 
-No momento o bot é inciado utilizando o plugin **maven-wildfly-swarm** com o seguinte comando:
+Execute o seguinte comando:
 
 ```sh
-mvn clean wildfly-swarm:run -Dbr.com.jbugbrasil.telegram.token=<TOKEN>
+java -jar telegram.bot-2.0.Final-swarm.jar -Dbr.com.jbugbrasil.telegram.token=<TOKEN> -Dbr.com.jbugbrasil.telegram.userId=<JBUG_BRASIL_BOT_USER> -Dbr.com.jbugbrasil.telegram.chatId=<DEFAULT_CHAT_ID> -Dbr.com.jbugbrasil.gitbooks.token=<GIT_BOOKS_TOKEN>
 
-Obs: O token é de uso privado de cada bot, caso deseje utilizar este bot é necessário que registre o mesmo utilizando a BotFather (Bot para registro de bots :D do próprio Telegram) e atualize os seguintes parâmetros no arquivo BotConfig.java:
+Obs: O token é de uso privado de cada bot, caso deseje utilizar este bot é necessário que registre o mesmo utilizando o BotFather (Bot para registro de bots :D do próprio Telegram) e atualize os seguintes parâmetros no arquivo BotConfig.java:
 
     - JBUG_BRASIL_BOT_USER
     - DEFAULT_CHAT_ID (este pode ser obtido através dos logs (level FINE)
+    - TOKEN: bot token, obtido através do BotFather to telegram na administração dos seus bots.
+    - GIT_BOOKS_TOKEN: Necessário para utilizar a API REST do Gitbooks.
 
 ```
-Se ocorrer tudo bem na inicialização do bot a seguintes mensagens irão ser exibidas:
+Se ocorrer tudo bem na inicialização do bot a seguintes mensagens serão exibidas:
 
 ```sh
 2016-07-28 00:40:55.223 INFO    (br.com.jbugbrasil.commands.faq.FaqPropertiesLoader <clinit>) Tentando ler o arquivo /META-INF/faq-properties.json 
@@ -49,11 +51,11 @@ Se ocorrer tudo bem na inicialização do bot a seguintes mensagens irão ser ex
 [main] INFO org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.2.1
 [main] INFO org.quartz.core.QuartzScheduler - Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started.
 2016-07-28 00:40:57.385 INFO    (br.com.jbugbrasil.Main main) Schedulers iniciados com sucesso. 
-2016-07-28 00:40:58.997 INFO    (br.com.jbugbrasil.Main main) UuuuuCarnica_bot iniciado com sucesso. 
+2016-07-28 00:40:58.997 INFO    (br.com.jbugbrasil.Main main) jbugbrasil_bot iniciado com sucesso. 
 ```
 
 ### Bugs?
 Será um prazer receber correções e sugestões para melhoria do bot.
 
 
-OBS: Este bot foi feito exclusivamente para o grupo do telegram **JBug Brasil**, portanto muitas de suas funcionalidades são voltadas somente para ele.
+OBS: Este bot foi feito exclusivamente para o grupo do telegram **JBug Brasil**, portanto muitas de suas funcionalidades são voltadas somente para ele, Mas nada impede que você adicione funcionalidades. :)

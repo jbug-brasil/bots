@@ -4,6 +4,8 @@ import br.com.jbugbrasil.bot.JBugBrasilBot;
 import br.com.jbugbrasil.commands.faq.FaqPropertiesLoader;
 import br.com.jbugbrasil.conf.BotConfig;
 import br.com.jbugbrasil.database.DatabaseComponent;
+import br.com.jbugbrasil.exceptions.ParameterNotFoundException;
+import br.com.jbugbrasil.gitbooks.impl.GitBooksImpl;
 import br.com.jbugbrasil.scheduler.GitBooksSchedulerComponent;
 import org.quartz.Scheduler;
 import org.quartz.impl.StdSchedulerFactory;
@@ -25,23 +27,30 @@ public class Main {
     private static final TelegramBotsApi bot = new TelegramBotsApi();
 
     public static void main(String[] args) throws Exception {
-        // token not found, stop here.
-        if (System.getProperty("br.com.jbugbrasil.telegram.token").length() != 45) {
-            throw new IllegalArgumentException("Token não encontrado ou inválido, utilize" +
-                " -Dbr.com.jbugbrasil.telegram.token=<token>");
+
+        // required parameters not found?, stop here.
+        if (System.getProperty("br.com.jbugbrasil.telegram.token").length() != 45 || !System.getProperty("br.com.jbugbrasil.telegram.userId").endsWith("_bot") ||
+                !System.getProperty("br.com.jbugbrasil.telegram.chatId").startsWith("-") || System.getProperty("br.com.jbugbrasil.gitbooks.token").length() != 64) {
+
+            throw new ParameterNotFoundException("Oops, algum parâmetro obrigatório para a inicialização não encontrado, utilize:\n" +
+                " -Dbr.com.jbugbrasil.telegram.token=<token>\n" +
+                " -Dbr.com.jbugbrasil.telegram.userId=<userId>\n" +
+                " -Dbr.com.jbugbrasil.telegram.chatId=<chatId>\n" +
+                " -Dbr.com.jbugbrasil.gitbooks.token=<OauthToken>");
         }
 
         Scheduler scheduler = new StdSchedulerFactory().getScheduler();
         List<Component> components = new ArrayList<>();
-        components.add(new DatabaseComponent());
+
         components.add(new FaqPropertiesLoader());
+        components.add(new GitBooksImpl());
         components.add(new GitBooksSchedulerComponent(scheduler));
+        components.add(new DatabaseComponent());
 
         components.forEach(Component::initialize);
 
         log.info("Schedulers iniciados com sucesso.");
         scheduler.start();
-        //////////////////////////////////
 
         //start the bot itself
         try {

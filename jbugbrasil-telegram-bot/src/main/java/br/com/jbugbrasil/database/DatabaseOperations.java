@@ -34,10 +34,21 @@ public interface DatabaseOperations {
     void createTableAmountOfBooks();
 
     /*
+    * Create the BOOKUPDATES table if it does not exist
+    */
+    void createTableBookUpdate();
+
+    /*
     * Update the amount of the books value
     * @param int amount
     */
     void setAmountOfBooks(int amount);
+
+    /*
+    * Update the amount of the books value
+    * @param int amount
+    */
+    void setBookUpdate(String bookName, int updates);
 
     /*
     * Query the amount of books
@@ -45,4 +56,9 @@ public interface DatabaseOperations {
     */
     int getAmoutOfBooks();
 
+    /*
+    * Query the amount of books
+    * @returns an integer
+    */
+    int getBookUpdates(String bookName);
 }

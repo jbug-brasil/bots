@@ -52,11 +52,11 @@ public class JBugBrasilBot extends TelegramLongPollingCommandBot {
                         helpCommand.execute(absSender, message.getFrom(), message.getChat(), new String[]{});
                         break;
 
-                    case "getbooks":
+                    case "books":
                         getbooks.execute(absSender, message.getFrom(), message.getChat(), new String[]{});
                         break;
 
-                    case "getkarma":
+                    case "karma":
                         try {
                             param[0] = message.getText().substring(message.getText().indexOf("@" + BotConfig.JBUG_BRASIL_BOT_USER) + BotConfig.JBUG_BRASIL_BOT_USER.length() + 1, message.getText().length()).trim();
                             getkarma.execute(absSender, message.getFrom(), message.getChat(), param);

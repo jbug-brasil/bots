@@ -25,7 +25,7 @@
     "description": "A business logic integration platform which provides a unified and integrated platform for rules, workflow and event processing"
   },
   {
-    "id": "wildflyswarn",
+    "id": "wildfly-swarm",
     "link": "http://wildfly-swarm.io/",
     "description": "Swarm offers an innovative approach to packaging and running JavaEE applications by packaging them with just enough of the server runtime to java -jar your application. However, it's all much, much cooler than that"
   },
@@ -105,7 +105,7 @@
     "description": "JBoss CapeDwarf is an implementation of the Google App Engine API, which allows applications to be deployed on JBoss Application Servers without modification."
   },
   {
-    "id": "richraces",
+    "id": "richfaces",
     "link": "https://jboss.org/richfaces/docs",
     "description": "An advanced UI component framework for easily integrating Ajax capabilities into business applications using JSF."
   },

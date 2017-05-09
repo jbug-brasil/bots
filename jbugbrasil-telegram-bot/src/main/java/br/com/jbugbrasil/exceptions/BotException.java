@@ -1,4 +1,4 @@
-package br.com.jbugbrasil;
+package br.com.jbugbrasil.exceptions;
 
 public class BotException extends RuntimeException {
 
