@@ -338,5 +338,30 @@
     "id": "fzf",
     "link": "https://github.com/junegunn/fzf",
     "description": "fzf is a general-purpose command-line fuzzy finder."
+  },
+  {
+    "id": "trugger",
+    "link": "https://github.com/devnull-tools/trugger",
+    "description": "Trugger is a framework that helps you write code that anyone can read. The idea is to provide a set of fluent interfaces to deal with operations related to reflection."
+  },
+  {
+    "id": "kodo",
+    "link": "https://github.com/devnull-tools/kodo",
+    "description": "Kodo is a test framework that helps you defining specifications with the help of a fluent interface. The idea behind is to put some functional interfaces present in Java 8 together to provide a beautiful way to define specifications in pure Java code. Its main use if for testing but you can use for any purposes that requires the writing of a specification."
+  },
+  {
+    "id": "boteco",
+    "link": "https://github.com/devnull-tools/boteco",
+    "description": "Boteco is a framework that allows you to write a bot that has the same behaviour across different platforms."
+  },
+  {
+    "id": "sherlog-holmes",
+    "link": "https://github.com/devnull-tools/sherlog-holmes",
+    "description": "A Ruby command line tool that reduces log files based on given queries"
+  },
+  {
+    "id": "cafeina",
+    "link": "https://github.com/devnull-tools/cafeina",
+    "description": "Projeto destinado a mapear as diversas situações que nós, mantenedores de código, temos que enfrentar em nossos árduos e sombrios dias (e noites, e madrugadas, e mais outros dias) de trabalho como papel higiênico de TI com folha dupla."
   }
 ]
