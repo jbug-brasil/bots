@@ -2,10 +2,10 @@ package br.com.jbugbrasil.utils.message.impl;
 
 import br.com.jbugbrasil.conf.BotConfig;
 import br.com.jbugbrasil.utils.message.Message;
-import org.telegram.telegrambots.TelegramApiException;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.exceptions.TelegramApiException;
 
 import java.util.logging.Logger;
 
@@ -24,14 +24,12 @@ public class MessageSender extends TelegramLongPollingBot implements Message {
 
     @Override
     public void send() {
-
-        //disable the web site preview (IMHO it is spammy)
         message.disableWebPagePreview();
-
         try {
             sendMessage(message);
         } catch (TelegramApiException e) {
             log.severe("Falha ao enviar mensagem: " + e.getCause());
+            e.printStackTrace();
         }
     }
 

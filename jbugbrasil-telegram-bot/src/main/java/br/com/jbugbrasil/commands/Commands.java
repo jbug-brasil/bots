@@ -10,6 +10,7 @@ public interface Commands {
     String GET_KARMA = "karma";
     String UPTIME = "uptime";
     String FAQ = "faq";
+    String URBAN_DICTIONARY = "define";
 
     //commands with no / as prefix
     String PING = "ping";

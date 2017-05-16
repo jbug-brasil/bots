@@ -12,13 +12,14 @@ O jbug-brasil-bot é o bot utilizado no canal do telegram **JBug Brasil**, para 
     - /help - Menu de ajuda.
     - /faq - Pesquisa algum projeto previamente cadastrado através do arquivo faq-properties.json
     - /uptime - informa o tempo que o bot está no ar.
+    - /ub - pesquisa por um termo em inglês no urban dictionary, exemplo /ub -c 2 -e lol ou /ub lol
     
 ### Iniciando o Bot
 
 Execute o seguinte comando:
 
 ```sh
-java -jar telegram.bot-2.0.Final-swarm.jar -Dbr.com.jbugbrasil.telegram.token=<TOKEN> -Dbr.com.jbugbrasil.telegram.userId=<JBUG_BRASIL_BOT_USER> -Dbr.com.jbugbrasil.telegram.chatId=<DEFAULT_CHAT_ID> -Dbr.com.jbugbrasil.gitbooks.token=<GIT_BOOKS_TOKEN>
+java -jar  -Dbr.com.jbugbrasil.telegram.token=<TOKEN> -Dbr.com.jbugbrasil.telegram.userId=<JBUG_BRASIL_BOT_USER> -Dbr.com.jbugbrasil.telegram.chatId=<DEFAULT_CHAT_ID> -Dbr.com.jbugbrasil.gitbooks.token=<GIT_BOOKS_TOKEN> telegram.bot-2.0.Final-swarm.jar
 
 Obs: O token é de uso privado de cada bot, caso deseje utilizar este bot é necessário que registre o mesmo utilizando o BotFather (Bot para registro de bots :D do próprio Telegram) e atualize os seguintes parâmetros no arquivo BotConfig.java:
 

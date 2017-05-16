@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  */
 public class FaqPropertiesLoader implements Component {
 
-    private static final Logger log = Logger.getLogger(FaqPropertiesLoader.class.getName());
+    private final Logger log = Logger.getLogger(FaqPropertiesLoader.class.getName());
 
     private static final String FILE_NAME = "faq-properties.json";
     private static final String FAQ_PROPERTIES = "https://raw.githubusercontent.com/jbug-brasil/bots/master/jbugbrasil-telegram-bot/src/main/resources/META-INF/faq-properties.json";
@@ -34,7 +34,7 @@ public class FaqPropertiesLoader implements Component {
 
             //Put everything in the cache
             for (Project project : myObjects) {
-                cache.getCache().put(project.getId(), project);
+                cache.getCache().putIfAbsent(project.getId(), project);
             }
 
             log.info("Cache populado com sucesso.");

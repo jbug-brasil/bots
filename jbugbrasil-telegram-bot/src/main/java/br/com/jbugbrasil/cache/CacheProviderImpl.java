@@ -27,7 +27,6 @@ public class CacheProviderImpl {
     public CacheProviderImpl() {
     }
 
-
     public static synchronized CacheProviderImpl getInstance() {
         if (uniqueInstance == null)
             uniqueInstance = new CacheProviderImpl();

@@ -32,11 +32,11 @@ public class GetKarma extends BotCommand implements Commands {
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] strings) {
 
-        StringBuilder response = new StringBuilder("*Pesquisar Karma*\n ");
+        StringBuilder response = new StringBuilder("<b>Pesquisar Karma</b>\n ");
         SendMessage responseMessage = new SendMessage();
 
         responseMessage.setChatId(chat.getId().toString());
-        responseMessage.enableMarkdown(true);
+        responseMessage.enableHtml(true);
 
         try {
             log.info("Pesquisando o karma do usuário " + strings[0]);
