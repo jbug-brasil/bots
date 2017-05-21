@@ -20,4 +20,10 @@ public class Utils {
         long seconds = duration.minusHours(hours).minusMinutes(minutes).getSeconds();
         return hours + " Hora(s), " + minutes + " Minuto(s) e " + seconds + " Segundo(s)";
     }
+
+    public static String prepareString(String term) {
+        return term.replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;");
+    }
 }

@@ -21,7 +21,7 @@ import java.util.List;
 public class GetBooksCommand extends BotCommand implements Commands {
 
     private final ICommandRegistry commandRegistry;
-    private static final GitBooks gitbooks = new GitBooksImpl();
+    private final GitBooks gitbooks = new GitBooksImpl();
     private final SendMessage getBooksCommandResponse = new SendMessage();
 
     public GetBooksCommand(ICommandRegistry commandRegistry) {

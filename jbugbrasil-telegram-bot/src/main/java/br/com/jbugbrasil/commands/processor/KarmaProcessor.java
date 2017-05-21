@@ -5,6 +5,7 @@ import br.com.jbugbrasil.conf.BotConfig;
 import br.com.jbugbrasil.database.DatabaseOperations;
 import br.com.jbugbrasil.database.impl.DatabaseProviderImpl;
 import br.com.jbugbrasil.emojis.Emoji;
+import br.com.jbugbrasil.utils.Utils;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Update;
 
@@ -51,7 +52,7 @@ public class KarmaProcessor implements MessageProcessor {
             echoMessage.setText(String.valueOf(message));
 
         }
-        echoMessage.enableMarkdown(true);
+        echoMessage.enableHtml(true);
         return echoMessage;
     }
 
@@ -68,7 +69,7 @@ public class KarmaProcessor implements MessageProcessor {
 
         int atual = db.getKarmaPoints(target);
         if (atual == 0) {
-            log.info(target + " ainda não possui pontos de karma, criando entrada no cache.");
+            log.fine(target + " ainda não possui pontos de karma, criando entrada no cache.");
             cache.getCache().put(target, atual);
         } else {
             cache.getCache().put(target, atual);
@@ -88,7 +89,7 @@ public class KarmaProcessor implements MessageProcessor {
                 break;
         }
 
-        return String.format(BotConfig.KARMA_MESSAGE, target, cache.getCache().get(target));
+        return String.format(BotConfig.KARMA_MESSAGE, Utils.prepareString(target), cache.getCache().get(target));
     }
 
     private int increase(int atual) {

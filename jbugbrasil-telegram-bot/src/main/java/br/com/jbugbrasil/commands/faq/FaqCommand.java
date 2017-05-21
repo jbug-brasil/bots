@@ -4,6 +4,7 @@ import br.com.jbugbrasil.cache.CacheProviderImpl;
 import br.com.jbugbrasil.commands.Commands;
 import br.com.jbugbrasil.commands.processor.MessageProcessor;
 import br.com.jbugbrasil.conf.BotConfig;
+import br.com.jbugbrasil.utils.Utils;
 import br.com.jbugbrasil.utils.message.impl.MessageSender;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Chat;
@@ -37,8 +38,14 @@ public class FaqCommand extends BotCommand implements Commands, MessageProcessor
 
         SendMessage faqMessage = new SendMessage();
         faqMessage.setChatId(chat.getId().toString());
-        faqMessage.enableMarkdown(true);
-        faqMessage.setText(query(parseParameters(strings)));
+        faqMessage.enableHtml(true);
+
+        if (strings.length == 0) {
+            faqMessage.setText("<b>faq</b>\nParametro é obrigatório");
+        } else {
+            faqMessage.setText(Utils.prepareString(query(parseParameters(strings))));
+        }
+
         MessageSender msg = new MessageSender(faqMessage);
         msg.send();
     }
@@ -52,7 +59,7 @@ public class FaqCommand extends BotCommand implements Commands, MessageProcessor
 
         StringBuilder stbuilder = new StringBuilder();
 
-        // get all Project type itens from cache
+        // get all Project type items from cache
         List<Project> cacheEntries = (List<Project>) cache.getCache().values().stream()
                 .filter(item -> item instanceof Project)
                 .collect(Collectors.toList());
