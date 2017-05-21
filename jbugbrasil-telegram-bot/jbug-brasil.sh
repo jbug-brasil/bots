@@ -32,7 +32,7 @@ case $1 in
 "stop")
   echo "Stopping jbug-brasil bot."
   kill -15 `cat /opt/bot/jbug-brasil.pid`
-  em -rf  /opt/bot/jbug-brasil.pid
+  rm -rf  /opt/bot/jbug-brasil.pid
   ;;
 *)
   echo "Parâmetro não é válido, utilize start, restart ou stop."
