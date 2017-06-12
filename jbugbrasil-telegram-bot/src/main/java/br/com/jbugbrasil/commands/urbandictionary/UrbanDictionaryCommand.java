@@ -2,7 +2,8 @@ package br.com.jbugbrasil.commands.urbandictionary;
 
 import br.com.jbugbrasil.cache.CacheProviderImpl;
 import br.com.jbugbrasil.commands.Commands;
-import br.com.jbugbrasil.ub.client.UBClient;
+import br.com.jbugbrasil.ub.client.UrbanDictionaryClient;
+import br.com.jbugbrasil.ub.client.builder.UrbanDictionaryClientBuilder;
 import br.com.jbugbrasil.ub.client.helper.CustomTermResponse;
 import br.com.jbugbrasil.utils.Utils;
 import br.com.jbugbrasil.utils.message.impl.MessageSender;
@@ -14,7 +15,8 @@ import org.telegram.telegrambots.bots.commands.BotCommand;
 import org.telegram.telegrambots.bots.commands.ICommandRegistry;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
+import java.security.InvalidParameterException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
@@ -34,7 +36,7 @@ public class UrbanDictionaryCommand extends BotCommand implements Commands {
     private static final CacheProviderImpl cache = CacheProviderImpl.getInstance();
 
     public UrbanDictionaryCommand(ICommandRegistry commandRegistry) {
-        super(Commands.URBAN_DICTIONARY, "Pesquisa por um termo/gíria em inglês. -c N seta o número de resultados, -e adiciona um exemplo de como usar a gíria. Example: /ub -c 2 -e lol");
+        super(Commands.URBAN_DICTIONARY, "Pesquisa por um termo/gíria em inglês. -c N seta o número de resultados, -e adiciona um exemplo de como usar a gíria. Examplo: /define -c 2 -e lol");
         this.commandRegistry = commandRegistry;
     }
 
@@ -43,19 +45,26 @@ public class UrbanDictionaryCommand extends BotCommand implements Commands {
         String term = "";
         int numberOfResults = 1;
         boolean showExample = false;
+        ud.setChatId(chat.getId().toString());
+        ud.enableHtml(true);
 
+        if (parameters.length == 0) {
+            ud.setText("<b>/define</b>\nParametro é obrigatório");
+            msg.send();
+            throw new InvalidParameterException("O comando /define requer um parâmetro.");
+        }
         // prepare the parameters
         for (int i = 0; i < parameters.length; i++) {
+
             if (parameters[i].equals("-c")) {
                 i += 1;
                 try {
                     numberOfResults = Integer.parseInt(parameters[i]);
                 } catch (NumberFormatException e) {
-                    ud.setChatId(chat.getId().toString());
-                    ud.enableHtml(true);
+
                     ud.setText("Parametro " + parameters[i] + " não é válido. Para maiores detalhes utilize o comando help.");
                     msg.send();
-                    break;
+                    throw new NumberFormatException("Parametro " + parameters[i] + " não é válido. Para maiores detalhes utilize o comando help.");
                 }
 
             } else if (parameters[i].equals("-e")) {
@@ -69,28 +78,34 @@ public class UrbanDictionaryCommand extends BotCommand implements Commands {
             }
         }
 
-        List<CustomTermResponse> ubResponse = processRequest(term, numberOfResults, showExample);
+        List<CustomTermResponse> ubResponse = new ArrayList<>();
+        try {
+            ubResponse = processRequest(term, numberOfResults, showExample);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         StringBuilder response = new StringBuilder("<b>" + Utils.prepareString(term) + "</b>\n");
 
         if (ubResponse.size() == 0) {
             response.append("Termo não encontrado");
         } else {
             ubResponse.stream().forEach(item -> {
-                response.append("<b>Definition:</b> " + item.getDefinition());
-                if (item.getExample() !=null){
-                    response.append("\n<b>Example:</b> " + item.getExample());
+                response.append("<b>Definition:</b> " + prepareTerm(item.getDefinition()));
+                if (item.getExample() != null) {
+                    response.append("\n<b>Example:</b> " + prepareTerm(item.getExample()));
                 }
                 response.append("\n+++++++++++++++++++++++++\n");
             });
         }
-
-        ud.setChatId(chat.getId().toString());
-        ud.enableHtml(true);
         ud.setText(response.toString());
-        //MessageSender msg = new MessageSender(ud);
         msg.send();
     }
 
+    private String prepareTerm (String term) {
+        return term.replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;");
+    }
 
     /**
      * Make a new request againts urban dictionary api.
@@ -103,17 +118,20 @@ public class UrbanDictionaryCommand extends BotCommand implements Commands {
      * @param showExample
      * @return {@link List<CustomTermResponse>}
      */
-    private List<CustomTermResponse> processRequest(String term, int numberOfResults, boolean showExample) {
-        UBClient client;
-        if (cache.getCache().containsKey("ub"+term.trim())) {
-            List<CustomTermResponse> cacheItens =  (List<CustomTermResponse>) cache.getCache().get("ub"+term.trim());
+    private List<CustomTermResponse> processRequest(String term, int numberOfResults, boolean showExample) throws UnsupportedEncodingException {
+        UrbanDictionaryClient client;
+        if (cache.getCache().containsKey("ub" + term.trim())) {
+            List<CustomTermResponse> cacheItens = (List<CustomTermResponse>) cache.getCache().get("ub" + term.trim());
             if (showExample || cacheItens.size() != numberOfResults) {
                 List<CustomTermResponse> itensWithNoExample = cacheItens.stream().filter(item -> item.getExample() == null).collect(Collectors.toList());
-                if (itensWithNoExample.size() > 0 || cacheItens.size() != numberOfResults ) {
+                if (itensWithNoExample.size() > 0 || cacheItens.size() != numberOfResults) {
                     log.fine(term + " is available on cache but some information is missing.");
-                    client = new UBClient.UBClientBuilder().term(term.replaceAll(" ", "%20")).numberOfResults(numberOfResults).showExample(showExample).build();
+                    if (showExample)
+                        client = new UrbanDictionaryClientBuilder().term(term).numberOfResults(numberOfResults).showExample().build();
+                    else
+                        client = new UrbanDictionaryClientBuilder().term(term).numberOfResults(numberOfResults).build();
                     List<CustomTermResponse> ubResult = client.execute();
-                    cache.getCache().replace("ub"+term.trim(),ubResult, 1, TimeUnit.DAYS);
+                    cache.getCache().replace("ub" + term.trim(), ubResult, 1, TimeUnit.DAYS);
                     return ubResult;
                 }
             } else {
@@ -122,9 +140,11 @@ public class UrbanDictionaryCommand extends BotCommand implements Commands {
             }
         }
         log.fine(term + " is not available on cache, making a new request.");
-        client = new UBClient.UBClientBuilder().term(term.replaceAll(" ", "%20")).numberOfResults(numberOfResults).showExample(showExample).build();
+        if (showExample)
+            client = new UrbanDictionaryClientBuilder().term(term).numberOfResults(numberOfResults).showExample().build();
+        else client = new UrbanDictionaryClientBuilder().term(term).numberOfResults(numberOfResults).build();
         List<CustomTermResponse> ubResult = client.execute();
-        cache.getCache().putIfAbsent("ub"+term.trim(),ubResult, 1, TimeUnit.DAYS);
+        cache.getCache().putIfAbsent("ub" + term.trim(), ubResult, 1, TimeUnit.DAYS);
         return ubResult;
     }
 }
