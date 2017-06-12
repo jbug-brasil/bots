@@ -2,9 +2,9 @@ package br.com.jbugbrasil.commands.urbandictionary;
 
 import br.com.jbugbrasil.cache.CacheProviderImpl;
 import br.com.jbugbrasil.commands.Commands;
-import br.com.jbugbrasil.ub.client.UrbanDictionaryClient;
-import br.com.jbugbrasil.ub.client.builder.UrbanDictionaryClientBuilder;
-import br.com.jbugbrasil.ub.client.helper.CustomTermResponse;
+import br.com.jbugbrasil.urbandictionary.client.UrbanDictionaryClient;
+import br.com.jbugbrasil.urbandictionary.client.builder.UrbanDictionaryClientBuilder;
+import br.com.jbugbrasil.urbandictionary.client.helper.CustomTermResponse;
 import br.com.jbugbrasil.utils.Utils;
 import br.com.jbugbrasil.utils.message.impl.MessageSender;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
