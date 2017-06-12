@@ -36,7 +36,7 @@ public class DatabaseProviderImpl implements DatabaseOperations {
                 connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
 
             } catch (SQLException e) {
-                log.severe("Erro ao criar conexão: " + DB_DRIVER);
+                log.severe("Erro ao criar conexão [" + DB_DRIVER + "]: " + e.getCause());
 
             } catch (ClassNotFoundException e) {
                 log.severe(" Classe não encontrada: " + DB_DRIVER);
