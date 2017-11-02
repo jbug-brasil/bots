@@ -35,12 +35,12 @@
     <parent>
         <artifactId>telegram-api-parent</artifactId>
         <groupId>br.com.jbugbrasil.bot</groupId>
-        <version>1.0-Beta</version>
+        <version>1.1-SNAPSHOT</version>
     </parent>
 
     <groupId>br.com.jbugbrasil.bot</groupId>
     <artifactId>telegram-api-objects</artifactId>
-    <version>1.0-Beta</version>
+    <version>1.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <dependencies>
