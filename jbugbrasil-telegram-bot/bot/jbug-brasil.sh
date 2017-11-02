@@ -44,12 +44,12 @@ VERSION="1.0-Beta"
 case $1 in
 "start")
   echo "Starting jbug-brasil bot."
-  $JAVA_HOME/bin/java -jar -Dbr.com.jbugbrasil.bot.telegram.token=${BOT_TOKEN} -Dbr.com.jbugbrasil.bot.telegram.userId=${BOT_USER_ID} -Dbr.com.jbugbrasil.bot.telegram.chatId=${BOT_CHAT_ID} -Dbr.com.jbugbrasil.bot.gitbooks.token=${GITBOOKS_TOKEN} telegram-bot-${VERSION}-swarm.jar &
+  $JAVA_HOME/bin/java -jar -Xms150m -Xmx300m -XX:MetaspaceSize=100m -Dbr.com.jbugbrasil.bot.telegram.token=${BOT_TOKEN} -Dbr.com.jbugbrasil.bot.telegram.userId=${BOT_USER_ID} -Dbr.com.jbugbrasil.bot.telegram.chatId=${BOT_CHAT_ID} -Dbr.com.jbugbrasil.bot.gitbooks.token=${GITBOOKS_TOKEN} telegram-bot-${VERSION}-swarm.jar &
   echo $! > /opt/bot/jbug-brasil.pid
   ;;
 "restart")
   echo "Restarting jbug-brasil bot."
-  $JAVA_HOME/bin/java -jar -Dbr.com.jbugbrasil.bot.telegram.token=${BOT_TOKEN} -Dbr.com.jbugbrasil.bot.telegram.userId=${BOT_USER_ID} -Dbr.com.jbugbrasil.bot.telegram.chatId=${BOT_CHAT_ID} -Dbr.com.jbugbrasil.bot.gitbooks.token=${GITBOOKS_TOKEN} telegram-bot-${VERSION}-swarm.jar &
+  $JAVA_HOME/bin/java -jar -Xms150m -Xmx300m -XX:MetaspaceSize=100m -Dbr.com.jbugbrasil.bot.telegram.token=${BOT_TOKEN} -Dbr.com.jbugbrasil.bot.telegram.userId=${BOT_USER_ID} -Dbr.com.jbugbrasil.bot.telegram.chatId=${BOT_CHAT_ID} -Dbr.com.jbugbrasil.bot.gitbooks.token=${GITBOOKS_TOKEN} telegram-bot-${VERSION}-swarm.jar &
   echo $1 >  /opt/bot/jbug-brasil.pid
   ;;
 "stop")
