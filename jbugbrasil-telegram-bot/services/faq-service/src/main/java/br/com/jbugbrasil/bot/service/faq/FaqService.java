@@ -44,7 +44,7 @@ import java.util.stream.Collectors;
 @LocalBean
 public class FaqService {
 
-    public static final String JSON_SOURCE_LOCATION = "https://raw.githubusercontent.com/jbug-brasil/bots/master/jbugbrasil-telegram-bot/src/main/resources/META-INF/faq-properties.json";
+    public static final String JSON_SOURCE_LOCATION = "https://raw.githubusercontent.com/jbug-brasil/bots/master/jbugbrasil-telegram-bot/services/faq-service/src/main/resources/META-INF/faq-properties.json";
 
     private final Logger log = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 
@@ -72,7 +72,8 @@ public class FaqService {
             log.fine("Cache populado com sucesso.");
             myObjects.clear();
         } catch (Exception e) {
-            log.warning("Falha ao popular o cache: " + e.getCause());
+            log.warning("Falha ao popular o cache: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
