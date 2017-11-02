@@ -1,0 +1,69 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <name>JBug:Brasil - Telegram Bot Karma Plugin</name>
+    <url>https://github.com/jbug-brasil/bots/tree/master/jbugbrasil-telegram-bot/plugins/welcome-message</url>
+
+    <description>
+        Plugin para alterar o karma de um usuário e provider do comando /karma para pesquisar karma.
+    </description>
+
+    <parent>
+        <groupId>br.com.jbugbrasil.bot</groupId>
+        <artifactId>plugins-parent</artifactId>
+        <version>4.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>br.com.jbugbrasil.bot</groupId>
+    <artifactId>karma-plugin</artifactId>
+    <packaging>jar</packaging>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://github.com/jbug-brasil/bots/tree/master/jbugbrasil-telegram-bot/LICENSE</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>jbugbrasil</id>
+            <name>JBug:Brasil</name>
+            <email>manager@jbugbrasil.com.br</email>
+            <url>http://www.jbugbrasil.com.br</url>
+            <organizationUrl>https://github.com/jbug-brasil</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git@github.com:jbug-brasil/bots.git</connection>
+        <url>https://github.com/jbug-brasil/bots</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-embedded</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>br.com.jbugbrasil.bot</groupId>
+            <artifactId>spi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>br.com.jbugbrasil.bot</groupId>
+            <artifactId>cache-service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>br.com.jbugbrasil.bot</groupId>
+            <artifactId>persistence-service</artifactId>
+        </dependency>
+
+
+
+    </dependencies>
+</project>

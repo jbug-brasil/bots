@@ -1,89 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<!--
+    The MIT License (MIT)
+
+    Copyright (c) 2017 JBug:Brasil <contato@jbugbrasil.com.br>
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy of
+    this software and associated documentation files (the "Software"), to deal in
+    the Software without restriction, including without limitation the rights to
+    use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+    the Software, and to permit persons to whom the Software is furnished to do so,
+    subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+    FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+    COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+    IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+    CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
-    <packaging>jar</packaging>
-    <groupId>br.com.jbugbrasil</groupId>
-    <artifactId>telegram-bot</artifactId>
-    <version>3.1.Final</version>
+    <name>JBug:Brasil - Telegram Bot Parent</name>
+    <url>https://github.com/jbug-brasil/bots/tree/master/jbugbrasil-telegram-bot</url>
+
+    <description>
+        Parent pom para sub módulos dos bots.
+    </description>
+
+    <parent>
+        <groupId>br.com.jbugbrasil</groupId>
+        <artifactId>parent-pom</artifactId>
+        <version>1.2</version>
+    </parent>
+
+    <groupId>br.com.jbugbrasil.bot</groupId>
+    <artifactId>parent</artifactId>
+    <version>4.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://github.com/jbug-brasil/bots/tree/master/jbugbrasil-telegram-bot/LICENSE</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>jbugbrasil</id>
+            <name>JBug:Brasil</name>
+            <email>manager@jbugbrasil.com.br</email>
+            <url>http://www.jbugbrasil.com.br</url>
+            <organizationUrl>https://github.com/jbug-brasil</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git@github.com:jbug-brasil/bots.git</connection>
+        <url>https://github.com/jbug-brasil/bots</url>
+        <tag>HEAD</tag>
+    </scm>
 
     <properties>
+        <version.wildfly.swarm>2017.10.1</version.wildfly.swarm>
+        <version.infinispan>9.1.1.Final</version.infinispan>
+        <version.javax.javaee.api>7.0</version.javax.javaee.api>
+        <version.com.h2database>1.4.196</version.com.h2database>
+        <version.httpclient>4.5.3</version.httpclient>
+        <version.org.json>20171018</version.org.json>
+        <version.com.fasterxml.jackson.core>2.9.2</version.com.fasterxml.jackson.core>
+        <version.br.com.jbugbrasil.urban-dictionary-client-api>1.2.Final</version.br.com.jbugbrasil.urban-dictionary-client-api>
+        <version.junit>4.12</version.junit>
+        <version.surefire.plugin>2.20.1</version.surefire.plugin>
+        <version.maven.compiler.plugin>3.7.0</version.maven.compiler.plugin>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
-        <jboss.javaee7.version>1.0.3.Final</jboss.javaee7.version>
-        <httpcompontents.version>4.5.3</httpcompontents.version>
-        <jackson.version>2.8.7</jackson.version>
-        <json.version>20160810</json.version>
-        <version.wildfly.swarm>2016.12.1</version.wildfly.swarm>
-        <version.surefire.plugin>2.19.1</version.surefire.plugin>
-        <infinispan.version>9.0.0.Final</infinispan.version>
-        <h2.version>1.4.192</h2.version>
-        <quartz.scheduler.version>2.2.1</quartz.scheduler.version>
-        <version.maven.jar.plugin>3.0.2</version.maven.jar.plugin>
-        <version.org.apache.logging.log4j>2.7</version.org.apache.logging.log4j>
-        <version.br.com.jbugbrasil.urban-dictionary-client-api>1.1.Final</version.br.com.jbugbrasil.urban-dictionary-client-api>
-        <version.javax.xml.bind>2.2.12</version.javax.xml.bind>
-        <version.org.telegrambots>2.4.4.5</version.org.telegrambots>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
+
+    <modules>
+        <module>services</module>
+        <module>plugins</module>
+        <module>bot</module>
+        <module>telegram-api</module>
+    </modules>
 
     <dependencyManagement>
         <dependencies>
-
-            <dependency>
-                <groupId>javax.xml.bind</groupId>
-                <artifactId>jaxb-api</artifactId>
-                <version>${version.javax.xml.bind}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.telegram</groupId>
-                <artifactId>telegrambots</artifactId>
-                <version>${version.org.telegrambots}</version>
-            </dependency>
-
-            <!--j2ee spec -->
-            <dependency>
-                <groupId>org.jboss.spec</groupId>
-                <artifactId>jboss-javaee-7.0</artifactId>
-                <version>${jboss.javaee7.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!-- apache httpClient deps -->
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpclient</artifactId>
-                <version>${httpcompontents.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpmime</artifactId>
-                <version>${httpcompontents.version}</version>
-            </dependency>
-
-            <!-- jackson fasterxml -->
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-core</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
-
-            <!-- JSON -->
-            <dependency>
-                <groupId>org.json</groupId>
-                <artifactId>json</artifactId>
-                <version>${json.version}</version>
-            </dependency>
-
-            <!-- WildFly Swarm -->
             <dependency>
                 <groupId>org.wildfly.swarm</groupId>
                 <artifactId>bom</artifactId>
@@ -91,42 +100,117 @@
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
-
-            <!-- infinispam -->
             <dependency>
                 <groupId>org.infinispan</groupId>
-                <artifactId>infinispan-embedded</artifactId>
-                <version>${infinispan.version}</version>
+                <artifactId>infinispan-bom</artifactId>
+                <version>${version.infinispan}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>javax</groupId>
+                <artifactId>javaee-api</artifactId>
+                <version>${version.javax.javaee.api}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.json</groupId>
+                <artifactId>json</artifactId>
+                <version>${version.org.json}</version>
+            </dependency>
+
+            <!-- jackson fasterxml -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${version.com.fasterxml.jackson.core}</version>
             </dependency>
             <dependency>
-                <groupId>org.infinispan</groupId>
-                <artifactId>infinispan-query</artifactId>
-                <version>${infinispan.version}</version>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${version.com.fasterxml.jackson.core}</version>
             </dependency>
 
             <!-- H2 -->
             <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
-                <version>${h2.version}</version>
+                <version>${version.com.h2database}</version>
             </dependency>
 
-            <!-- Quartz -->
+            <!-- http client -->
             <dependency>
-                <groupId>org.quartz-scheduler</groupId>
-                <artifactId>quartz</artifactId>
-                <version>${quartz.scheduler.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.quartz-scheduler</groupId>
-                <artifactId>quartz-jobs</artifactId>
-                <version>${quartz.scheduler.version}</version>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${version.httpclient}</version>
             </dependency>
 
+            <!-- bot dependencies -->
             <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-1.2-api</artifactId>
-                <version>${version.org.apache.logging.log4j}</version>
+                <groupId>br.com.jbugbrasil.bot</groupId>
+                <artifactId>spi</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.jbugbrasil.bot</groupId>
+                <artifactId>telegram-api-emojis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.jbugbrasil.bot</groupId>
+                <artifactId>faq-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.jbugbrasil.bot</groupId>
+                <artifactId>jboss-books-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.jbugbrasil.bot</groupId>
+                <artifactId>ping-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.jbugbrasil.bot</groupId>
+                <artifactId>uptime-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.jbugbrasil.bot</groupId>
+                <artifactId>cache-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.jbugbrasil.bot</groupId>
+                <artifactId>persistence-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.jbugbrasil.bot</groupId>
+                <artifactId>telegram-api-objects</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.jbugbrasil.bot</groupId>
+                <artifactId>urban-dictionary-service</artifactId>
+                <version>4.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.jbugbrasil.bot</groupId>
+                <artifactId>welcome-message-plugin</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.jbugbrasil.bot</groupId>
+                <artifactId>karma-plugin</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.jbugbrasil.bot</groupId>
+                <artifactId>telegram-api</artifactId>
+                <version>${project.version}</version>
             </dependency>
 
             <!-- Urban Dictionary client -->
@@ -136,141 +220,15 @@
                 <version>${version.br.com.jbugbrasil.urban-dictionary-client-api}</version>
             </dependency>
 
+            <!-- tests -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${version.junit}</version>
+                <scope>test</scope>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
-
-    <dependencies>
-        <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.telegram</groupId>
-            <artifactId>telegrambots</artifactId>
-        </dependency>
-
-        <!-- CDI -->
-        <dependency>
-            <groupId>javax.enterprise</groupId>
-            <artifactId>cdi-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- apache httpClient deps -->
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpmime</artifactId>
-        </dependency>
-
-        <!-- jackson fasterxml -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-        </dependency>
-
-        <!-- JSON -->
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-        </dependency>
-
-        <!-- WildFly Swarm -->
-        <dependency>
-            <groupId>org.wildfly.swarm</groupId>
-            <artifactId>undertow</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.wildfly.swarm</groupId>
-            <artifactId>logging</artifactId>
-        </dependency>
-
-        <!-- infinispam -->
-        <dependency>
-            <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-embedded</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-query</artifactId>
-        </dependency>
-
-        <!-- H2 -->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-        </dependency>
-
-        <!-- Quartz -->
-        <dependency>
-            <groupId>org.quartz-scheduler</groupId>
-            <artifactId>quartz</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.quartz-scheduler</groupId>
-            <artifactId>quartz-jobs</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-1.2-api</artifactId>
-        </dependency>
-
-        <!-- Urban Dictionary client -->
-        <dependency>
-            <groupId>br.com.jbugbrasil</groupId>
-            <artifactId>urban-dictionary-client-api</artifactId>
-        </dependency>
-
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5.1</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.wildfly.swarm</groupId>
-                <artifactId>wildfly-swarm-plugin</artifactId>
-                <version>${version.wildfly.swarm}</version>
-                <configuration>
-                    <mainClass>br.com.jbugbrasil.Main</mainClass>
-                    <jvmArguments>
-                        <jvmArgument>-Dbr.com.jbugbrasil.telegram.token=${br.com.jbugbrasil.telegram.token}
-                        </jvmArgument>
-                        <jvmArgument>-Dbr.com.jbugbrasil.telegram.userId=${br.com.jbugbrasil.telegram.userId}
-                        </jvmArgument>
-                        <jvmArgument>-Dbr.com.jbugbrasil.telegram.chatId=${br.com.jbugbrasil.telegram.chatId}
-                        </jvmArgument>
-                        <jvmArgument>-Dbr.com.jbugbrasil.gitbooks.token=${br.com.jbugbrasil.gitbooks.token}
-                        </jvmArgument>
-                        <jvmArgument>-Dfile.encoding=UTF-8</jvmArgument>
-                    </jvmArguments>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>package</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>
