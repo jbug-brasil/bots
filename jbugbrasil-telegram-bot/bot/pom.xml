@@ -38,13 +38,13 @@
     <parent>
         <groupId>br.com.jbugbrasil.bot</groupId>
         <artifactId>parent</artifactId>
-        <version>4.0-SNAPSHOT</version>
+        <version>1.0-SNAPSHOT</version>
     </parent>
 
     <!-- Artifact Configuration -->
     <groupId>br.com.jbugbrasil.bot</groupId>
     <artifactId>telegram-bot</artifactId>
-    <version>4.0-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <properties>

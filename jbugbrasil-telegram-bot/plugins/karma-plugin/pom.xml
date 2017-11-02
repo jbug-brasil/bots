@@ -13,11 +13,12 @@
     <parent>
         <groupId>br.com.jbugbrasil.bot</groupId>
         <artifactId>plugins-parent</artifactId>
-        <version>4.0-SNAPSHOT</version>
+        <version>1.0-SNAPSHOT</version>
     </parent>
 
     <groupId>br.com.jbugbrasil.bot</groupId>
     <artifactId>karma-plugin</artifactId>
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <licenses>
@@ -44,12 +45,10 @@
     </scm>
 
     <dependencies>
-
         <dependency>
             <groupId>org.infinispan</groupId>
             <artifactId>infinispan-embedded</artifactId>
         </dependency>
-
         <dependency>
             <groupId>br.com.jbugbrasil.bot</groupId>
             <artifactId>spi</artifactId>
@@ -62,8 +61,5 @@
             <groupId>br.com.jbugbrasil.bot</groupId>
             <artifactId>persistence-service</artifactId>
         </dependency>
-
-
-
     </dependencies>
 </project>

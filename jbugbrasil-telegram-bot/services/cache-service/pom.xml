@@ -33,12 +33,12 @@
     <parent>
         <groupId>br.com.jbugbrasil.bot</groupId>
         <artifactId>services</artifactId>
-        <version>4.0-SNAPSHOT</version>
+        <version>1.0-SNAPSHOT</version>
     </parent>
 
     <groupId>br.com.jbugbrasil.bot</groupId>
     <artifactId>cache-service</artifactId>
-    <version>4.0-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <licenses>
