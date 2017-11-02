@@ -22,8 +22,7 @@
     CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
     <name>JBug:Brasil - Telegram Bot Parent</name>
@@ -41,7 +40,7 @@
 
     <groupId>br.com.jbugbrasil.bot</groupId>
     <artifactId>parent</artifactId>
-    <version>4.0-SNAPSHOT</version>
+    <version>1.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <licenses>
@@ -68,6 +67,9 @@
     </scm>
 
     <properties>
+        <version.br.com.jbugbrasil.plugins>1.1-SNAPSHOT</version.br.com.jbugbrasil.plugins>
+        <version.br.com.jbugbrasil.services>1.1-SNAPSHOT</version.br.com.jbugbrasil.services>
+        <version.br.com.jbugbrasil.api>1.1-SNAPSHOT</version.br.com.jbugbrasil.api>
         <version.wildfly.swarm>2017.10.1</version.wildfly.swarm>
         <version.infinispan>9.1.1.Final</version.infinispan>
         <version.javax.javaee.api>7.0</version.javax.javaee.api>
@@ -147,71 +149,72 @@
             </dependency>
 
             <!-- bot dependencies -->
-            <dependency>
-                <groupId>br.com.jbugbrasil.bot</groupId>
-                <artifactId>spi</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>br.com.jbugbrasil.bot</groupId>
-                <artifactId>telegram-api-emojis</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
+           <dependency>
                 <groupId>br.com.jbugbrasil.bot</groupId>
                 <artifactId>faq-service</artifactId>
-                <version>${project.version}</version>
+                <version>${version.br.com.jbugbrasil.services}</version>
             </dependency>
             <dependency>
                 <groupId>br.com.jbugbrasil.bot</groupId>
                 <artifactId>jboss-books-service</artifactId>
-                <version>${project.version}</version>
+                <version>${version.br.com.jbugbrasil.services}</version>
             </dependency>
             <dependency>
                 <groupId>br.com.jbugbrasil.bot</groupId>
                 <artifactId>ping-service</artifactId>
-                <version>${project.version}</version>
+                <version>${version.br.com.jbugbrasil.services}</version>
             </dependency>
             <dependency>
                 <groupId>br.com.jbugbrasil.bot</groupId>
                 <artifactId>uptime-service</artifactId>
-                <version>${project.version}</version>
+                <version>${version.br.com.jbugbrasil.services}</version>
             </dependency>
             <dependency>
                 <groupId>br.com.jbugbrasil.bot</groupId>
                 <artifactId>cache-service</artifactId>
-                <version>${project.version}</version>
+                <version>${version.br.com.jbugbrasil.services}</version>
             </dependency>
             <dependency>
                 <groupId>br.com.jbugbrasil.bot</groupId>
                 <artifactId>persistence-service</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>br.com.jbugbrasil.bot</groupId>
-                <artifactId>telegram-api-objects</artifactId>
-                <version>${project.version}</version>
+                <version>${version.br.com.jbugbrasil.services}</version>
             </dependency>
             <dependency>
                 <groupId>br.com.jbugbrasil.bot</groupId>
                 <artifactId>urban-dictionary-service</artifactId>
-                <version>4.0-SNAPSHOT</version>
+                <version>${version.br.com.jbugbrasil.services}</version>
             </dependency>
             <dependency>
                 <groupId>br.com.jbugbrasil.bot</groupId>
                 <artifactId>welcome-message-plugin</artifactId>
-                <version>${project.version}</version>
+                <version>${version.br.com.jbugbrasil.plugins}</version>
             </dependency>
             <dependency>
                 <groupId>br.com.jbugbrasil.bot</groupId>
                 <artifactId>karma-plugin</artifactId>
-                <version>${project.version}</version>
+                <version>${version.br.com.jbugbrasil.plugins}</version>
             </dependency>
             <dependency>
                 <groupId>br.com.jbugbrasil.bot</groupId>
                 <artifactId>telegram-api</artifactId>
-                <version>${project.version}</version>
+                <version>${version.br.com.jbugbrasil.api}</version>
             </dependency>
+            <dependency>
+                <groupId>br.com.jbugbrasil.bot</groupId>
+                <artifactId>telegram-api-objects</artifactId>
+                <version>${version.br.com.jbugbrasil.api}</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.jbugbrasil.bot</groupId>
+                <artifactId>telegram-api-emojis</artifactId>
+                <version>${version.br.com.jbugbrasil.api}</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.jbugbrasil.bot</groupId>
+                <artifactId>spi</artifactId>
+                <version>${version.br.com.jbugbrasil.api}</version>
+            </dependency>
+
 
             <!-- Urban Dictionary client -->
             <dependency>
