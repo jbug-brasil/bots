@@ -40,7 +40,6 @@ public class JBossBooksCommandProvider implements CommandProvider {
     @Inject
     private JBossBooksService service;
 
-
     @Override
     public void load() {
         log.fine("Carregando comando " + this.name());
