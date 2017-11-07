@@ -40,7 +40,7 @@
 
 # All the variables will come from the file /opt/bot/jbug-brasil.conf
 
-VERSION="1.0-Beta"
+VERSION="1.1-SNAPSHOT"
 
 case $1 in
 "start")

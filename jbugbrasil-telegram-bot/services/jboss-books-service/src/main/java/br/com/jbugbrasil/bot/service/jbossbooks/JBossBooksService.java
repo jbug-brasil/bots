@@ -89,7 +89,8 @@ public class JBossBooksService {
     public synchronized void initialize() {
         if (cache.containsKey("jsonResponse")) {
             log.fine("Cache populado, retornando");
-            return;}
+            return;
+        }
         try {
         log.fine("Buscando informações dos livros em [" + GIT_BOOK_ENDPOINT + "]");
         HttpGet request = new HttpGet(GIT_BOOK_ENDPOINT);
@@ -110,7 +111,7 @@ public class JBossBooksService {
 
             ObjectMapper mapper = new ObjectMapper();
             JSONResponse jsonResponse = mapper.readValue(client().execute(request, responseHandler), JSONResponse.class);
-            cache.put("jsonResponse", jsonResponse, 60, TimeUnit.SECONDS);
+            cache.put("jsonResponse", jsonResponse, 60, TimeUnit.MINUTES);
             verifyNewBook(jsonResponse.getTotal());
             verifyBookUpdates(jsonResponse);
         } catch (final Exception e) {
