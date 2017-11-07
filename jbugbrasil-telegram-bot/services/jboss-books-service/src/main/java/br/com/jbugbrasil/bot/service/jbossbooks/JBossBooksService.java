@@ -57,7 +57,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
-
 @Stateless
 @LocalBean
 public class JBossBooksService {
@@ -87,10 +86,12 @@ public class JBossBooksService {
     private Message message = new Message();
 
     @Schedule(minute = "0/20", hour = "*", persistent = false)
-    public void initialize() {
+    public synchronized void initialize() {
+        if (cache.containsKey("jsonResponse")) {
+            log.fine("Cache populado, retornando");
+            return;}
         try {
         log.fine("Buscando informações dos livros em [" + GIT_BOOK_ENDPOINT + "]");
-        JSONResponse jsonResponse = null;
         HttpGet request = new HttpGet(GIT_BOOK_ENDPOINT);
         request.setHeader("Authorization", "Bearer " + gitBookToken);
         ResponseHandler<String> responseHandler = new ResponseHandler<String>() {
@@ -108,7 +109,7 @@ public class JBossBooksService {
         };
 
             ObjectMapper mapper = new ObjectMapper();
-            jsonResponse = mapper.readValue(client().execute(request, responseHandler), JSONResponse.class);
+            JSONResponse jsonResponse = mapper.readValue(client().execute(request, responseHandler), JSONResponse.class);
             cache.put("jsonResponse", jsonResponse, 60, TimeUnit.SECONDS);
             verifyNewBook(jsonResponse.getTotal());
             verifyBookUpdates(jsonResponse);

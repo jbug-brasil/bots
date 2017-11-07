@@ -55,7 +55,6 @@ public class FaqCommandProvider implements CommandProvider {
 
     @Override
     public Object execute(Optional<String> key) {
-        System.out.println("LALALALALAL " + service.query(key.get()));
         return key.get().length() > 0 ? service.query(key.get()) : "Nenhum parâmetro espeficicado, em caso de dúvidas use " + this.name() + " help.";
     }
 
@@ -69,7 +68,6 @@ public class FaqCommandProvider implements CommandProvider {
         StringBuilder strBuilder = new StringBuilder("/faq - ");
         strBuilder.append("Pesquisa projetos open source registrados no bot.\n");
         strBuilder.append("Exemplo: <a href=\"/faq hibernate\">/faq hibernate</a>.");
-        // TODO strBuilder.append("Exemplo: /faq <provider_name> hibernate.");
         return strBuilder.toString();
     }
 
