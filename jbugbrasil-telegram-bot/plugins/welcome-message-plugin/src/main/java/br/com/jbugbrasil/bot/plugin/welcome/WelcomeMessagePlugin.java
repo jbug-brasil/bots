@@ -76,11 +76,10 @@ public class WelcomeMessagePlugin implements PluginProvider {
             if (entry.getKey().equals("new_chat_member")) {
                 NewChatMember member = mapper.convertValue(entry.getValue(), NewChatMember.class);
                 message.setText(String.format(WELCOME_MESSAGE, member.getFirst_name(), botUserId));
-                //reply.processOutgoingMessage(message);
+
             } else if (entry.getKey().equals("left_chat_participant")) {
                 LeftChatMember member = mapper.convertValue(entry.getValue(), LeftChatMember.class);
                 message.setText(String.format(GOODBYE_MESSAGE, member.getFirst_name()));
-                //  reply.processOutgoingMessage(message);
             }
         }
         return message.getText();
