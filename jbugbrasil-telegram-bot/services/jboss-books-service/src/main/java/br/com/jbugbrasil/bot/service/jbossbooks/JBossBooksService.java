@@ -85,6 +85,9 @@ public class JBossBooksService {
 
     private Message message = new Message();
 
+    /**
+     * Scheduler default que busca os livros no JBoss Books e salva em cache.
+     */
     @Schedule(minute = "0/20", hour = "*", persistent = false)
     public synchronized void initialize() {
         if (cache.containsKey("jsonResponse")) {
@@ -108,7 +111,6 @@ public class JBossBooksService {
                 }
             }
         };
-
             ObjectMapper mapper = new ObjectMapper();
             JSONResponse jsonResponse = mapper.readValue(client().execute(request, responseHandler), JSONResponse.class);
             cache.put("jsonResponse", jsonResponse, 60, TimeUnit.MINUTES);
@@ -120,12 +122,21 @@ public class JBossBooksService {
         }
     }
 
-
+    /**
+     * Retorna a lista de livros
+     * @return {@link JSONResponse}
+     * @throws IOException
+     */
     public List<Books> getBooks() throws IOException {
+        initialize();
         JSONResponse jsonResponse = cache.get("jsonResponse");
         return jsonResponse.getList();
     }
 
+    /**
+     * Verifica se um novo livro foi adicionado no JBoss Books
+     * @param amount - quantidade de livros no JBoss Books
+     */
     private void verifyNewBook(int amount) {
         log.fine("Verificando se um novo livro foi adicionado.");
         int booksAmount = repository.getAmount();
@@ -138,7 +149,10 @@ public class JBossBooksService {
         }
     }
 
-
+    /**
+     * Verifica dr algum livro foi atualizado
+     * @param books {@link JSONResponse}
+     */
     private void verifyBookUpdates(JSONResponse books) {
         books.getList().stream()
                 .filter(book -> book.isPublic())
@@ -152,6 +166,10 @@ public class JBossBooksService {
 
     }
 
+    /**
+     * Envia mensagens de notificação no grupo que este plugin está ativo
+     * @param msg
+     */
     private void notify(String msg) {
         Chat chat = new Chat();
         chat.setId(Long.parseLong(chatId));

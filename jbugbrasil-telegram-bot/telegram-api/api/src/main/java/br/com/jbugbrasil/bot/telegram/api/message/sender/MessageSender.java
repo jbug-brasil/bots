@@ -61,7 +61,7 @@ public class MessageSender implements Sender {
     @Override
     public void processOutgoingMessage(Message message) {
         try {
-            if (message.getText().length() > 1) {
+            if (message.getText().length() > 1 && !message.getText().equals(null)) {
                 log.fine("Enviando mensagem: [" + message.getText() + "]");
                 send(message);
             }

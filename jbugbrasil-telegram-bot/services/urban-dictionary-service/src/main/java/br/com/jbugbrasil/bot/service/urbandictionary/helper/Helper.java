@@ -94,9 +94,9 @@ public class Helper {
             response.append("Termo não encontrado");
         } else {
             ubResponse.stream().forEach(item -> {
-                response.append("<b>Definition:</b> " + item.getDefinition());
+                response.append("<b>Definition:</b> " + normalize(item.getDefinition()));
                 if (item.getExample() != null) {
-                    response.append("\n<b>Example:</b> " + item.getExample());
+                    response.append("\n<b>Example:</b> " + normalize(item.getExample()));
                 }
             });
         }
@@ -105,6 +105,16 @@ public class Helper {
         return response.toString();
     }
 
+    /**
+     * Substitui tags html para evitar problemas com encoding, neste caso comn tags html.
+     * @param message
+     * @return Mensage formatada.
+     */
+    private String normalize(String message) {
+        return message.replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;");
+    }
 
     /**
      * Make a new request against urban dictionary api.
