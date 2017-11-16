@@ -75,6 +75,7 @@
         <module>urban-dictionary-service</module>
         <module>persistence-service</module>
         <module>jboss-books-service</module>
+        <module>weather-service</module>
     </modules>
 
 </project>
