@@ -76,6 +76,7 @@
         <version.com.h2database>1.4.196</version.com.h2database>
         <version.httpclient>4.5.3</version.httpclient>
         <version.org.json>20171018</version.org.json>
+        <version.com.jboss.resteasy>3.1.2.Final</version.com.jboss.resteasy>
         <version.com.fasterxml.jackson.core>2.9.2</version.com.fasterxml.jackson.core>
         <version.br.com.jbugbrasil.urban-dictionary-client-api>1.2.Final</version.br.com.jbugbrasil.urban-dictionary-client-api>
         <version.junit>4.12</version.junit>
@@ -120,6 +121,18 @@
                 <groupId>org.json</groupId>
                 <artifactId>json</artifactId>
                 <version>${version.org.json}</version>
+            </dependency>
+
+            <!-- resteasy -->
+            <dependency>
+                <groupId>org.jboss.resteasy</groupId>
+                <artifactId>resteasy-client</artifactId>
+                <version>${version.com.jboss.resteasy}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.resteasy</groupId>
+                <artifactId>resteasy-jackson-provider</artifactId>
+                <version>${version.com.jboss.resteasy}</version>
             </dependency>
 
             <!-- jackson fasterxml -->
@@ -182,6 +195,11 @@
             <dependency>
                 <groupId>br.com.jbugbrasil.bot</groupId>
                 <artifactId>urban-dictionary-service</artifactId>
+                <version>${version.br.com.jbugbrasil.services}</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.jbugbrasil.bot</groupId>
+                <artifactId>weather-service</artifactId>
                 <version>${version.br.com.jbugbrasil.services}</version>
             </dependency>
             <dependency>

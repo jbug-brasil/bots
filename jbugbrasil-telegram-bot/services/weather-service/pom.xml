@@ -22,14 +22,15 @@
     CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <name>JBug:Brasil - Faq Service Provider</name>
-    <url>https://github.com/jbug-brasil/bots/tree/master/jbugbrasil-telegram-bot/services/faq-service</url>
+    <name>JBug:Brasil - Weather Service Provider</name>
+    <url>https://github.com/jbug-brasil/bots/tree/master/jbugbrasil-telegram-bot/services/weather-service</url>
 
     <description>
-        Implementação do comando /faq
+        Implementação do comando /weather
     </description>
 
     <parent>
@@ -39,8 +40,8 @@
     </parent>
 
     <!-- Artifact Configuration -->
+    <artifactId>weather-service</artifactId>
     <groupId>br.com.jbugbrasil.bot</groupId>
-    <artifactId>faq-service</artifactId>
     <version>1.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -69,15 +70,16 @@
 
     <dependencies>
 
+        <!-- resteasy -->
         <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jackson-provider</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-embedded</artifactId>
-        </dependency>
 
         <!-- jackson fasterxml -->
         <dependency>
@@ -90,18 +92,6 @@
             <groupId>br.com.jbugbrasil.bot</groupId>
             <artifactId>spi</artifactId>
         </dependency>
-        <dependency>
-            <groupId>br.com.jbugbrasil.bot</groupId>
-            <artifactId>cache-service</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>br.com.jbugbrasil.bot</groupId>
-            <artifactId>telegram-api-emojis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>br.com.jbugbrasil.bot</groupId>
-            <artifactId>persistence-service</artifactId>
-        </dependency>
-    </dependencies>
 
+    </dependencies>
 </project>

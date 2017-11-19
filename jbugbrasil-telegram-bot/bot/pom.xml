@@ -120,7 +120,10 @@
             <groupId>br.com.jbugbrasil.bot</groupId>
             <artifactId>welcome-message-plugin</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>br.com.jbugbrasil.bot</groupId>
+            <artifactId>weather-service</artifactId>
+        </dependency>
 
     </dependencies>
 
