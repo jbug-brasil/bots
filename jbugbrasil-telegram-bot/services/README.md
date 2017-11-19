@@ -16,6 +16,8 @@ Para maiores detalhes sobre cada serviço/comando, acesse seu respectivo README.
  
  - [Urban Dictionary](urban-dictionary-service/README.md)
  
+ - [Weather](weather-service/README.md)
+ 
 
 ### Encontrou bugs ou tem alguma sugestão?
 Não hesite em nos procurar, registre um issue ou nos envie um email: contato@jbugbrasil.com.br
