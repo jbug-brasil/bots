@@ -58,13 +58,18 @@ public class YahooWeatherProvider {
             throw new RuntimeException("Falha ao conectar-se com a API do Yahoo no endereço " + endpointQuery + ", status code is: " + response.getStatus());
         }
 
-        Item condition = response.readEntity(YahooQueryResponse.class).getQuery().getResults().getChannel().getItem();
-        StringBuilder builder = new StringBuilder();
-        builder.append("<b>" + condition.getTitle() + ":</b>\n");
-        builder.append("<pre>" + toCelsius(condition.getCondition().getTemp()) + "°C / ");
-        builder.append(condition.getCondition().getTemp() + "°F</pre> - <em>" + condition.getCondition().getText() + "</em>\n");
-        builder.append(condition.getLink().split("/\\*")[1]);
-        return builder.toString();
+        if (response.readEntity(YahooQueryResponse.class).getQuery().getCount() == 0) {
+            return "Condição climática para <b>" + location + "</b> não encontrada";
+        } else {
+            Item condition = response.readEntity(YahooQueryResponse.class).getQuery().getResults().getChannel().getItem();
+            StringBuilder builder = new StringBuilder();
+            builder.append("<b>" + condition.getTitle() + ":</b>\n");
+            builder.append("<code>" + toCelsius(condition.getCondition().getTemp()) + "°C / ");
+            builder.append(condition.getCondition().getTemp() + "°F</code> - <em>" + condition.getCondition().getText() + "</em>\n");
+            builder.append(condition.getLink().split("/\\*")[1]);
+            return builder.toString();
+        }
+
     }
 
     /**
