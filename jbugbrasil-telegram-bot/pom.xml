@@ -214,6 +214,11 @@
             </dependency>
             <dependency>
                 <groupId>br.com.jbugbrasil.bot</groupId>
+                <artifactId>sed-plugin</artifactId>
+                <version>${version.br.com.jbugbrasil.plugins}</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.jbugbrasil.bot</groupId>
                 <artifactId>telegram-api</artifactId>
                 <version>${version.br.com.jbugbrasil.api}</version>
             </dependency>
