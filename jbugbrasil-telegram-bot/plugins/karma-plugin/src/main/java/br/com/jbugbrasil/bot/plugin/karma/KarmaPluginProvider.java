@@ -77,13 +77,13 @@ public class KarmaPluginProvider implements PluginProvider {
                 // Obtem o username do usuário que está alterando o karma para não ser possível ele alterar seu próprio karma.
                 String username = update.getMessage().getFrom().getUsername() != null ? update.getMessage().getFrom().getUsername() : update.getMessage().getFrom().getFirstName().toLowerCase();
                 itens.stream().distinct().forEach(item -> {
-                    finalTargets.putIfAbsent(item.substring(0, item.length() - 2).toLowerCase(), item.substring(item.length() - 2));
+                    if ((KARMA_PATTERN.matcher(item).find())) {
+                        finalTargets.putIfAbsent(item.substring(0, item.length() - 2).toLowerCase(), item.substring(item.length() - 2));
+                    }
                 });
 
                 for (Map.Entry<String, String> entry : finalTargets.entrySet()) {
-                    if (KARMA_PATTERN.matcher(entry.toString().replace("=", "")).find()) {
-                        response.append(processKarma(entry.getValue(), entry.getKey(), username));
-                    }
+                    response.append(processKarma(entry.getValue(), entry.getKey(), username));
                 }
             }
         } catch (final Exception e) {
@@ -139,6 +139,4 @@ public class KarmaPluginProvider implements PluginProvider {
         log.fine("Karma plugin - can process [" + messageContent + "] - " + canProcess);
         return canProcess;
     }
-
-
 }
