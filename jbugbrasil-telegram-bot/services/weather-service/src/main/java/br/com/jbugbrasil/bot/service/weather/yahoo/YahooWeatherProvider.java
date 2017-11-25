@@ -24,6 +24,7 @@
 package br.com.jbugbrasil.bot.service.weather.yahoo;
 
 import br.com.jbugbrasil.bot.service.weather.yahoo.pojo.Item;
+import br.com.jbugbrasil.bot.service.weather.yahoo.pojo.Query;
 import br.com.jbugbrasil.bot.service.weather.yahoo.pojo.YahooQueryResponse;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -57,11 +58,11 @@ public class YahooWeatherProvider {
         if (response.getStatus() != 200) {
             throw new RuntimeException("Falha ao conectar-se com a API do Yahoo no endereço " + endpointQuery + ", status code is: " + response.getStatus());
         }
-
-        if (response.readEntity(YahooQueryResponse.class).getQuery().getCount() == 0) {
+        Query query =  response.readEntity(YahooQueryResponse.class).getQuery();
+        if (query.getCount() == 0) {
             return "Condição climática para <b>" + location + "</b> não encontrada";
         } else {
-            Item condition = response.readEntity(YahooQueryResponse.class).getQuery().getResults().getChannel().getItem();
+            Item condition = query.getResults().getChannel().getItem();
             StringBuilder builder = new StringBuilder();
             builder.append("<b>" + condition.getTitle() + ":</b>\n");
             builder.append("<code>" + toCelsius(condition.getCondition().getTemp()) + "°C / ");
@@ -69,7 +70,6 @@ public class YahooWeatherProvider {
             builder.append(condition.getLink().split("/\\*")[1]);
             return builder.toString();
         }
-
     }
 
     /**

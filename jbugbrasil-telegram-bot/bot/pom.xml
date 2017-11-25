@@ -122,6 +122,10 @@
         </dependency>
         <dependency>
             <groupId>br.com.jbugbrasil.bot</groupId>
+            <artifactId>sed-plugin</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>br.com.jbugbrasil.bot</groupId>
             <artifactId>weather-service</artifactId>
         </dependency>
 
