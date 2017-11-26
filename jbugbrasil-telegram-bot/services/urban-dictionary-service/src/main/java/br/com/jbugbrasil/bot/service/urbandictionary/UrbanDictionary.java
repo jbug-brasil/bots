@@ -21,57 +21,48 @@
  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package br.com.jbugbrasil.bot.service.jbossbooks.command;
+package br.com.jbugbrasil.bot.service.urbandictionary;
 
-import br.com.jbugbrasil.bot.service.jbossbooks.JBossBooksService;
+import br.com.jbugbrasil.bot.service.urbandictionary.helper.Helper;
 import br.com.jbugbrasil.bot.api.spi.CommandProvider;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Any;
 import javax.inject.Inject;
 import java.lang.invoke.MethodHandles;
 import java.util.Optional;
 import java.util.logging.Logger;
 
 @ApplicationScoped
-public class JBossBooksCommandProvider implements CommandProvider {
+public class UrbanDictionary implements CommandProvider {
 
-    private final Logger log = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
+    private Logger log = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 
     @Inject
-    private JBossBooksService service;
+    @Any
+    private Helper helper;
+
 
     @Override
     public void load() {
         log.fine("Carregando comando " + this.name());
-        service.initialize();
     }
 
     @Override
     public Object execute(Optional<String> key) {
-        StringBuilder response = new StringBuilder();
-        try {
-            service.getBooks().stream()
-                    .filter(book -> book.isPublic())
-                    .forEach(b -> {
-                        response.append("<pre>" + b.getTitle() + "</pre>");
-                        response.append(" - ");
-                        response.append("<a href=\"" +  b.getUrls().getRead() + "\">Ler</a> / ");
-                        response.append("<a href=\"" + b.getUrls().getDownload().getPdf() + "\">Download</a>");
-                        response.append("\n");
-                    });
-        } catch (final Exception e) {
-            log.warning("Falha ao executar comando [" + this.name() + "]: " + e.getMessage());
-        }
-        return response.toString();
+        return key.get().length() > 0 ? helper.query(key.get().toString()) : "Nenhum parâmetro encontrado, em caso de dúvidas utilize " + this.name() + " help.";
     }
 
     @Override
     public String name() {
-        return "/books";
+        return "/urban";
     }
 
     @Override
     public String help() {
-        return this.name() + " - Lista os livros disponíveis em https://www.gitbook.com/@jboss-book";
+        return this.name() + " - Pesquisa por um termo/gíria em inglês.\n " +
+                "<b>-c N</b> seta o número de resultados.\n" +
+                "<b>-e</b> adiciona um exemplo de como usar a gíria.\n" +
+                "<b>Exemplo:</b> /define -c 2 -e lol";
     }
 }

@@ -21,42 +21,51 @@
  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package br.com.jbugbrasil.bot.service.weather;
+package br.com.jbugbrasil.bot.service.uptime;
 
 import br.com.jbugbrasil.bot.api.spi.CommandProvider;
-import br.com.jbugbrasil.bot.service.weather.yahoo.YahooWeatherProvider;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import java.lang.invoke.MethodHandles;
+import java.lang.management.ManagementFactory;
+import java.time.Duration;
 import java.util.Optional;
 import java.util.logging.Logger;
 
 @ApplicationScoped
-public class WeatherService implements CommandProvider {
+public class Uptime implements CommandProvider {
 
     private Logger log = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 
-    @Inject
-    private YahooWeatherProvider yahoo;
-
     @Override
     public void load() {
-        log.fine("Carregando comando " + this.name());
+        log.fine("Carregando comando  " + this.name());
     }
 
     @Override
     public Object execute(Optional<String> key) {
-        return key.get().length() > 0 ? yahoo.execute(key.get()) : "Nenhum parâmetro espeficicado, em caso de dúvidas use " + this.name() + " help.";
+        return upTime();
     }
 
     @Override
     public String name() {
-        return "/weather";
+        return "/uptime";
     }
 
     @Override
     public String help() {
-        return this.name() + " - Retorna a condição climática em determinada cidade, Ex: " + this.name() + " Uberlandia, MG";
+        return this.name() + " - mostra o tempo que o Bot está no ar.";
+    }
+
+
+    /**
+     * Returns the uptime in the following pattern: 0 Hora(s), 1 minuto(s) e 1 segundo(s).
+     */
+    private String upTime() {
+        Duration duration = Duration.ofMillis(ManagementFactory.getRuntimeMXBean().getUptime());
+        long hours = duration.toHours();
+        long minutes = duration.minusHours(hours).toMinutes();
+        long seconds = duration.minusHours(hours).minusMinutes(minutes).getSeconds();
+        return "<b>" + hours + "</b> Hora(s), <b>" + minutes + "</b> Minuto(s) e <b>" + seconds + "</b> Segundo(s)";
     }
 }
