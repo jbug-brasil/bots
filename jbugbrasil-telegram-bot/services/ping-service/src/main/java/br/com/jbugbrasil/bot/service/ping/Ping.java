@@ -21,47 +21,38 @@
  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package br.com.jbugbrasil.bot.service.karma;
+package br.com.jbugbrasil.bot.service.ping;
 
-import br.com.jbugbrasil.bot.api.emojis.Emoji;
-import br.com.jbugbrasil.bot.service.persistence.repository.KarmaRepository;
 import br.com.jbugbrasil.bot.api.spi.CommandProvider;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import java.lang.invoke.MethodHandles;
 import java.util.Optional;
 import java.util.logging.Logger;
 
 @ApplicationScoped
-public class KarmaCommandProvider implements CommandProvider {
+public class Ping implements CommandProvider {
 
     private Logger log = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
-    private final String RESPONSE = "<b>%s</b> possui <b>%s</b> ponto(s) de karma " + Emoji.THUMBS_UP_SIGN;
-
-    @Inject
-    private KarmaRepository karma;
 
     @Override
     public void load() {
-        log.fine("Carregando comando " + this.name());
+        log.fine("Carregando comando  " + this.name());
     }
 
     @Override
     public Object execute(Optional<String> key) {
-        if (key.get().length() < 1) {
-            return "Nenhum parâmetro espeficicado, em caso de dúvidas use " + this.name() + " help.";
-        }
-        return String.format(RESPONSE, key.get(), key.get().length() > 0 ? karma.get(key.get()) : 0);
+        return "pong";
     }
 
     @Override
     public String name() {
-        return "/karma";
+        return "/ping";
     }
 
     @Override
     public String help() {
-        return this.name() + " - Pesquisa o karma do usuário desejado, Ex: /karma chuckNorris";
+        return "/ping - apenas execute /ping para obter o pong do bot.";
     }
+
 }

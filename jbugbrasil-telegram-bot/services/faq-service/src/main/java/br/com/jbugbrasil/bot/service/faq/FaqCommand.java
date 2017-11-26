@@ -21,51 +21,54 @@
  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package br.com.jbugbrasil.bot.service.uptime;
+package br.com.jbugbrasil.bot.service.faq;
 
+import br.com.jbugbrasil.bot.service.cache.qualifier.FaqCache;
+import br.com.jbugbrasil.bot.service.faq.pojo.Project;
 import br.com.jbugbrasil.bot.api.spi.CommandProvider;
+import org.infinispan.Cache;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Any;
+import javax.inject.Inject;
 import java.lang.invoke.MethodHandles;
-import java.lang.management.ManagementFactory;
-import java.time.Duration;
 import java.util.Optional;
 import java.util.logging.Logger;
 
 @ApplicationScoped
-public class UptimeCommandProvider implements CommandProvider {
+public class FaqCommand implements CommandProvider {
 
     private Logger log = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 
-    @Override
+    @Inject
+    @Any
+    FaqService service;
+
+    @Inject
+    @FaqCache(classToIndex = "br.com.jbugbrasil.bot.faqservice.service.pojo.Project")
+    private Cache<String, Project> cache;
+
     public void load() {
-        log.fine("Carregando comando  " + this.name());
+        log.fine("Carregando comando " + this.name());
+        service.populateCache();
     }
 
     @Override
     public Object execute(Optional<String> key) {
-        return upTime();
+        return key.get().length() > 0 ? service.query(key.get()) : "Nenhum parâmetro espeficicado, em caso de dúvidas use " + this.name() + " help.";
     }
 
     @Override
     public String name() {
-        return "/uptime";
+        return "/faq";
     }
 
     @Override
     public String help() {
-        return this.name() + " - mostra o tempo que o Bot está no ar.";
+        StringBuilder strBuilder = new StringBuilder("/faq - ");
+        strBuilder.append("Pesquisa projetos open source registrados no bot.\n");
+        strBuilder.append("Exemplo: <a href=\"/faq hibernate\">/faq hibernate</a>.");
+        return strBuilder.toString();
     }
 
-
-    /**
-     * Returns the uptime in the following pattern: 0 Hora(s), 1 minuto(s) e 1 segundo(s).
-     */
-    private String upTime() {
-        Duration duration = Duration.ofMillis(ManagementFactory.getRuntimeMXBean().getUptime());
-        long hours = duration.toHours();
-        long minutes = duration.minusHours(hours).toMinutes();
-        long seconds = duration.minusHours(hours).minusMinutes(minutes).getSeconds();
-        return "<b>" + hours + "</b> Hora(s), <b>" + minutes + "</b> Minuto(s) e <b>" + seconds + "</b> Segundo(s)";
-    }
 }

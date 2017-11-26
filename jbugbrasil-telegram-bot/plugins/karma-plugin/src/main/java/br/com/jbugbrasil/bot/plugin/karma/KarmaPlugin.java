@@ -43,7 +43,7 @@ import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 @ApplicationScoped
-public class KarmaPluginProvider implements PluginProvider {
+public class KarmaPlugin implements PluginProvider {
 
     private final Logger log = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
     private final Pattern FULL_MSG_PATTERN = Pattern.compile("(\\w*)(\\+\\+|\\-\\-)(\\s|$)");

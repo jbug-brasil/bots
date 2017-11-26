@@ -21,27 +21,24 @@
  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package br.com.jbugbrasil.bot.service.urbandictionary;
+package br.com.jbugbrasil.bot.service.weather;
 
-import br.com.jbugbrasil.bot.service.urbandictionary.helper.Helper;
 import br.com.jbugbrasil.bot.api.spi.CommandProvider;
+import br.com.jbugbrasil.bot.service.weather.yahoo.YahooWeatherProvider;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Any;
 import javax.inject.Inject;
 import java.lang.invoke.MethodHandles;
 import java.util.Optional;
 import java.util.logging.Logger;
 
 @ApplicationScoped
-public class UrbanDictionaryCommandProvider implements CommandProvider {
+public class Weather implements CommandProvider {
 
     private Logger log = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 
     @Inject
-    @Any
-    private Helper helper;
-
+    private YahooWeatherProvider yahoo;
 
     @Override
     public void load() {
@@ -50,19 +47,16 @@ public class UrbanDictionaryCommandProvider implements CommandProvider {
 
     @Override
     public Object execute(Optional<String> key) {
-        return key.get().length() > 0 ? helper.query(key.get().toString()) : "Nenhum parâmetro encontrado, em caso de dúvidas utilize " + this.name() + " help.";
+        return key.get().length() > 0 ? yahoo.execute(key.get()) : "Nenhum parâmetro espeficicado, em caso de dúvidas use " + this.name() + " help.";
     }
 
     @Override
     public String name() {
-        return "/urban";
+        return "/weather";
     }
 
     @Override
     public String help() {
-        return this.name() + " - Pesquisa por um termo/gíria em inglês.\n " +
-                "<b>-c N</b> seta o número de resultados.\n" +
-                "<b>-e</b> adiciona um exemplo de como usar a gíria.\n" +
-                "<b>Exemplo:</b> /define -c 2 -e lol";
+        return this.name() + " - Retorna a condição climática em determinada cidade, Ex: " + this.name() + " Uberlandia, MG";
     }
 }

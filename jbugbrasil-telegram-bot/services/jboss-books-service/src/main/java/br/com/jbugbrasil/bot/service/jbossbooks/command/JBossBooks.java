@@ -21,38 +21,57 @@
  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package br.com.jbugbrasil.bot.service.ping;
+package br.com.jbugbrasil.bot.service.jbossbooks.command;
 
+import br.com.jbugbrasil.bot.service.jbossbooks.JBossBooksService;
 import br.com.jbugbrasil.bot.api.spi.CommandProvider;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.lang.invoke.MethodHandles;
 import java.util.Optional;
 import java.util.logging.Logger;
 
 @ApplicationScoped
-public class PingCommandProvider implements CommandProvider {
+public class JBossBooks implements CommandProvider {
 
-    private Logger log = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
+    private final Logger log = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
+
+    @Inject
+    private JBossBooksService service;
 
     @Override
     public void load() {
-        log.fine("Carregando comando  " + this.name());
+        log.fine("Carregando comando " + this.name());
+        service.initialize();
     }
 
     @Override
     public Object execute(Optional<String> key) {
-        return "pong";
+        StringBuilder response = new StringBuilder();
+        try {
+            service.getBooks().stream()
+                    .filter(book -> book.isPublic())
+                    .forEach(b -> {
+                        response.append("<pre>" + b.getTitle() + "</pre>");
+                        response.append(" - ");
+                        response.append("<a href=\"" +  b.getUrls().getRead() + "\">Ler</a> / ");
+                        response.append("<a href=\"" + b.getUrls().getDownload().getPdf() + "\">Download</a>");
+                        response.append("\n");
+                    });
+        } catch (final Exception e) {
+            log.warning("Falha ao executar comando [" + this.name() + "]: " + e.getMessage());
+        }
+        return response.toString();
     }
 
     @Override
     public String name() {
-        return "/ping";
+        return "/books";
     }
 
     @Override
     public String help() {
-        return "/ping - apenas execute /ping para obter o pong do bot.";
+        return this.name() + " - Lista os livros disponíveis em https://www.gitbook.com/@jboss-book";
     }
-
 }

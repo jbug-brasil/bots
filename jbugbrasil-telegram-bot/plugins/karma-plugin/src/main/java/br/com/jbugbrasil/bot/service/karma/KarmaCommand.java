@@ -21,54 +21,47 @@
  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package br.com.jbugbrasil.bot.service.faq;
+package br.com.jbugbrasil.bot.service.karma;
 
-import br.com.jbugbrasil.bot.service.cache.qualifier.FaqCache;
-import br.com.jbugbrasil.bot.service.faq.pojo.Project;
+import br.com.jbugbrasil.bot.api.emojis.Emoji;
+import br.com.jbugbrasil.bot.service.persistence.repository.KarmaRepository;
 import br.com.jbugbrasil.bot.api.spi.CommandProvider;
-import org.infinispan.Cache;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Any;
 import javax.inject.Inject;
 import java.lang.invoke.MethodHandles;
 import java.util.Optional;
 import java.util.logging.Logger;
 
 @ApplicationScoped
-public class FaqCommandProvider implements CommandProvider {
+public class KarmaCommand implements CommandProvider {
 
     private Logger log = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
+    private final String RESPONSE = "<b>%s</b> possui <b>%s</b> ponto(s) de karma " + Emoji.THUMBS_UP_SIGN;
 
     @Inject
-    @Any
-    FaqService service;
+    private KarmaRepository karma;
 
-    @Inject
-    @FaqCache(classToIndex = "br.com.jbugbrasil.bot.faqservice.service.pojo.Project")
-    private Cache<String, Project> cache;
-
+    @Override
     public void load() {
         log.fine("Carregando comando " + this.name());
-        service.populateCache();
     }
 
     @Override
     public Object execute(Optional<String> key) {
-        return key.get().length() > 0 ? service.query(key.get()) : "Nenhum parâmetro espeficicado, em caso de dúvidas use " + this.name() + " help.";
+        if (key.get().length() < 1) {
+            return "Nenhum parâmetro espeficicado, em caso de dúvidas use " + this.name() + " help.";
+        }
+        return String.format(RESPONSE, key.get(), key.get().length() > 0 ? karma.get(key.get()) : 0);
     }
 
     @Override
     public String name() {
-        return "/faq";
+        return "/karma";
     }
 
     @Override
     public String help() {
-        StringBuilder strBuilder = new StringBuilder("/faq - ");
-        strBuilder.append("Pesquisa projetos open source registrados no bot.\n");
-        strBuilder.append("Exemplo: <a href=\"/faq hibernate\">/faq hibernate</a>.");
-        return strBuilder.toString();
+        return this.name() + " - Pesquisa o karma do usuário desejado, Ex: /karma chuckNorris";
     }
-
 }
