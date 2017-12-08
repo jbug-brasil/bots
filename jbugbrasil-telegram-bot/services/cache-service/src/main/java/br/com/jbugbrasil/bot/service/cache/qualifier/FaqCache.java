@@ -39,8 +39,8 @@ public @interface FaqCache {
 
     /**
      * Qualifier to allow pass a Class as parameter to be indexed on the cache
-     * Default value is br.com.jbugbrasil.bot.service.faq.pojo.Project
+     * Default value is br.com.jbugbrasil.bot.service.faq.processor.Project
      * @return Faq Cache.
      */
-    @Nonbinding String classToIndex() default "br.com.jbugbrasil.bot.service.faq.pojo.Project";
+    @Nonbinding String classToIndex() default "br.com.jbugbrasil.bot.service.faq.processor.Project";
 }

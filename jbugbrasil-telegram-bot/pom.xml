@@ -80,6 +80,8 @@
         <version.com.fasterxml.jackson.core>2.9.2</version.com.fasterxml.jackson.core>
         <version.br.com.jbugbrasil.urban-dictionary-client-api>1.2.Final</version.br.com.jbugbrasil.urban-dictionary-client-api>
         <version.junit>4.12</version.junit>
+        <version.org.mockito>2.12.0</version.org.mockito>
+        <version.org.jboss.arquillian>1.1.15.Final</version.org.jboss.arquillian>
         <version.surefire.plugin>2.20.1</version.surefire.plugin>
         <version.maven.compiler.plugin>3.7.0</version.maven.compiler.plugin>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -110,7 +112,13 @@
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
-
+            <dependency>
+                <groupId>org.jboss.arquillian</groupId>
+                <artifactId>arquillian-bom</artifactId>
+                <version>${version.org.jboss.arquillian}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
             <dependency>
                 <groupId>javax</groupId>
                 <artifactId>javaee-api</artifactId>
@@ -162,7 +170,7 @@
             </dependency>
 
             <!-- bot dependencies -->
-           <dependency>
+            <dependency>
                 <groupId>br.com.jbugbrasil.bot</groupId>
                 <artifactId>faq-service</artifactId>
                 <version>${version.br.com.jbugbrasil.services}</version>
@@ -253,6 +261,13 @@
                 <version>${version.junit}</version>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${version.org.mockito}</version>
+                <scope>test</scope>
+            </dependency>
+
 
         </dependencies>
     </dependencyManagement>

@@ -50,7 +50,7 @@ public class FaqProducer {
             classToIndex = Class.forName(injectionPoint.getAnnotated().getAnnotation(FaqCache.class).classToIndex());
         } catch (final Exception e) {
             log.severe("Falha ao realizar lookup da classe " + classToIndex + " --> " + e.getMessage());
-            log.warning("Configurando classToIndex para [br.com.jbugbrasil.bot.service.faq.pojo.Project]");
+            log.warning("Configurando classToIndex para [br.com.jbugbrasil.bot.service.faq.processor.Project]");
             classToIndex = Class.forName("br.com.jbugbrasil.bot.service.faq.pojo.Project");
         }
 
