@@ -25,6 +25,7 @@ package br.com.jbugbrasil.bot.plugin.sed;
 
 import br.com.jbugbrasil.bot.api.object.MessageUpdate;
 import br.com.jbugbrasil.bot.api.spi.PluginProvider;
+import br.com.jbugbrasil.bot.plugin.sed.processor.SedResponse;
 import br.com.jbugbrasil.bot.service.cache.qualifier.DefaultCache;
 import org.infinispan.Cache;
 
@@ -33,14 +34,12 @@ import javax.inject.Inject;
 import java.lang.invoke.MethodHandles;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
-import java.util.regex.Pattern;
+
 
 @ApplicationScoped
 public class SedPlugin implements PluginProvider {
 
     private Logger log = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
-
-    private final Pattern FULL_MSG_PATTERN = Pattern.compile("^s/\\w.*/\\w.*/$");
     private final String MSG_TEMPLATE = "<i>%s</i> quis dizer <b>%s</b>";
 
     @Inject
@@ -49,21 +48,29 @@ public class SedPlugin implements PluginProvider {
 
     @Override
     public String process(MessageUpdate update) {
-        boolean processable = canProcess(update.getMessage().getText());
-        long userId = update.getMessage().getFrom().getId();
-        if (processable && cache.containsKey(userId)) {
-            String replace = update.getMessage().getText().split("/")[1];
-            String replacement = update.getMessage().getText().split("/")[2];
-            if (cache.get(userId).contains(replace)) {
-                String newValue = cache.get(userId).replace(replace,replacement);
-                cache.replace(userId, newValue);
-                return String.format(MSG_TEMPLATE, null != update.getMessage().getFrom().getUsername() ? update.getMessage().getFrom().getUsername() : update.getMessage().getFrom().getFirstName(), newValue);
+
+        if (update.getMessage().getText().startsWith("/")) {
+            log.fine("Sed plugin - Ignoring igonrando comando [" + update.getMessage().getText() + "]");
+            return null;
+        }
+        SedResponse sedResponse = new SedResponse().process(update);
+        log.fine("Sed Plugin - " + sedResponse.toString());
+        if (sedResponse.isProcessable() && cache.containsKey(sedResponse.getUser_id())) {
+            if (cache.get(sedResponse.getUser_id()).contains(sedResponse.getOldString())) {
+                String newValue = null;
+                if (sedResponse.isFullReplace()) {
+                    newValue = cache.get(sedResponse.getUser_id()).replace(sedResponse.getOldString(), sedResponse.getNewString());
+                } else {
+                    newValue = cache.get(sedResponse.getUser_id()).replaceFirst(sedResponse.getOldString(), sedResponse.getNewString());
+                }
+                cache.replace(sedResponse.getUser_id(), newValue);
+                return String.format(MSG_TEMPLATE, sedResponse.getUsername(), newValue);
             }
-        } else if (!processable && !update.getMessage().getText().startsWith("s/")) {
-            if (cache.containsKey(userId)) {
-                cache.replace(userId, update.getMessage().getText(), 60, TimeUnit.MINUTES);
+        } else if (!sedResponse.isProcessable() && !update.getMessage().getText().startsWith("s/")) {
+            if (cache.containsKey(sedResponse.getUser_id())) {
+                cache.replace(sedResponse.getUser_id(), update.getMessage().getText(), 60, TimeUnit.MINUTES);
             } else {
-                cache.put(userId, update.getMessage().getText(), 60, TimeUnit.MINUTES);
+                cache.put(sedResponse.getUser_id(), update.getMessage().getText(), 60, TimeUnit.MINUTES);
             }
         }
         return null;
@@ -72,17 +79,6 @@ public class SedPlugin implements PluginProvider {
     @Override
     public void load() {
         log.fine("Carregando plugin sed");
-    }
-
-    /**
-     * Verifica se o plugin pode processar o texto recebido
-     * @param msg a ser processada
-     * @return true ou false
-     */
-    private boolean canProcess(String msg) {
-        boolean canProcess = null == msg ? false : FULL_MSG_PATTERN.matcher(msg).find();
-        log.fine("Sed plugin - can process [" + msg + "] - " + canProcess);
-        return canProcess;
     }
 
 }

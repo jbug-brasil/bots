@@ -45,7 +45,7 @@ public class FaqCommand implements CommandProvider {
     FaqService service;
 
     @Inject
-    @FaqCache(classToIndex = "br.com.jbugbrasil.bot.faqservice.service.pojo.Project")
+    @FaqCache(classToIndex = "br.com.jbugbrasil.bot.faqservice.service.processor.Project")
     private Cache<String, Project> cache;
 
     public void load() {
