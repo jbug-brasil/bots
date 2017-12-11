@@ -23,6 +23,7 @@
 
 package br.com.jbugbrasil.bot.service.urbandictionary;
 
+import br.com.jbugbrasil.bot.api.object.MessageUpdate;
 import br.com.jbugbrasil.bot.service.urbandictionary.helper.Helper;
 import br.com.jbugbrasil.bot.api.spi.CommandProvider;
 
@@ -49,7 +50,7 @@ public class UrbanDictionary implements CommandProvider {
     }
 
     @Override
-    public Object execute(Optional<String> key) {
+    public Object execute(Optional<String> key, MessageUpdate messageUpdate) {
         return key.get().length() > 0 ? helper.query(key.get().toString()) : "Nenhum parâmetro encontrado, em caso de dúvidas utilize " + this.name() + " help.";
     }
 

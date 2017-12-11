@@ -23,9 +23,13 @@
 
 package br.com.jbugbrasil.bot.service.packt;
 
+import br.com.jbugbrasil.bot.api.object.MessageUpdate;
 import br.com.jbugbrasil.bot.api.spi.CommandProvider;
+import br.com.jbugbrasil.bot.api.spi.PluginProvider;
+import br.com.jbugbrasil.bot.service.packt.notifier.PacktNotifier;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.lang.invoke.MethodHandles;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -35,14 +39,20 @@ public class Packt implements CommandProvider {
 
     private final Logger log = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 
+    @Inject
+    PacktNotifier packtNotifier;
+
     @Override
     public void load() {
         log.fine("Carregando comando " + this.name());
+        packtNotifier.populate(true);
     }
 
     @Override
-    public Object execute(Optional<String> key) {
-        return "deixa de ser preguiçoso e acessa o site";
+    public Object execute(Optional<String> key, MessageUpdate messageUpdate) {
+        if (key.isPresent() && key.get().equals("notify")) return packtNotifier.registerNotification(messageUpdate);
+        if (key.isPresent() && key.get().equals("off")) return packtNotifier.unregisterNotification(messageUpdate);
+        return packtNotifier.get();
     }
 
     @Override
@@ -52,6 +62,11 @@ public class Packt implements CommandProvider {
 
     @Override
     public String help() {
-        return this.name() + " - under development";
+        StringBuilder builder = new StringBuilder(this.name() + " - ");
+        builder.append("Retorna informações do livro gratuito do dia ofericido pela Packt Publishing\n");
+        builder.append("    <code>" + this.name() + "</code> - retorna informações do livro.\n");
+        builder.append("    <code>" + this.name() + " notify</code> - Ativa notificação para um grupo ou para um chat privado. Notificações são enviadas diariamente as 23h00.\n");
+        builder.append("    <code>" + this.name() + " off</code> - Desabilita as notificações");
+        return builder.toString();
     }
 }

@@ -23,6 +23,8 @@
 
 package br.com.jbugbrasil.bot.api.spi;
 
+import br.com.jbugbrasil.bot.api.object.MessageUpdate;
+
 import java.util.Optional;
 
 public interface CommandProvider {
@@ -37,7 +39,7 @@ public interface CommandProvider {
      * @param key to be searched
      * @return the query result based on the key
      */
-    Object execute(Optional<String> key);
+    Object execute(Optional<String> key, MessageUpdate messageUpdate);
 
     /**
      * @return o nome do comando

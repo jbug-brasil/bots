@@ -24,6 +24,7 @@
 package br.com.jbugbrasil.bot.service.karma;
 
 import br.com.jbugbrasil.bot.api.emojis.Emoji;
+import br.com.jbugbrasil.bot.api.object.MessageUpdate;
 import br.com.jbugbrasil.bot.service.persistence.repository.KarmaRepository;
 import br.com.jbugbrasil.bot.api.spi.CommandProvider;
 
@@ -48,7 +49,7 @@ public class KarmaCommand implements CommandProvider {
     }
 
     @Override
-    public Object execute(Optional<String> key) {
+    public Object execute(Optional<String> key, MessageUpdate messageUpdate) {
         if (key.get().length() < 1) {
             return "Nenhum parâmetro espeficicado, em caso de dúvidas use " + this.name() + " help.";
         }

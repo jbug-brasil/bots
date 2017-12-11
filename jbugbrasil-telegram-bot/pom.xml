@@ -272,8 +272,6 @@
                 <version>${version.org.mockito}</version>
                 <scope>test</scope>
             </dependency>
-
-
         </dependencies>
     </dependencyManagement>
 

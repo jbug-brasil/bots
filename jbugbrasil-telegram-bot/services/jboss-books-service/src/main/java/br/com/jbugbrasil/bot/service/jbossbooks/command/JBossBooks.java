@@ -23,6 +23,7 @@
 
 package br.com.jbugbrasil.bot.service.jbossbooks.command;
 
+import br.com.jbugbrasil.bot.api.object.MessageUpdate;
 import br.com.jbugbrasil.bot.service.jbossbooks.JBossBooksService;
 import br.com.jbugbrasil.bot.api.spi.CommandProvider;
 
@@ -47,7 +48,7 @@ public class JBossBooks implements CommandProvider {
     }
 
     @Override
-    public Object execute(Optional<String> key) {
+    public Object execute(Optional<String> key, MessageUpdate messageUpdate) {
         StringBuilder response = new StringBuilder();
         try {
             service.getBooks().stream()

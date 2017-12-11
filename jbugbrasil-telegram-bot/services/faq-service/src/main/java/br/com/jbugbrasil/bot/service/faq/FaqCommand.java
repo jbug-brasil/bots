@@ -23,6 +23,7 @@
 
 package br.com.jbugbrasil.bot.service.faq;
 
+import br.com.jbugbrasil.bot.api.object.MessageUpdate;
 import br.com.jbugbrasil.bot.service.cache.qualifier.FaqCache;
 import br.com.jbugbrasil.bot.service.faq.pojo.Project;
 import br.com.jbugbrasil.bot.api.spi.CommandProvider;
@@ -54,7 +55,7 @@ public class FaqCommand implements CommandProvider {
     }
 
     @Override
-    public Object execute(Optional<String> key) {
+    public Object execute(Optional<String> key, MessageUpdate messageUpdate) {
         return key.get().length() > 0 ? service.query(key.get()) : "Nenhum parâmetro espeficicado, em caso de dúvidas use " + this.name() + " help.";
     }
 

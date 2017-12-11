@@ -23,6 +23,7 @@
 
 package br.com.jbugbrasil.bot.service.weather;
 
+import br.com.jbugbrasil.bot.api.object.MessageUpdate;
 import br.com.jbugbrasil.bot.api.spi.CommandProvider;
 import br.com.jbugbrasil.bot.service.weather.yahoo.YahooWeatherProvider;
 
@@ -46,7 +47,7 @@ public class Weather implements CommandProvider {
     }
 
     @Override
-    public Object execute(Optional<String> key) {
+    public Object execute(Optional<String> key, MessageUpdate messageUpdate) {
         return key.get().length() > 0 ? yahoo.execute(key.get()) : "Nenhum parâmetro espeficicado, em caso de dúvidas use " + this.name() + " help.";
     }
 
