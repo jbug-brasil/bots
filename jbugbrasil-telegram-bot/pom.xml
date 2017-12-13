@@ -192,6 +192,11 @@
             </dependency>
             <dependency>
                 <groupId>br.com.jbugbrasil.bot</groupId>
+                <artifactId>packt-free-learning-service</artifactId>
+                <version>${version.br.com.jbugbrasil.services}</version>
+            </dependency>
+            <dependency>
+                <groupId>br.com.jbugbrasil.bot</groupId>
                 <artifactId>cache-service</artifactId>
                 <version>${version.br.com.jbugbrasil.services}</version>
             </dependency>
@@ -267,8 +272,6 @@
                 <version>${version.org.mockito}</version>
                 <scope>test</scope>
             </dependency>
-
-
         </dependencies>
     </dependencyManagement>
 

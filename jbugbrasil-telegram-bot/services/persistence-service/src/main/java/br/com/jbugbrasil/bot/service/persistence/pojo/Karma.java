@@ -32,13 +32,6 @@ import javax.persistence.Table;
 @Table(name = "KARMA")
 public class Karma {
 
-    /**
-     * apply on production db:
-     * alter table KARMA alter column USERNAME set not null;
-     * alter table PUBLIC.KARMA add primary key (USERNAME);
-     * alter table KARMA alter column POINTS set not null;
-     */
-
     @Id
     @Column(name = "USERNAME", nullable = false, length = 50)
     private String username;

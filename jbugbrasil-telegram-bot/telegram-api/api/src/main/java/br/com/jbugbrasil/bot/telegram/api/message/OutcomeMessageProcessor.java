@@ -76,7 +76,7 @@ public class OutcomeMessageProcessor implements Processor {
         log.fine("Processing command: " + messageUpdate.getMessage().getText());
 
         String[] args = messageUpdate.getMessage().getText().split(" ");
-        // neste ponto, o bot já aceito oo comando /comando@btId,
+        // neste ponto, o bot já aceitou o comando /comando@btId,
         String command2process = args[0].replace("@" + botUserId, "");
 
         if (command2process.equals("/help")) {
@@ -90,7 +90,7 @@ public class OutcomeMessageProcessor implements Processor {
                 if (concat(args).equals("help")) {
                     response.append(command.help());
                 } else {
-                    response.append(command.execute(Optional.of(concat(args))));
+                    response.append(command.execute(Optional.of(concat(args)), messageUpdate));
                     log.fine("COMMAND_PROCESSOR - Comando processado, resultado é: " + response);
                 }
             }
