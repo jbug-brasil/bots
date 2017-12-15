@@ -80,6 +80,12 @@
             <groupId>br.com.jbugbrasil.bot</groupId>
             <artifactId>telegram-api-emojis</artifactId>
         </dependency>
+
+        <!-- tests -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

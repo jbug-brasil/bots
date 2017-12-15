@@ -43,10 +43,6 @@ public class WelcomeMessagePlugin implements PluginProvider {
 
     private Logger log = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 
-    @Inject
-    @BotProperty(name = "br.com.jbugbrasil.bot.telegram.userId", required = true)
-    String botUserId;
-
     private final String WELCOME_MESSAGE = "Olá <b>%s</b>, seja bem vindo(a) ao grupo %s. Aqui você poderá discutir sobre" +
             " os projetos opensource da família JBoss e também outros projetos open source. Para conhecer o bot, /help. " + Emoji.SMILING_FACE_WITH_OPEN_MOUTH;
     private final String GOODBYE_MESSAGE = "Tínhamos um traidor entre nós, <b>%s</b> nos deixou. " + Emoji.ANGRY_FACE;
@@ -75,7 +71,7 @@ public class WelcomeMessagePlugin implements PluginProvider {
             log.fine("Additional Properties: KEY + " + entry.getKey() + " - VALUE " + entry.getValue().toString());
             if (entry.getKey().equals("new_chat_member")) {
                 NewChatMember member = mapper.convertValue(entry.getValue(), NewChatMember.class);
-                message.setText(String.format(WELCOME_MESSAGE, member.getFirst_name(), botUserId));
+                message.setText(String.format(WELCOME_MESSAGE, member.getFirst_name(), update.getMessage().getChat().getTitle()));
 
             } else if (entry.getKey().equals("left_chat_participant")) {
                 LeftChatMember member = mapper.convertValue(entry.getValue(), LeftChatMember.class);
@@ -84,6 +80,4 @@ public class WelcomeMessagePlugin implements PluginProvider {
         }
         return message.getText();
     }
-
-
 }
