@@ -78,7 +78,7 @@
         <!-- bot dependencies -->
         <dependency>
             <groupId>br.com.jbugbrasil.bot</groupId>
-            <artifactId>spi</artifactId>
+            <artifactId>telegram-api-spi</artifactId>
         </dependency>
         <dependency>
             <groupId>br.com.jbugbrasil.bot</groupId>
