@@ -5,6 +5,8 @@ Para maiores detalhes sobre cada plugin, acesse seu respectivo README.
  - [Karma](karma-plugin/README.md)
  
  - [Welcome Message](welcome-message-plugin/README.md)
+ 
+ - [Sed](sed-plugin/README.md)
 
 
 ### Encontrou bugs ou tem alguma sugestão?
