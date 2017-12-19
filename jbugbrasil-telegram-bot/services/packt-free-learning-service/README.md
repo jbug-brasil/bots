@@ -14,7 +14,7 @@ O serviço aceita os seguintes comandos:
    ![Off](img/off.png) 
 
  - /packt: apenas retorna o livro do dia, exemplo:
-   ![Daily](daily/off.png) 
+   ![Daily](off/daily.png) 
 
 
 Para Adicionar novos projetos Open Source neste arquivo basta abrir um Pull Request com suas alterações.
